@@ -18,6 +18,10 @@ public class PlayerController : MonoBehaviour
     public float runFactor = 1.5f;
     public float jumpForce;
 
+    [Header("References")]
+    public Animator animator;
+
+    // Auxiliary variables
     private Rigidbody hips;
     public bool isGrounded;
 
@@ -31,6 +35,8 @@ public class PlayerController : MonoBehaviour
         // Move forward and backwards
         if (Input.GetKey(moveForwardKey))
         {
+            animator.SetBool("IsWalk", true); // Animation begin
+
             if (Input.GetKey(runKey))
             {
                 hips.AddForce(hips.transform.forward * speed * runFactor);
@@ -38,9 +44,15 @@ public class PlayerController : MonoBehaviour
             else
                 hips.AddForce(hips.transform.forward * speed);
         }
+        else
+        {
+            animator.SetBool("IsWalk", false); // Animation end
+        }
 
         if (Input.GetKey(moveDownKey))
         {
+            animator.SetBool("IsWalk", true);
+
             hips.AddForce(-hips.transform.forward * speed);
         }
 
@@ -48,13 +60,18 @@ public class PlayerController : MonoBehaviour
         // Move sideways (strafe)
         if (Input.GetKey(moveLeftKey))
         {
+            animator.SetBool("IsWalk", true);
+
             hips.AddForce(-hips.transform.right * strafeSpeed);
         }
 
         if (Input.GetKey(moveRightKey))
         {
+            animator.SetBool("IsWalk", true);
+
             hips.AddForce(hips.transform.right * strafeSpeed);
         }
+
 
         // Jump
         if(Input.GetAxis("Jump") > 0 || Input.GetKey(jumpKey))
