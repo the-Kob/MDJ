@@ -81,7 +81,7 @@ public class Grab : MonoBehaviour
                 // Connect the object's rigidbody to player's new fixedjoint
                 fj.connectedBody = objectsRB;
 
-                // Store objects original mass and reduce current value (simulates strength)
+                // Store objects original mass and reduce current value (simulates strength) -> REVIEW THIS FOR OTHER UNPICKABLE OBJECTS
                 originalObjectMass = objectsRB.mass;
                 objectsRB.mass /= objectMassReduction;
             }
