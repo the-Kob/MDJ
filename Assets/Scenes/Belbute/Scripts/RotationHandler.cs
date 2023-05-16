@@ -5,14 +5,17 @@ using UnityEngine;
 public class RotationHandler : MonoBehaviour
 {
     public LayerMask Ground;
+    public Transform planet;
 
     // Update is called once per frame
     void Update()
     {
-        float x = Input.GetAxisRaw("Horizontal");
-        float y = Input.GetAxisRaw("Vertical");
-        Vector3 dir = new Vector3(x, y, 0);
-        UpdatePlayerTransform(dir.normalized);
+        //float x = Input.GetAxisRaw("Horizontal");
+        //float y = Input.GetAxisRaw("Vertical");
+        //Vector3 dir = new Vector3(x, y, 0);
+        //UpdatePlayerTransform(dir.normalized);
+
+        Attract();
     }
 
     private void UpdatePlayerTransform(Vector3 movementDirection)
@@ -39,5 +42,17 @@ public class RotationHandler : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void Attract()
+    {
+
+        Vector3 gravityUp = (transform.position - planet.position);
+        Vector3 localUp = transform.up;
+        Debug.DrawLine(transform.position, gravityUp.normalized * 2f, Color.red);
+
+
+        Quaternion targetRotation = Quaternion.FromToRotation(localUp, gravityUp) * transform.rotation;
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 20f * Time.deltaTime);
     }
 }

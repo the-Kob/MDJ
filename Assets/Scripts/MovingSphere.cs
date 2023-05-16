@@ -187,6 +187,9 @@ public class MovingSphere : MonoBehaviour {
 			velocity += gravity * Time.deltaTime;
 		}
 		body.velocity = velocity;
+
+		ChangeOrientation();
+
 		ClearState();
 	}
 
@@ -469,5 +472,12 @@ public class MovingSphere : MonoBehaviour {
 	float GetMinDot (int layer) {
 		return (stairsMask & (1 << layer)) == 0 ?
 			minGroundDotProduct : minStairsDotProduct;
+	}
+
+	private void ChangeOrientation()
+    {
+		//Debug.DrawLine(transform.position, contactNormal * 2f, Color.red);
+		Quaternion targetRotation = Quaternion.FromToRotation(transform.up, contactNormal) * transform.rotation;
+		transform.localRotation = Quaternion.Slerp(transform.rotation, targetRotation, 20f * Time.deltaTime);
 	}
 }
