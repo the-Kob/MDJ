@@ -4,17 +4,22 @@ using UnityEngine;
 
 public class LimbCollision : MonoBehaviour
 {
-    private PlayerController playerController;
+    private PlayerRag pr;
    
     void Start()
     {
         // FindObjectOfType finds object in hierarchy with PlayerController
-        playerController = GameObject.FindObjectOfType<PlayerController>().GetComponent<PlayerController>();
+        pr = GameObject.FindObjectOfType<PlayerRag>().GetComponent<PlayerRag>();
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        playerController.isGrounded = true;
+        pr.isGrounded = true;
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        pr.isGrounded = false;
     }
 
 }

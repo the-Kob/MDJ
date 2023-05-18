@@ -1,0 +1,34 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class JointControl : MonoBehaviour
+{
+	[Header("Joint Movement Settings")]
+	public ConfigurableJoint hipJoint;
+	public ConfigurableJoint stomachJoint;
+	public float rotationSpeed = 7;
+	public float stomachOffset; // Look up and down
+	public float lowerVertLimit = -35; // Vertical limit for looking down
+	public float upperVertLimit = 20; // Vertical limit for looking up
+
+	private float mouseX, mouseY;
+
+	private void FixedUpdate()
+	{
+		UpdateJointMovement();
+	}
+
+	void UpdateJointMovement()
+	{
+		// Get inputs
+		mouseX += Input.GetAxis("Mouse X") * rotationSpeed;
+		mouseY += Input.GetAxis("Mouse Y") * rotationSpeed;
+
+		mouseY = Mathf.Clamp(mouseY, lowerVertLimit, upperVertLimit);
+
+		hipJoint.targetRotation = Quaternion.Euler(0, -mouseX, 0);
+		stomachJoint.targetRotation = Quaternion.Euler(-mouseY, 0, 0);
+	}
+
+}
