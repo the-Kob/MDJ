@@ -69,8 +69,6 @@ public class PlayerRag : NetworkBehaviour {
 	
 	Vector3 upAxis, rightAxis, forwardAxis;
 
-	bool desiredJump, desiresClimbing;
-
 	Vector3 contactNormal, steepNormal, climbNormal, lastClimbNormal;
 
 	int groundContactCount, steepContactCount, climbContactCount;
@@ -93,7 +91,11 @@ public class PlayerRag : NetworkBehaviour {
 
 	int stepsSinceLastGrounded, stepsSinceLastJump;
 
+
+	[HideInInspector]
+	public bool desiredJump, desiresClimbing;
 	public bool isGrounded = false;
+	public bool isMoving = false;
 
 	public void PreventSnapToGround () {
 		stepsSinceLastJump = -1;
@@ -114,12 +116,12 @@ public class PlayerRag : NetworkBehaviour {
 	void Update () {
 		//if (!IsOwner) return;
 
-		Debug.Log(isGrounded);
-
         playerInput.x = Input.GetAxis("Horizontal");
 		playerInput.y = Input.GetAxis("Vertical");
 		playerInput.z = Swimming ? Input.GetAxis("UpDown") : 0f;
 		playerInput = Vector3.ClampMagnitude(playerInput, 1f);
+
+		MovingCheck();
 
 		if (playerInputSpace) {
 			rightAxis = ProjectDirectionOnPlane(playerInputSpace.right, upAxis);
@@ -482,5 +484,10 @@ public class PlayerRag : NetworkBehaviour {
 		//Debug.DrawLine(transform.position, contactNormal * 2f, Color.red);
 		Quaternion targetRotation = Quaternion.FromToRotation(transform.up, contactNormal) * transform.rotation;
 		transform.localRotation = Quaternion.Slerp(transform.rotation, targetRotation, 20f * Time.deltaTime);
+	}
+
+	private void MovingCheck()
+    {
+		isMoving = (Mathf.Abs(playerInput.x) > 0.1f || Mathf.Abs(playerInput.y) > 0.1f);
 	}
 }
