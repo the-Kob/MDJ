@@ -193,7 +193,7 @@ public class PlayerRag : NetworkBehaviour {
 		}
 		body.velocity = velocity;
 
-		ChangeOrientation();
+		//ChangeGravitationalOrientation();
 
 		ClearState();
 	}
@@ -479,7 +479,7 @@ public class PlayerRag : NetworkBehaviour {
 			minGroundDotProduct : minStairsDotProduct;
 	}
 
-	private void ChangeOrientation()
+	private void ChangeGravitationalOrientation()
     {
 		//Debug.DrawLine(transform.position, contactNormal * 2f, Color.red);
 		Quaternion targetRotation = Quaternion.FromToRotation(transform.up, contactNormal) * transform.rotation;

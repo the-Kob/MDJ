@@ -119,6 +119,9 @@ public class NewOrbitCamera : MonoBehaviour {
 				gravityAlignment, newAlignment, maxAngle / angle
 			);
 		}
+
+		focus.localRotation = Quaternion.Slerp(focus.rotation, gravityAlignment, 20f * Time.deltaTime);
+
 	}
 
 	void UpdateFocusPoint () {
@@ -200,6 +203,15 @@ public class NewOrbitCamera : MonoBehaviour {
 	static float GetAngle (Vector2 direction) {
 		float angle = Mathf.Acos(direction.y) * Mathf.Rad2Deg;
 		return direction.x < 0f ? 360f - angle : angle;
+	}
+
+	void ChangeSpin()
+    {
+		Quaternion lookRotation = gravityAlignment * orbitRotation;
+		Vector3 lookDirection = lookRotation * Vector3.forward;
+
+		Quaternion targetRotation = Quaternion.FromToRotation(focus.forward, lookDirection) * focus.rotation;
+		focus.localRotation = Quaternion.Slerp(focus.rotation, targetRotation, 20f * Time.deltaTime);
 	}
 
 }

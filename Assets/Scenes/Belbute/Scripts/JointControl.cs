@@ -8,9 +8,10 @@ public class JointControl : MonoBehaviour
 	public ConfigurableJoint hipJoint;
 	public ConfigurableJoint stomachJoint;
 	public float rotationSpeed = 7;
-	public float stomachOffset; // Look up and down
 	public float lowerVertLimit = -35; // Vertical limit for looking down
 	public float upperVertLimit = 20; // Vertical limit for looking up
+
+	public Camera cam;
 
 	private float mouseX, mouseY;
 
@@ -29,6 +30,7 @@ public class JointControl : MonoBehaviour
 
 		hipJoint.targetRotation = Quaternion.Euler(0, -mouseX, 0);
 		stomachJoint.targetRotation = Quaternion.Euler(-mouseY, 0, 0);
+
 	}
 
 }

@@ -14,9 +14,9 @@ public class AnimationController : MonoBehaviour
         playerRag = GetComponentInChildren<PlayerRag>();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        animator.SetBool("IsWalk", playerRag.isMoving); // Animation begin
-        animator.SetBool("IsJumping", playerRag.desiredJump); // Animation begin
+        animator.SetBool("IsWalk", playerRag.isMoving); // Walking animation begin
+        animator.SetBool("IsJumping", playerRag.desiredJump); // Jumping animation begin
     }
 }
