@@ -120,6 +120,7 @@ GameObject:
   - component: {fileID: 5271588848110049461}
   - component: {fileID: 2411373991540344479}
   - component: {fileID: 7421112005576874757}
+  - component: {fileID: 1500190444285326426}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -372,6 +373,18 @@ MonoBehaviour:
   normalMaterial: {fileID: 2100000, guid: f3ba9cc2f46b74147a887fc2202e7d8e, type: 2}
   climbingMaterial: {fileID: 2100000, guid: 563871eb084e447869639cb8c9362551, type: 2}
   swimmingMaterial: {fileID: 2100000, guid: 1f236688f827e4ce7b5bd6cefb73810d, type: 2}
+--- !u!114 &1500190444285326426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5271588848110050122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6911272318847164289
 GameObject:
   m_ObjectHideFlags: 0

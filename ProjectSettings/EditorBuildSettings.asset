@@ -5,22 +5,31 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
-    path: Assets/Scenes/Kob/Lobby.unity
+  - enabled: 0
+    path: Assets/Kob/ScenesKOB/Lobby.unity
     guid: b9870c099d79bc345bbcdd594d90ef2f
-  - enabled: 1
-    path: Assets/Scenes/Kob/TinyPlanets.unity
-    guid: d2917bbb52a34d54dac9e48cee8c998f
-  - enabled: 1
-    path: Assets/Scenes/Kob/Loading.unity
+  - enabled: 0
+    path: Assets/Kob/ScenesKOB/Loading.unity
     guid: c4cfaa3c4b47ced4480954c8c5f10333
-  - enabled: 1
-    path: Assets/Scenes/Kob/Ready.unity
+  - enabled: 0
+    path: Assets/Kob/ScenesKOB/Ready.unity
     guid: 5519057744b648e48b14a12923e86327
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Carol/Main Screen.unity
     guid: 80aca483e5ab45d40b4f558ec835fcc0
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Carol/LobbyCarol.unity
-    guid: 5201640fef0f31043b473d8815be4ea0
+    guid: ba7b76976843b24498dee6bc983d74be
+  - enabled: 1
+    path: Assets/Kob/Scenes/MainMenu.unity
+    guid: 85bb99639d243974a9c3c1013c8c360f
+  - enabled: 1
+    path: Assets/Kob/Scenes/TinyPlanets.unity
+    guid: d2917bbb52a34d54dac9e48cee8c998f
+  - enabled: 1
+    path: Assets/Kob/Scenes/Gameplay.unity
+    guid: 5ec84a40451628149b4d44a5c950c088
+  - enabled: 1
+    path: Assets/Kob/Scenes/CharacterSelect/CharacterSelect.unity
+    guid: c01a334ecf537bd45b8db9328cb4a55a
   m_configObjects: {}
