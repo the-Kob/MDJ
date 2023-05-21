@@ -91,6 +91,7 @@ public class PlayerRag : NetworkBehaviour {
 
 	int stepsSinceLastGrounded, stepsSinceLastJump;
 
+	NewOrbitCamera orbitCamera;
 
 	[HideInInspector]
 	public bool desiredJump, desiresClimbing;
@@ -111,6 +112,8 @@ public class PlayerRag : NetworkBehaviour {
 		body = GetComponent<Rigidbody>();
 		body.useGravity = false;
 		OnValidate();
+
+		orbitCamera = playerInputSpace.gameObject.GetComponent<NewOrbitCamera>();
 	}
 
 	void Update () {
@@ -146,6 +149,7 @@ public class PlayerRag : NetworkBehaviour {
 	void FixedUpdate () {
 		//if (!IsOwner) return;
 
+
 		Vector3 gravity = CustomGravity.GetGravity(body.position, out upAxis);
 		UpdateState();
 
@@ -178,10 +182,14 @@ public class PlayerRag : NetworkBehaviour {
 			velocity +=
 				gravity * ((1f - buoyancy * submergence) * Time.deltaTime);
 		}
-		else if (isGrounded && velocity.sqrMagnitude < 0.01f) {
-			velocity +=
-				contactNormal *
-				(Vector3.Dot(gravity, contactNormal) * Time.deltaTime);
+		else if (isGrounded && velocity.sqrMagnitude < 0.001f) {
+
+			velocity = Vector3.zero * Time.deltaTime;
+
+			// This made the ragdoll float slightly above ground, inducing fidgety ground checks
+			//velocity +=
+				//contactNormal *
+				//(Vector3.Dot(gravity, contactNormal) * Time.deltaTime);
 		}
 		else if (desiresClimbing && isGrounded) {
 			velocity +=
@@ -193,7 +201,7 @@ public class PlayerRag : NetworkBehaviour {
 		}
 		body.velocity = velocity;
 
-		//ChangeGravitationalOrientation();
+		ChangeGravitationalOrientation();
 
 		ClearState();
 	}
@@ -482,8 +490,10 @@ public class PlayerRag : NetworkBehaviour {
 	private void ChangeGravitationalOrientation()
     {
 		//Debug.DrawLine(transform.position, contactNormal * 2f, Color.red);
-		Quaternion targetRotation = Quaternion.FromToRotation(transform.up, contactNormal) * transform.rotation;
-		transform.localRotation = Quaternion.Slerp(transform.rotation, targetRotation, 20f * Time.deltaTime);
+		//Quaternion targetRotation = Quaternion.FromToRotation(transform.up, contactNormal) * transform.rotation;
+		//transform.localRotation = Quaternion.Slerp(transform.rotation, targetRotation, 20f * Time.deltaTime);
+
+		transform.localRotation = Quaternion.Slerp(transform.rotation, orbitCamera.gravityAlignment, 20f * Time.deltaTime);
 	}
 
 	private void MovingCheck()

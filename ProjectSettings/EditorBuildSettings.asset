@@ -18,7 +18,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Kob/Ready.unity
     guid: 5519057744b648e48b14a12923e86327
   - enabled: 1
-    path: Assets/Scenes/Carol/Main Screen.unity
+    path: Assets/Scenes/Carol/Scenes/Main Screen.unity
     guid: 80aca483e5ab45d40b4f558ec835fcc0
   - enabled: 1
     path: Assets/Scenes/Carol/LobbyCarol.unity

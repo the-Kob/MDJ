@@ -12,14 +12,17 @@ public class LimbCollision : MonoBehaviour
         pr = GameObject.FindObjectOfType<PlayerRag>().GetComponent<PlayerRag>();
     }
 
-    private void OnCollisionEnter(Collision collision)
+
+    private void OnTriggerEnter(Collider other)
     {
         pr.isGrounded = true;
     }
 
-    private void OnCollisionExit(Collision collision)
+    private void OnTriggerExit(Collider other)
     {
         pr.isGrounded = false;
     }
+
+
 
 }
