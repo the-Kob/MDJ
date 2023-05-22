@@ -17,7 +17,7 @@ public class PlayerRag : NetworkBehaviour {
         maxClimbAcceleration = 40f,
 		maxSwimAcceleration = 5f;
 
-	[SerializeField, Range(0f, 10f)]
+	[SerializeField, Range(0f, 100f)]
 	float jumpHeight = 2f;
 
 	[SerializeField, Range(0, 5)]
@@ -489,11 +489,19 @@ public class PlayerRag : NetworkBehaviour {
 
 	private void ChangeGravitationalOrientation()
     {
+		// THIS WORKS (only rotates around planet, uses contactNormal)
 		//Debug.DrawLine(transform.position, contactNormal * 2f, Color.red);
 		//Quaternion targetRotation = Quaternion.FromToRotation(transform.up, contactNormal) * transform.rotation;
 		//transform.localRotation = Quaternion.Slerp(transform.rotation, targetRotation, 20f * Time.deltaTime);
 
-		transform.localRotation = Quaternion.Slerp(transform.rotation, orbitCamera.gravityAlignment, 20f * Time.deltaTime);
+		// THIS WORKS (only rotates around planet, uses inputSpace)
+		//transform.localRotation = Quaternion.Slerp(transform.rotation, orbitCamera.gravityAlignment, 20f * Time.deltaTime);
+
+		// Get desired rotation from camera, "flip it" and lerp current rotation into it
+		Quaternion invertQuat = Quaternion.Euler(0, 180, 0);
+		Quaternion desiredRotation = orbitCamera.charLookRotation * invertQuat;
+
+		transform.localRotation = Quaternion.Slerp(transform.rotation, desiredRotation, 20f * Time.deltaTime);
 	}
 
 	private void MovingCheck()

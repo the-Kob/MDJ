@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LimbCollision : MonoBehaviour
+public class GroundCollision : MonoBehaviour
 {
     private PlayerRag pr;
    
