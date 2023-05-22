@@ -4,7 +4,7 @@
 public class NewOrbitCamera : MonoBehaviour {
 
 	[SerializeField]
-	Transform focus = default;
+	Transform cameraRoot = default;
 
 	[SerializeField, Range(1f, 20f)]
 	float distance = 5f;
@@ -41,7 +41,8 @@ public class NewOrbitCamera : MonoBehaviour {
 
 	float lastManualRotationTime;
 
-	Quaternion gravityAlignment = Quaternion.identity;
+	[HideInInspector]
+	public Quaternion gravityAlignment = Quaternion.identity;
 
 	Quaternion orbitRotation;
 
@@ -67,7 +68,7 @@ public class NewOrbitCamera : MonoBehaviour {
 	{
 
 		regularCamera = GetComponent<Camera>();
-		focusPoint = focus.position;
+		focusPoint = cameraRoot.position;
 		transform.localRotation = orbitRotation = Quaternion.Euler(orbitAngles);
 	}
 
@@ -85,7 +86,7 @@ public class NewOrbitCamera : MonoBehaviour {
 
 		Vector3 rectOffset = lookDirection * regularCamera.nearClipPlane;
 		Vector3 rectPosition = lookPosition + rectOffset;
-		Vector3 castFrom = focus.position;
+		Vector3 castFrom = cameraRoot.position;
 		Vector3 castLine = rectPosition - castFrom;
 		float castDistance = castLine.magnitude;
 		Vector3 castDirection = castLine / castDistance;
@@ -120,13 +121,11 @@ public class NewOrbitCamera : MonoBehaviour {
 			);
 		}
 
-		focus.localRotation = Quaternion.Slerp(focus.rotation, gravityAlignment, 20f * Time.deltaTime);
-
 	}
 
 	void UpdateFocusPoint () {
 		previousFocusPoint = focusPoint;
-		Vector3 targetPoint = focus.position;
+		Vector3 targetPoint = cameraRoot.position;
 		if (focusRadius > 0f) {
 			float distance = Vector3.Distance(targetPoint, focusPoint);
 			float t = 1f;
@@ -210,8 +209,8 @@ public class NewOrbitCamera : MonoBehaviour {
 		Quaternion lookRotation = gravityAlignment * orbitRotation;
 		Vector3 lookDirection = lookRotation * Vector3.forward;
 
-		Quaternion targetRotation = Quaternion.FromToRotation(focus.forward, lookDirection) * focus.rotation;
-		focus.localRotation = Quaternion.Slerp(focus.rotation, targetRotation, 20f * Time.deltaTime);
+		Quaternion targetRotation = Quaternion.FromToRotation(cameraRoot.forward, lookDirection) * cameraRoot.rotation;
+		cameraRoot.localRotation = Quaternion.Slerp(cameraRoot.rotation, targetRotation, 20f * Time.deltaTime);
 	}
 
 }

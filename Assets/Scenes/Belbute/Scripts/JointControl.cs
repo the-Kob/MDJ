@@ -8,8 +8,8 @@ public class JointControl : MonoBehaviour
 	public ConfigurableJoint hipJoint;
 	public ConfigurableJoint stomachJoint;
 	public float rotationSpeed = 7;
-	public float lowerVertLimit = -35; // Vertical limit for looking down
-	public float upperVertLimit = 20; // Vertical limit for looking up
+	public float lowerVertLimit = -30; // Vertical limit for looking down
+	public float upperVertLimit = 30; // Vertical limit for looking up
 
 	public Camera cam;
 
