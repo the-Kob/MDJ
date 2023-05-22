@@ -2,9 +2,11 @@
 using Unity.Netcode;
 
 public class Player : NetworkBehaviour {
+	[SerializeField]
+	private GameObject orbitCam = default;
 
 	[SerializeField]
-	Transform playerInputSpace = default, playerVisual = default;
+	Transform playerVisual = default;
 
 	[SerializeField, Range(0f, 100f)]
 	float maxSpeed = 10f, maxClimbSpeed = 4f, maxSwimSpeed = 5f;
@@ -59,6 +61,8 @@ public class Player : NetworkBehaviour {
 		climbingMaterial = default,
 		swimmingMaterial = default;
 
+	Transform playerInputSpace = default;
+
 	Rigidbody body, connectedBody, previousConnectedBody;
 
 	Vector3 playerInput;
@@ -110,9 +114,17 @@ public class Player : NetworkBehaviour {
 		body.useGravity = false;
 		meshRenderer = playerVisual.GetComponent<MeshRenderer>();
 		OnValidate();
+
+		if(orbitCam) playerInputSpace = orbitCam.transform;
 	}
 
-	void Update () {
+    public override void OnNetworkSpawn()
+    {
+        orbitCam.gameObject.SetActive(IsOwner);
+        base.OnNetworkSpawn();
+    }
+
+    void Update () {
         if (!IsOwner) return;
 
         playerInput.x = Input.GetAxis("Horizontal");

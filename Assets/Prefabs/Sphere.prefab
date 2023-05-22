@@ -268,7 +268,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e91228bfd6f4f40cdab0accd6381b7bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInputSpace: {fileID: 57760796338240074}
+  orbitCam: {fileID: 0}
   playerVisual: {fileID: 3633864677662405767}
   maxSpeed: 10
   maxClimbSpeed: 2

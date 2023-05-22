@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.Netcode;
+using UnityEngine;
 
 [RequireComponent(typeof(Camera))]
 public class OrbitCamera : MonoBehaviour {
@@ -63,7 +64,7 @@ public class OrbitCamera : MonoBehaviour {
 		}
 	}
 
-	void Awake () {
+    void Awake () {
 		regularCamera = GetComponent<Camera>();
 		focusPoint = focus.position;
 		transform.localRotation = orbitRotation = Quaternion.Euler(orbitAngles);
