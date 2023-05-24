@@ -17,6 +17,6 @@ public class AnimationController : MonoBehaviour
     private void Update()
     {
         animator.SetBool("IsWalk", playerRag.isMoving); // Walking animation begin
-        animator.SetBool("IsJumping", playerRag.desiredJump); // Jumping animation begin
+        animator.SetBool("IsJumping", playerRag.desiresJump); // Jumping animation begin
     }
 }

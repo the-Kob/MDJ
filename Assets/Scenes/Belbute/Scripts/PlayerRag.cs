@@ -7,11 +7,12 @@ public class PlayerRag : NetworkBehaviour {
 	Transform playerInputSpace = default;
 
 	[SerializeField, Range(0f, 100f)]
-	float maxSpeed = 10f, maxClimbSpeed = 4f;
+	float maxSpeed = 10f, maxClimbSpeed = 4f; // max speed doesn't change anything
 
 	[SerializeField, Range(0f, 100f)]
 	float
 		maxAcceleration = 10f,
+		maxRunAcceleration = 15f,
 		maxAirAcceleration = 1f,
 		maxAirAccelerationGrav = 10f,
 		maxClimbAcceleration = 40f;
@@ -81,7 +82,7 @@ public class PlayerRag : NetworkBehaviour {
 	NewOrbitCamera orbitCamera;
 
 	[HideInInspector]
-	public bool desiredJump, desiresClimbing;
+	public bool desiresJump, desiresClimbing, desiresRun;
 	public bool isGrounded = false;
 	public bool isMoving = false;
 
@@ -124,8 +125,9 @@ public class PlayerRag : NetworkBehaviour {
 		}
 
 
-		desiredJump |= Input.GetButtonDown("Jump");
+		desiresJump |= Input.GetButtonDown("Jump");
 		desiresClimbing = Input.GetButton("Climb");
+		desiresRun = Input.GetButton("Fire3");
 
 	}
 
@@ -149,8 +151,8 @@ public class PlayerRag : NetworkBehaviour {
 
 		AdjustVelocity();
 
-		if (desiredJump) {
-			desiredJump = false;
+		if (desiresJump) {
+			desiresJump = false;
 			Jump(gravity);
 		}
 
@@ -173,9 +175,11 @@ public class PlayerRag : NetworkBehaviour {
 				(gravity - contactNormal * (maxClimbAcceleration * 0.9f)) *
 				Time.deltaTime;
 		}
-		else {
+		else
+		{
 			velocity += gravity * Time.deltaTime;
 		}
+
 		body.velocity = velocity;
 
 		ChangeGravitationalOrientation();
@@ -294,7 +298,9 @@ public class PlayerRag : NetworkBehaviour {
 	void AdjustVelocity () {
 		float acceleration, speed;
 		Vector3 xAxis, zAxis;
-		if (Climbing) {
+
+		if (Climbing)
+		{
 			acceleration = maxClimbAcceleration;
 			speed = maxClimbSpeed;
 			xAxis = Vector3.Cross(contactNormal, upAxis);
@@ -303,6 +309,9 @@ public class PlayerRag : NetworkBehaviour {
 		else
 		{
 			acceleration = isGrounded ? maxAcceleration : maxAirAcceleration;
+
+			if (isGrounded && desiresRun) acceleration = maxRunAcceleration;
+
 			speed = isGrounded && desiresClimbing ? maxClimbSpeed : maxSpeed;
 			xAxis = rightAxis;
 			zAxis = forwardAxis;
