@@ -41,10 +41,22 @@ public class NewOrbitCamera : MonoBehaviour {
 
 	float lastManualRotationTime;
 
+	Quaternion orbitRotation;
+
 	[HideInInspector]
 	public Quaternion gravityAlignment = Quaternion.identity;
 
-	Quaternion orbitRotation;
+	[HideInInspector]
+	public Vector2 restrictedOrbitAngles;
+
+	[HideInInspector]
+	public Quaternion charLookRotation;
+
+
+	Quaternion restrictedOrbitRotation;
+
+	[SerializeField, Range(-89f, 89f)]
+	float minCharVerticalAngle = -10f, maxCharVerticalAngle = 10f;
 
 	Vector3 CameraHalfExtends {
 		get {
@@ -78,6 +90,9 @@ public class NewOrbitCamera : MonoBehaviour {
 		if (ManualRotation() || AutomaticRotation()) {
 			ConstrainAngles();
 			orbitRotation = Quaternion.Euler(orbitAngles);
+
+			// For character rotation
+			restrictedOrbitRotation = Quaternion.Euler(restrictedOrbitAngles);
 		}
 		Quaternion lookRotation = gravityAlignment * orbitRotation;
 
@@ -101,6 +116,11 @@ public class NewOrbitCamera : MonoBehaviour {
 		}
 		
 		transform.SetPositionAndRotation(lookPosition, lookRotation);
+
+
+		// For character rotation
+		Quaternion restrictedLookRotation = gravityAlignment * restrictedOrbitRotation;
+		charLookRotation = restrictedLookRotation;
 	}
 
     void UpdateGravityAlignment () {
@@ -151,6 +171,10 @@ public class NewOrbitCamera : MonoBehaviour {
 		if (input.x < -e || input.x > e || input.y < -e || input.y > e)
 		{
 			orbitAngles += rotationSpeed * Time.unscaledDeltaTime * input;
+
+			// For character rotation
+			restrictedOrbitAngles += rotationSpeed * Time.unscaledDeltaTime * input;
+
 			lastManualRotationTime = Time.unscaledTime;
 
 			return true;
@@ -184,6 +208,11 @@ public class NewOrbitCamera : MonoBehaviour {
 		}
 		orbitAngles.y =
 			Mathf.MoveTowardsAngle(orbitAngles.y, headingAngle, rotationChange);
+
+		// For character rotation
+		restrictedOrbitAngles.y =
+		Mathf.MoveTowardsAngle(restrictedOrbitAngles.y, headingAngle, rotationChange);
+
 		return true;
 	}
 
@@ -197,6 +226,20 @@ public class NewOrbitCamera : MonoBehaviour {
 		else if (orbitAngles.y >= 360f) {
 			orbitAngles.y -= 360f;
 		}
+
+		// For character rotation
+		restrictedOrbitAngles.x =
+			Mathf.Clamp(restrictedOrbitAngles.x, minCharVerticalAngle, maxCharVerticalAngle);
+
+		if (restrictedOrbitAngles.y < 0f)
+		{
+			restrictedOrbitAngles.y += 360f;
+		}
+		else if (restrictedOrbitAngles.y >= 360f)
+		{
+			restrictedOrbitAngles.y -= 360f;
+		}
+
 	}
 
 	static float GetAngle (Vector2 direction) {
@@ -204,14 +247,6 @@ public class NewOrbitCamera : MonoBehaviour {
 		return direction.x < 0f ? 360f - angle : angle;
 	}
 
-	void ChangeSpin()
-    {
-		Quaternion lookRotation = gravityAlignment * orbitRotation;
-		Vector3 lookDirection = lookRotation * Vector3.forward;
-
-		Quaternion targetRotation = Quaternion.FromToRotation(cameraRoot.forward, lookDirection) * cameraRoot.rotation;
-		cameraRoot.localRotation = Quaternion.Slerp(cameraRoot.rotation, targetRotation, 20f * Time.deltaTime);
-	}
 
 }
 
