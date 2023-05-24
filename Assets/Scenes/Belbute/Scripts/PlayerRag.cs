@@ -7,17 +7,16 @@ public class PlayerRag : NetworkBehaviour {
 	Transform playerInputSpace = default;
 
 	[SerializeField, Range(0f, 100f)]
-	float maxSpeed = 10f, maxClimbSpeed = 4f, maxSwimSpeed = 5f;
+	float maxSpeed = 10f, maxClimbSpeed = 4f;
 
 	[SerializeField, Range(0f, 100f)]
 	float
 		maxAcceleration = 10f,
 		maxAirAcceleration = 1f,
-        maxAirAccelerationGrav = 10f,
-        maxClimbAcceleration = 40f,
-		maxSwimAcceleration = 5f;
+		maxAirAccelerationGrav = 10f,
+		maxClimbAcceleration = 40f;
 
-	[SerializeField, Range(0f, 10f)]
+	[SerializeField, Range(0f, 20f)]
 	float jumpHeight = 2f;
 
 	[SerializeField, Range(0, 5)]
@@ -44,20 +43,14 @@ public class PlayerRag : NetworkBehaviour {
 	[SerializeField, Min(0f)]
 	float buoyancy = 1f;
 
-	[SerializeField, Range(0f, 10f)]
-	float waterDrag = 1f;
-
-	[SerializeField, Range(0.01f, 1f)]
-	float swimThreshold = 0.5f;
 
 	[SerializeField]
-	LayerMask probeMask = -1, stairsMask = -1, climbMask = -1, waterMask = 0;
+	LayerMask probeMask = -1, stairsMask = -1, climbMask = -1;
 
 	[SerializeField]
 	Material
 		normalMaterial = default,
-		climbingMaterial = default,
-		swimmingMaterial = default;
+		climbingMaterial = default;
 
 	Rigidbody body, connectedBody, previousConnectedBody;
 
@@ -78,12 +71,6 @@ public class PlayerRag : NetworkBehaviour {
 	bool OnSteep => steepContactCount > 0;
 
 	bool Climbing => climbContactCount > 0 && stepsSinceLastJump > 2;
-
-	bool InWater => submergence > 0f;
-
-	bool Swimming => submergence >= swimThreshold;
-
-	float submergence;
 
 	int jumpPhase;
 
@@ -121,28 +108,24 @@ public class PlayerRag : NetworkBehaviour {
 
         playerInput.x = Input.GetAxis("Horizontal");
 		playerInput.y = Input.GetAxis("Vertical");
-		playerInput.z = Swimming ? Input.GetAxis("UpDown") : 0f;
 		playerInput = Vector3.ClampMagnitude(playerInput, 1f);
 
 		MovingCheck();
 
-		if (playerInputSpace) {
+		if (playerInputSpace)
+		{
 			rightAxis = ProjectDirectionOnPlane(playerInputSpace.right, upAxis);
 			forwardAxis =
 				ProjectDirectionOnPlane(playerInputSpace.forward, upAxis);
-		}
-		else {
+		} else
+		{
 			rightAxis = ProjectDirectionOnPlane(Vector3.right, upAxis);
 			forwardAxis = ProjectDirectionOnPlane(Vector3.forward, upAxis);
 		}
 
-		if (Swimming) {
-			desiresClimbing = false;
-		}
-		else {
-			desiredJump |= Input.GetButtonDown("Jump");
-			desiresClimbing = Input.GetButton("Climb");
-		}
+
+		desiredJump |= Input.GetButtonDown("Jump");
+		desiresClimbing = Input.GetButton("Climb");
 
 	}
 
@@ -163,9 +146,6 @@ public class PlayerRag : NetworkBehaviour {
             maxAirAcceleration = maxAirAccelerationGrav;
         }
 
-        if (InWater) {
-			velocity *= 1f - waterDrag * submergence * Time.deltaTime;
-		}
 
 		AdjustVelocity();
 
@@ -178,10 +158,7 @@ public class PlayerRag : NetworkBehaviour {
 			velocity -=
 				contactNormal * (maxClimbAcceleration * 0.9f * Time.deltaTime);
 		}
-		else if (InWater) {
-			velocity +=
-				gravity * ((1f - buoyancy * submergence) * Time.deltaTime);
-		}
+
 		else if (isGrounded && velocity.sqrMagnitude < 0.001f) {
 
 			velocity = Vector3.zero * Time.deltaTime;
@@ -212,17 +189,15 @@ public class PlayerRag : NetworkBehaviour {
 		connectionVelocity = Vector3.zero;
 		previousConnectedBody = connectedBody;
 		connectedBody = null;
-		submergence = 0f;
 	}
 
 	void UpdateState () {
 		stepsSinceLastGrounded += 1;
 		stepsSinceLastJump += 1;
 		velocity = body.velocity;
-		if (
-			CheckClimbing() || CheckSwimming() ||
-			isGrounded || SnapToGround() || CheckSteepContacts()
-		) {
+		
+		if (CheckClimbing() || isGrounded || CheckSteepContacts()) 
+		{
 			stepsSinceLastGrounded = 0;
 			if (stepsSinceLastJump > 1) {
 				jumpPhase = 0;
@@ -231,7 +206,8 @@ public class PlayerRag : NetworkBehaviour {
 				contactNormal.Normalize();
 			}
 		}
-		else {
+		else
+		{
 			contactNormal = upAxis;
 		}
 		
@@ -271,17 +247,8 @@ public class PlayerRag : NetworkBehaviour {
 		return false;
 	}
 
-	bool CheckSwimming () {
-		if (Swimming) {
-			groundContactCount = 0;
-			contactNormal = upAxis;
-			return true;
-		}
-		return false;
-	}
-
 	bool SnapToGround () {
-		if (stepsSinceLastGrounded > 1 || stepsSinceLastJump <= 2 || InWater) {
+		if (stepsSinceLastGrounded > 1 || stepsSinceLastJump <= 2) {
 			return false;
 		}
 		float speed = velocity.magnitude;
@@ -333,17 +300,8 @@ public class PlayerRag : NetworkBehaviour {
 			xAxis = Vector3.Cross(contactNormal, upAxis);
 			zAxis = upAxis;
 		}
-		else if (InWater) {
-			float swimFactor = Mathf.Min(1f, submergence / swimThreshold);
-			acceleration = Mathf.LerpUnclamped(
-				isGrounded ? maxAcceleration : maxAirAcceleration,
-				maxSwimAcceleration, swimFactor
-			);
-			speed = Mathf.LerpUnclamped(maxSpeed, maxSwimSpeed, swimFactor);
-			xAxis = rightAxis;
-			zAxis = forwardAxis;
-		}
-		else {
+		else
+		{
 			acceleration = isGrounded ? maxAcceleration : maxAirAcceleration;
 			speed = isGrounded && desiresClimbing ? maxClimbSpeed : maxSpeed;
 			xAxis = rightAxis;
@@ -365,25 +323,23 @@ public class PlayerRag : NetworkBehaviour {
 
 		velocity += xAxis * (newX - currentX) + zAxis * (newZ - currentZ);
 
-		if (Swimming) {
-			float currentY = Vector3.Dot(relativeVelocity, upAxis);
-			float newY = Mathf.MoveTowards(
-				currentY, playerInput.z * speed, maxSpeedChange
-			);
-			velocity += upAxis * (newY - currentY);
-		}
 	}
 
 	void Jump (Vector3 gravity) {
+
 		Vector3 jumpDirection;
-		if (isGrounded) {
+
+		if (isGrounded)
+		{
 			jumpDirection = contactNormal;
 		}
-		else if (OnSteep) {
+		else if (OnSteep)
+		{
 			jumpDirection = steepNormal;
 			jumpPhase = 0;
 		}
-		else if (maxAirJumps > 0 && jumpPhase <= maxAirJumps) {
+		else if (maxAirJumps > 0 && jumpPhase <= maxAirJumps)
+		{
 			if (jumpPhase == 0) {
 				jumpPhase = 1;
 			}
@@ -396,29 +352,36 @@ public class PlayerRag : NetworkBehaviour {
 		stepsSinceLastJump = 0;
 		jumpPhase += 1;
 		float jumpSpeed = Mathf.Sqrt(2f * gravity.magnitude * jumpHeight);
-		if (InWater) {
-			jumpSpeed *= Mathf.Max(0f, 1f - submergence / swimThreshold);
-		}
+
+
 		jumpDirection = (jumpDirection + upAxis).normalized;
 		float alignedSpeed = Vector3.Dot(velocity, jumpDirection);
-		if (alignedSpeed > 0f) {
+
+		if (alignedSpeed > 0f)
+		{
 			jumpSpeed = Mathf.Max(jumpSpeed - alignedSpeed, 0f);
 		}
+
+		Color c = new Color(250, 0, 0);
+
+		Debug.DrawLine(transform.position, transform.position + jumpDirection, c, 20);
+
 		velocity += jumpDirection * jumpSpeed;
 	}
 
-	void OnCollisionEnter (Collision collision) {
+	void OnCollisionEnter (Collision collision)
+	{
 		EvaluateCollision(collision);
 	}
 
-	void OnCollisionStay (Collision collision) {
+	void OnCollisionStay (Collision collision)
+	{
 		EvaluateCollision(collision);
 	}
 
-	void EvaluateCollision (Collision collision) {
-		if (Swimming) {
-			return;
-		}
+	void EvaluateCollision (Collision collision)
+	{
+
 		int layer = collision.gameObject.layer;
 		float minDot = GetMinDot(layer);
 		for (int i = 0; i < collision.contactCount; i++) {
@@ -450,33 +413,6 @@ public class PlayerRag : NetworkBehaviour {
 		}
 	}
 
-	void OnTriggerEnter (Collider other) {
-		if ((waterMask & (1 << other.gameObject.layer)) != 0) {
-			EvaluateSubmergence(other);
-		}
-	}
-
-	void OnTriggerStay (Collider other) {
-		if ((waterMask & (1 << other.gameObject.layer)) != 0) {
-			EvaluateSubmergence(other);
-		}
-	}
-
-	void EvaluateSubmergence (Collider collider) {
-		if (Physics.Raycast(
-			body.position + upAxis * submergenceOffset,
-			-upAxis, out RaycastHit hit, submergenceRange + 1f,
-			waterMask, QueryTriggerInteraction.Collide
-		)) {
-			submergence = 1f - hit.distance / submergenceRange;
-		}
-		else {
-			submergence = 1f;
-		}
-		if (Swimming) {
-			connectedBody = collider.attachedRigidbody;
-		}
-	}
 
 	Vector3 ProjectDirectionOnPlane (Vector3 direction, Vector3 normal) {
 		return (direction - normal * Vector3.Dot(direction, normal)).normalized;
