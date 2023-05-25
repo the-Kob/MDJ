@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
 public class JointControl : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class JointControl : MonoBehaviour
 
 	private void FixedUpdate()
 	{
+		//if (!IsOwner) return;
+
 		UpdateJointMovement();
 	}
 
@@ -30,7 +33,6 @@ public class JointControl : MonoBehaviour
 
 		hipJoint.targetRotation = Quaternion.Euler(0, -mouseX, 0);
 		stomachJoint.targetRotation = Quaternion.Euler(-mouseY, 0, 0);
-
 	}
 
 }

@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using Unity.Netcode;
 
-public class PlayerRag : NetworkBehaviour {
+public class PlayerRag : MonoBehaviour {
 
 	[SerializeField]
-	Transform playerInputSpace = default;
+	private GameObject playerCam = default;
+
 
 	[SerializeField, Range(0f, 100f)]
 	float maxSpeed = 10f, maxClimbSpeed = 4f; // max speed doesn't change anything
@@ -55,6 +56,8 @@ public class PlayerRag : NetworkBehaviour {
 
 	Rigidbody body, connectedBody, previousConnectedBody;
 
+	Transform playerInputSpace = default;
+
 	Vector3 playerInput;
 
 	Vector3 velocity, connectionVelocity;
@@ -96,18 +99,21 @@ public class PlayerRag : NetworkBehaviour {
 		minClimbDotProduct = Mathf.Cos(maxClimbAngle * Mathf.Deg2Rad);
 	}
 
-	void Awake () {
+	void Awake ()
+	{
 		body = GetComponent<Rigidbody>();
 		body.useGravity = false;
 		OnValidate();
 
-		orbitCamera = playerInputSpace.gameObject.GetComponent<NewOrbitCamera>();
+		orbitCamera = playerCam.GetComponent<NewOrbitCamera>();
+
+		if (playerCam) playerInputSpace = playerCam.transform;
 	}
 
-	void Update () {
-		//if (!IsOwner) return;
-
-        playerInput.x = Input.GetAxis("Horizontal");
+    void Update ()
+	{
+		
+		playerInput.x = Input.GetAxis("Horizontal");
 		playerInput.y = Input.GetAxis("Vertical");
 		playerInput = Vector3.ClampMagnitude(playerInput, 1f);
 
@@ -131,9 +137,8 @@ public class PlayerRag : NetworkBehaviour {
 
 	}
 
-	void FixedUpdate () {
-		//if (!IsOwner) return;
-
+	void FixedUpdate ()
+	{
 
 		Vector3 gravity = CustomGravity.GetGravity(body.position, out upAxis);
 		UpdateState();

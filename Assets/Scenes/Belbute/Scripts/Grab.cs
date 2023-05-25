@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
 public class Grab : MonoBehaviour
 {
@@ -22,6 +23,8 @@ public class Grab : MonoBehaviour
 
     void Update()
     {
+        //if (!IsOwner) return;
+
         if (Input.GetKey(grabKey))
         {
             // Activate animations for each hand

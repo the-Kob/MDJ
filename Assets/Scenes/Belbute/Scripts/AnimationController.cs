@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
 public class AnimationController : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class AnimationController : MonoBehaviour
 
     private void Update()
     {
+        //if (!IsOwner) return;
         animator.SetBool("IsWalk", playerRag.isMoving); // Walking animation begin
         animator.SetBool("IsJumping", playerRag.desiresJump); // Jumping animation begin
     }

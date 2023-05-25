@@ -15,10 +15,10 @@ EditorBuildSettings:
     path: Assets/Kob/ScenesKOB/Ready.unity
     guid: 5519057744b648e48b14a12923e86327
   - enabled: 0
-    path: Assets/Scenes/Carol/Main Screen.unity
+    path: Assets/Scenes/Carol/Scenes/Main Screen.unity
     guid: 80aca483e5ab45d40b4f558ec835fcc0
   - enabled: 0
-    path: Assets/Scenes/Carol/LobbyCarol.unity
+    path: Assets/Scenes/Carol/Scenes/LobbyCarol.unity
     guid: ba7b76976843b24498dee6bc983d74be
   - enabled: 1
     path: Assets/Kob/Scenes/MainMenu.unity
