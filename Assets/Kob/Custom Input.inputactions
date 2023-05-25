@@ -1,0 +1,22 @@
+{
+    "name": "Custom Input",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "7eead3df-b170-472b-8dc0-6a1ad7a002ae",
+            "actions": [
+                {
+                    "name": "Movement",
+                    "type": "Button",
+                    "id": "ae7ea73c-8b33-43d9-948c-cbdcc9c02401",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": []
+        }
+    ],
+    "controlSchemes": []
+}
