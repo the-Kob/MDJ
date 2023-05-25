@@ -14,11 +14,17 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Kob/ScenesKOB/Ready.unity
     guid: 5519057744b648e48b14a12923e86327
+<<<<<<< Updated upstream
   - enabled: 0
     path: Assets/Scenes/Carol/Main Screen.unity
+=======
+  - enabled: 1
+    path: Assets/Scenes/Carol/Scenes/Main Screen.unity
+>>>>>>> Stashed changes
     guid: 80aca483e5ab45d40b4f558ec835fcc0
   - enabled: 0
     path: Assets/Scenes/Carol/LobbyCarol.unity
+<<<<<<< Updated upstream
     guid: ba7b76976843b24498dee6bc983d74be
   - enabled: 1
     path: Assets/Kob/Scenes/MainMenu.unity
@@ -32,4 +38,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Kob/Scenes/CharacterSelect/CharacterSelect.unity
     guid: c01a334ecf537bd45b8db9328cb4a55a
+=======
+    guid: 5201640fef0f31043b473d8815be4ea0
+  - enabled: 1
+    path: Assets/Scenes/Carol/Scenes/LobbyCarol.unity
+    guid: ba7b76976843b24498dee6bc983d74be
+>>>>>>> Stashed changes
   m_configObjects: {}
