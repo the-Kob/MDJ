@@ -15,13 +15,11 @@ public class GroundCollision : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.layer == LayerMask.NameToLayer("Ground"))
             pr.isGrounded = true;
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
             pr.isGrounded = false;
     }
 
