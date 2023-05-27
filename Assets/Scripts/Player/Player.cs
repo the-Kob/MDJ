@@ -65,9 +65,9 @@ public class Player : NetworkBehaviour {
 
 	Transform playerInputSpace = default;
 
-	Rigidbody body, connectedBody, previousConnectedBody;
+	InputManager input;
 
-	InputManager inputManager;
+	Rigidbody body, connectedBody, previousConnectedBody;
 
 	Vector3 playerInput;
 
@@ -116,7 +116,6 @@ public class Player : NetworkBehaviour {
 	void Awake () {
 		body = GetComponent<Rigidbody>();
 		body.useGravity = false;
-		inputManager = GetComponent<InputManager>();
 		meshRenderer = playerVisual.GetComponent<MeshRenderer>();
 		OnValidate();
 
@@ -132,9 +131,9 @@ public class Player : NetworkBehaviour {
     void Update () {
         if (!IsOwner) return;
 
-		playerInput.x = inputManager.moveVector.x;
-		playerInput.y = inputManager.moveVector.y;
-		playerInput.z = Swimming ? inputManager.upDownValue : 0f;
+        playerInput.x = input.moveVector.x;
+		playerInput.y = input.moveVector.y;
+		playerInput.z = Swimming ? input.upDownValue : 0f;
 		playerInput = Vector3.ClampMagnitude(playerInput, 1f);
 
 		if (playerInputSpace) {
@@ -151,8 +150,8 @@ public class Player : NetworkBehaviour {
 			desiresClimbing = false;
 		}
 		else {
-			desiredJump |= inputManager.jumping;
-			desiresClimbing = inputManager.climbing;
+			desiredJump |= input.jumping;
+			desiresClimbing = input.climbing;
 		}
 
 		UpdatePlayerVisual(); // we can update how our player animates in this method
