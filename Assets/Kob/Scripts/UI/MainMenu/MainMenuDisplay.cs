@@ -9,6 +9,7 @@ public class MainMenuDisplay : MonoBehaviour
     [SerializeField] private Image foreground;
     [SerializeField] private GameObject menuPanel;
     [SerializeField] private GameObject optionsPanel;
+    [SerializeField] private GameObject bindingsPanel;
 
     [Header("Settings")]
     [SerializeField] private float fadeSpeed = 0.5f; 
@@ -21,8 +22,7 @@ public class MainMenuDisplay : MonoBehaviour
     {
         StartCoroutine(FadeFromBlack());
 
-        menuPanel.SetActive(true);
-        optionsPanel.SetActive(false);
+        Menu();
     }
 
     public IEnumerator FadeFromBlack()
@@ -54,15 +54,24 @@ public class MainMenuDisplay : MonoBehaviour
         Application.Quit();
     }
 
+    public void Menu()
+    {
+        menuPanel.SetActive(true);
+        optionsPanel.SetActive(false);
+        bindingsPanel.SetActive(false);
+    }
+
     public void Options()
     {
         menuPanel.SetActive(false);
         optionsPanel.SetActive(true);
+        bindingsPanel.SetActive(false);
     }
 
-    public void BackToMenu()
+    public void Binds()
     {
-        menuPanel.SetActive(true);
+        menuPanel.SetActive(false);
         optionsPanel.SetActive(false);
+        bindingsPanel.SetActive(true);
     }
 }
