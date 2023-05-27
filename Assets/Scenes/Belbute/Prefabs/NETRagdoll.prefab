@@ -4385,6 +4385,7 @@ GameObject:
   - component: {fileID: 2174879457067076422}
   - component: {fileID: 7854774231149118739}
   - component: {fileID: 6568675976175751543}
+  - component: {fileID: 6405488689294814826}
   m_Layer: 13
   m_Name: Hips
   m_TagString: Untagged
@@ -4680,6 +4681,23 @@ MonoBehaviour:
   desiresRun: 0
   isGrounded: 0
   isMoving: 0
+--- !u!114 &6405488689294814826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4224832478558927133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 404e8bb9e88e7264fa989d205bfe4f07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveVector: {x: 0, y: 0}
+  lookVector: {x: 0, y: 0}
+  upDownValue: 0
+  jumping: 0
+  climbing: 0
 --- !u!1 &4224832478580415233
 GameObject:
   m_ObjectHideFlags: 0

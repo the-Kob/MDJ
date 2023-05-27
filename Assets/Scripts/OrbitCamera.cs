@@ -34,6 +34,8 @@ public class OrbitCamera : MonoBehaviour {
 	[SerializeField]
 	LayerMask obstructionMask = -1;
 
+	InputManager inputs;
+
 	Camera regularCamera;
 
 	Vector3 focusPoint, previousFocusPoint;
@@ -67,6 +69,7 @@ public class OrbitCamera : MonoBehaviour {
     void Awake () {
 		regularCamera = GetComponent<Camera>();
 		focusPoint = focus.position;
+		inputs = focus.gameObject.GetComponent<InputManager>();
 		transform.localRotation = orbitRotation = Quaternion.Euler(orbitAngles);
 	}
 
@@ -141,8 +144,8 @@ public class OrbitCamera : MonoBehaviour {
 
 	bool ManualRotation () {
 		Vector2 input = new Vector2(
-			Input.GetAxis("Vertical Camera"),
-			Input.GetAxis("Horizontal Camera")
+			inputs.lookVector.x,
+			inputs.lookVector.y
 		);
 		const float e = 0.001f;
 		if (input.x < -e || input.x > e || input.y < -e || input.y > e) {

@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using Unity.Netcode;
 
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(InputManager))]
 public class TestNet : NetworkBehaviour {
 
 	[SerializeField]
@@ -62,6 +64,8 @@ public class TestNet : NetworkBehaviour {
 	Material
 		normalMaterial = default,
 		climbingMaterial = default;
+
+	InputManager input;
 
 	Rigidbody body, connectedBody, previousConnectedBody;
 
@@ -143,9 +147,9 @@ public class TestNet : NetworkBehaviour {
 		
 		if (!IsOwner) return;
 
-		playerInput.x = Input.GetAxis("Horizontal");
-		playerInput.y = Input.GetAxis("Vertical");
-		playerInput = Vector3.ClampMagnitude(playerInput, 1f);
+		playerInput.x = input.moveVector.x;
+        playerInput.y = input.moveVector.y;
+        playerInput = Vector3.ClampMagnitude(playerInput, 1f);
 
 		MovingCheck();
 
@@ -161,8 +165,8 @@ public class TestNet : NetworkBehaviour {
 		}
 
 
-		desiresJump |= Input.GetButtonDown("Jump");
-		desiresClimbing = Input.GetButton("Climb");
+		desiresJump |= input.jumping;
+		desiresClimbing = input.climbing;
 		desiresRun = Input.GetButton("Fire3");
 
 	}
@@ -196,7 +200,6 @@ public class TestNet : NetworkBehaviour {
 			velocity -=
 				contactNormal * (maxClimbAcceleration * 0.9f * Time.deltaTime);
 		}
-
 		else if (isGrounded && velocity.sqrMagnitude < 0.001f) {
 
 			velocity = Vector3.zero * Time.deltaTime;
