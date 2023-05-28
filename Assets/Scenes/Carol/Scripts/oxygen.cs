@@ -24,7 +24,7 @@ public class oxygen : MonoBehaviour
         }
 
     }
-    
+
     void Start()
     {
         oxygen_capacity = 100;
@@ -32,9 +32,9 @@ public class oxygen : MonoBehaviour
 
     void OnTriggerEnter(Collider other){
         if(gameObject.tag == "oxygen" && other.gameObject.tag == "Player"){
-            Debug.Log("oxygen collision");
+           // Debug.Log("oxygen collision");
             decreaseOxygenCapacity();
-            Debug.Log("oxygen capacity: " + get_oxygen_capacity());
+           // Debug.Log("oxygen capacity: " + get_oxygen_capacity());
         }
     }
 
