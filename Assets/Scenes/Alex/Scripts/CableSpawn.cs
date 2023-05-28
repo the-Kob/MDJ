@@ -69,7 +69,7 @@ public class CableSpawn : MonoBehaviour
 
                 if (snapFirst)
                 {
-                    cablePart.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                    cablePart.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
                 }
             }
             else
@@ -84,7 +84,7 @@ public class CableSpawn : MonoBehaviour
         if (snapLast)
         {
             parentObject.transform.Find((parentObject.transform.childCount).ToString()).GetComponent<Rigidbody>().constraints
-                = RigidbodyConstraints.FreezeAll;
+                = RigidbodyConstraints.FreezePosition;
         }
     }
 }
