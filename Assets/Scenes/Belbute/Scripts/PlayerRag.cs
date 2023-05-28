@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using Unity.Netcode;
 
+
+[RequireComponent(typeof(InputManager))]
 public class PlayerRag : MonoBehaviour {
 
 	[SerializeField]
@@ -53,6 +55,8 @@ public class PlayerRag : MonoBehaviour {
 	Material
 		normalMaterial = default,
 		climbingMaterial = default;
+
+	InputManager input;
 
 	Rigidbody body, connectedBody, previousConnectedBody;
 
@@ -108,13 +112,15 @@ public class PlayerRag : MonoBehaviour {
 		orbitCamera = playerCam.GetComponent<NewOrbitCamera>();
 
 		if (playerCam) playerInputSpace = playerCam.transform;
+
+		input = GetComponent<InputManager>();
 	}
 
     void Update ()
 	{
-		
-		playerInput.x = Input.GetAxis("Horizontal");
-		playerInput.y = Input.GetAxis("Vertical");
+
+		playerInput.x = input.moveVector.x;
+		playerInput.y = input.moveVector.y;
 		playerInput = Vector3.ClampMagnitude(playerInput, 1f);
 
 		MovingCheck();

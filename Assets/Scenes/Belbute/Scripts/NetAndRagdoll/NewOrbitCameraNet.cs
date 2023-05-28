@@ -33,7 +33,8 @@ public class NewOrbitCameraNet : MonoBehaviour {
 	[SerializeField]
 	LayerMask obstructionMask = -1;
 
-	InputManager inputs;
+	[HideInInspector]
+	public InputManager inputs;
 
 	Camera regularCamera;
 

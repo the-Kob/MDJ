@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 
+
+[RequireComponent(typeof(InputManager))]
 public class JointControl : MonoBehaviour
 {
 	[Header("Joint Movement Settings")]
@@ -12,11 +14,16 @@ public class JointControl : MonoBehaviour
 	public float lowerVertLimit = -30; // Vertical limit for looking down
 	public float upperVertLimit = 30; // Vertical limit for looking up
 
-	public Camera cam;
-
 	private float mouseX, mouseY;
 
-	private void FixedUpdate()
+	public InputManager input;
+
+    private void Awake()
+    {
+    }
+
+
+    private void FixedUpdate()
 	{
 		//if (!IsOwner) return;
 
@@ -26,8 +33,8 @@ public class JointControl : MonoBehaviour
 	void UpdateJointMovement()
 	{
 		// Get inputs
-		mouseX += Input.GetAxis("Mouse X") * rotationSpeed;
-		mouseY += Input.GetAxis("Mouse Y") * rotationSpeed;
+		mouseX += input.lookVector.x * rotationSpeed;
+		mouseY += input.lookVector.y * rotationSpeed;
 
 		mouseY = Mathf.Clamp(mouseY, lowerVertLimit, upperVertLimit);
 
