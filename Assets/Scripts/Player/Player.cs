@@ -117,6 +117,7 @@ public class Player : NetworkBehaviour {
 		body = GetComponent<Rigidbody>();
 		body.useGravity = false;
 		meshRenderer = playerVisual.GetComponent<MeshRenderer>();
+		input = GetComponent<InputManager>();
 		OnValidate();
 
 		if(orbitCam) playerInputSpace = orbitCam.transform;

@@ -121,10 +121,12 @@ public class TestNet : NetworkBehaviour {
 		orbitCamera = playerCam.GetComponent<NewOrbitCameraNet>();
 
 		if (playerCam) playerInputSpace = playerCam.transform;
+
+		input = GetComponent<InputManager>();
 	}
 
-    public override void OnNetworkSpawn()
-    {
+	public override void OnNetworkSpawn()
+	{
 		Debug.Log("Disabling");
 
 		playerCam.SetActive(IsOwner);
@@ -140,9 +142,9 @@ public class TestNet : NetworkBehaviour {
 		rightHand.SetActive(IsOwner);
 
 		base.OnNetworkSpawn();
-    }
+	}
 
-    void Update ()
+	void Update ()
 	{
 		
 		if (!IsOwner) return;
