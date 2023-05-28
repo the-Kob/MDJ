@@ -6,22 +6,21 @@ public class Open_house : MonoBehaviour
 {
 
 
-    //get childs and verifies if childs are missing or not, if yes then destroy the parent
+    //get squares and if they both are null then open door (destroys self)
+    [SerializeField]
+    private GameObject green;
     
+    [SerializeField]
+    private GameObject purple;
     void Update()
     {
-        Transform[] allChildren = gameObject.GetComponentsInChildren<Transform>();
-        if (allChildren.Length == 1)
+       if (green == null && purple == null)
         {
-            Destroy(gameObject);
+            Destroy(this.gameObject);
         }
-        //else
-        //{
-            //Destroy(gameObject.transform.parent.gameObject);
-        //}
     }
         
-    }
+}
 
    
 

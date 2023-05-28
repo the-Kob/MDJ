@@ -416,8 +416,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orbitCam: {fileID: 4330430084562406208}
-  playerVisual: {fileID: 3633864677662405767, guid: df98b8f5bc77b174ca440bbbec3037f5,
-    type: 3}
+  playerVisual: {fileID: 3633864677662405767, guid: df98b8f5bc77b174ca440bbbec3037f5, type: 3}
   maxSpeed: 10
   maxClimbSpeed: 2
   maxSwimSpeed: 5
