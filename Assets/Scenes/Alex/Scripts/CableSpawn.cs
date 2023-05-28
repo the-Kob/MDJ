@@ -12,7 +12,7 @@ public class CableSpawn : MonoBehaviour
     int length = 3;
 
     [SerializeField]
-    [Range(1, 1000)]
+    [Range(0, 2)]
     // Distance between cable parts
     float cablePartDistance = 0.21f; 
 
@@ -66,6 +66,11 @@ public class CableSpawn : MonoBehaviour
             if (i == 0)
             {
                 Destroy(cablePart.GetComponent<CharacterJoint>());
+
+                if (snapFirst)
+                {
+                    cablePart.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                }
             }
             else
             {
