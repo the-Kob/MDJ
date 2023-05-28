@@ -12,7 +12,7 @@ public class JointControlNet : NetworkBehaviour
 	public float lowerVertLimit = -30; // Vertical limit for looking down
 	public float upperVertLimit = 30; // Vertical limit for looking up
 
-	public Camera cam;
+	public InputManager input;
 
 	private float mouseX, mouseY;
 
@@ -26,8 +26,8 @@ public class JointControlNet : NetworkBehaviour
 	void UpdateJointMovement()
 	{
 		// Get inputs
-		mouseX += Input.GetAxis("Mouse X") * rotationSpeed;
-		mouseY += Input.GetAxis("Mouse Y") * rotationSpeed;
+		mouseX += input.lookVector.x * rotationSpeed;
+		mouseY += input.lookVector.y * rotationSpeed;
 
 		mouseY = Mathf.Clamp(mouseY, lowerVertLimit, upperVertLimit);
 

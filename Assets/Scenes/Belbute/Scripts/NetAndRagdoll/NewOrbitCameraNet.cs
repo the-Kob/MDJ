@@ -169,8 +169,8 @@ public class NewOrbitCameraNet : MonoBehaviour {
 
 	bool ManualRotation () {
 		Vector2 input = new Vector2(
-			inputs.lookVector.x,
-			inputs.lookVector.y
+			-inputs.lookVector.y,
+			inputs.lookVector.x
 		);
 		const float e = 0.001f;
 		if (input.x < -e || input.x > e || input.y < -e || input.y > e)

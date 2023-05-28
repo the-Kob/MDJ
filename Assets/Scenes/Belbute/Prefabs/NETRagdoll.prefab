@@ -3697,7 +3697,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4224832478248572426}
-  - component: {fileID: 4224832478248572427}
   - component: {fileID: 3973294128352379111}
   - component: {fileID: -5541851097008960212}
   - component: {fileID: 1155718526176068421}
@@ -3742,24 +3741,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4224832478248572427
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4224832478248572425}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff0b427ffced7b540a78b4fe3f06ec5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hipJoint: {fileID: 4224832478558927131}
-  stomachJoint: {fileID: 4224832479327063395}
-  rotationSpeed: 5
-  lowerVertLimit: -30
-  upperVertLimit: 30
-  cam: {fileID: 6149845771734419328}
 --- !u!114 &3973294128352379111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3836,10 +3817,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hipJoint: {fileID: 4224832478558927131}
   stomachJoint: {fileID: 4224832479327063395}
-  rotationSpeed: 5
+  rotationSpeed: 0.5
   lowerVertLimit: -30
   upperVertLimit: 30
-  cam: {fileID: 6149845771734419328}
+  input: {fileID: 1405607324154657677}
 --- !u!1 &4224832478418590469
 GameObject:
   m_ObjectHideFlags: 0
@@ -5344,6 +5325,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4224832478989740825}
+  - component: {fileID: 1405607324154657677}
   m_Layer: 0
   m_Name: CameraRoot
   m_TagString: Untagged
@@ -5366,6 +5348,23 @@ Transform:
   m_Father: {fileID: 4224832477537301930}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1405607324154657677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4224832478989740824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 404e8bb9e88e7264fa989d205bfe4f07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveVector: {x: 0, y: 0}
+  lookVector: {x: 0, y: 0}
+  upDownValue: 0
+  jumping: 0
+  climbing: 0
 --- !u!1 &4224832479120391933
 GameObject:
   m_ObjectHideFlags: 0
@@ -6637,6 +6636,7 @@ MonoBehaviour:
   obstructionMask:
     serializedVersion: 2
     m_Bits: 0
+  inputs: {fileID: 0}
   gravityAlignment: {x: 0, y: 0, z: 0, w: 1}
   restrictedOrbitAngles: {x: 0, y: 0}
   charLookRotation: {x: 0, y: 0, z: 0, w: 0}
