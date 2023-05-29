@@ -6,8 +6,6 @@ using Unity.Netcode;
 public class GrabNet : NetworkBehaviour
 {
     [Header("Grab Settings")]
-    public KeyCode grabKey;
-    public bool isRightHand;
     public int objectMassReduction = 2;
 
     [Header("References")]

@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
-using Unity.Netcode;
 
 
-[RequireComponent(typeof(InputManager))]
 public class PlayerRag : MonoBehaviour {
 
 	[SerializeField]
@@ -56,8 +54,6 @@ public class PlayerRag : MonoBehaviour {
 		normalMaterial = default,
 		climbingMaterial = default;
 
-	InputManager input;
-
 	Rigidbody body, connectedBody, previousConnectedBody;
 
 	Transform playerInputSpace = default;
@@ -86,7 +82,7 @@ public class PlayerRag : MonoBehaviour {
 
 	int stepsSinceLastGrounded, stepsSinceLastJump;
 
-	OrbitCamera orbitCamera;
+	NewOrbitCamera orbitCamera;
 
 	[HideInInspector]
 	public bool desiresJump, desiresClimbing, desiresRun;
@@ -109,18 +105,17 @@ public class PlayerRag : MonoBehaviour {
 		body.useGravity = false;
 		OnValidate();
 
-		orbitCamera = playerCam.GetComponent<OrbitCamera>();
+		orbitCamera = playerCam.GetComponent<NewOrbitCamera>();
 
 		if (playerCam) playerInputSpace = playerCam.transform;
 
-		input = GetComponent<InputManager>();
 	}
 
     void Update ()
 	{
 
-		//playerInput.x = input.moveVector.x;
-		//playerInput.y = input.moveVector.y;
+		playerInput.x = InputManager.Instance.GetMovementVector().x;
+		playerInput.y = InputManager.Instance.GetMovementVector().y;
 		playerInput = Vector3.ClampMagnitude(playerInput, 1f);
 
 		MovingCheck();
@@ -451,11 +446,11 @@ public class PlayerRag : MonoBehaviour {
 		//transform.localRotation = Quaternion.Slerp(transform.rotation, targetRotation, 20f * Time.deltaTime);
 
 		// THIS WORKS (only rotates around planet, uses inputSpace)
-		//transform.localRotation = Quaternion.Slerp(transform.rotation, orbitCamera.gravityAlignment, 20f * Time.deltaTime);
+		transform.localRotation = Quaternion.Slerp(transform.rotation, orbitCamera.gravityAlignment, 20f * Time.deltaTime);
 
 		// Get desired rotation from camera, "flip it" and lerp current rotation into it
 		Quaternion invertQuat = Quaternion.Euler(0, 180, 0);
-		//Quaternion desiredRotation = orbitCamera.charLookRotation * invertQuat;
+		Quaternion desiredRotation = orbitCamera.charLookRotation * invertQuat;
 
 		//transform.localRotation = Quaternion.Slerp(transform.rotation, desiredRotation, 20f * Time.deltaTime);
 	}

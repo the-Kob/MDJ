@@ -16,7 +16,6 @@ public class JointControl : MonoBehaviour
 
 	private float mouseX, mouseY;
 
-	public InputManager input;
 
     private void Awake()
     {
@@ -25,7 +24,6 @@ public class JointControl : MonoBehaviour
 
     private void FixedUpdate()
 	{
-		//if (!IsOwner) return;
 
 		UpdateJointMovement();
 	}
@@ -33,8 +31,8 @@ public class JointControl : MonoBehaviour
 	void UpdateJointMovement()
 	{
 		// Get inputs
-		//mouseX += input.lookVector.x * rotationSpeed;
-		//mouseY += input.lookVector.y * rotationSpeed;
+		mouseX += InputManager.Instance.GetLookVector().x * rotationSpeed;
+		mouseY += InputManager.Instance.GetLookVector().y * rotationSpeed;
 
 		mouseY = Mathf.Clamp(mouseY, lowerVertLimit, upperVertLimit);
 

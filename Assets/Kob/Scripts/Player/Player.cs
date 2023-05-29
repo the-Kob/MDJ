@@ -7,6 +7,8 @@ public class Player : NetworkBehaviour {
 
 	public GameObject g;
 
+	public GameObject hips;
+
 	[SerializeField]
 	private GameObject orbitCam = default;
 
@@ -78,7 +80,8 @@ public class Player : NetworkBehaviour {
 	
 	Vector3 upAxis, rightAxis, forwardAxis;
 
-	bool desiredJump, desiresClimbing, desiresRun;
+	[HideInInspector]
+	public bool desiredJump, desiresClimbing, desiresRun;
 
 	Vector3 contactNormal, steepNormal, climbNormal, lastClimbNormal;
 
@@ -213,7 +216,7 @@ public class Player : NetworkBehaviour {
 
 		body.velocity = velocity;
 
-		//ChangeOrientation();
+		ChangeGravitationalOrientation();
 
 		ClearState();
 	}
@@ -525,11 +528,20 @@ public class Player : NetworkBehaviour {
 
     }
 
-	// TODO
-	private void ChangeOrientation()
-    {
+	private void ChangeGravitationalOrientation()
+	{
+		// THIS WORKS (only rotates around planet, uses contactNormal)
 		//Debug.DrawLine(transform.position, contactNormal * 2f, Color.red);
-		Quaternion targetRotation = Quaternion.FromToRotation(transform.up, contactNormal) * transform.rotation;
-		transform.localRotation = Quaternion.Slerp(transform.rotation, targetRotation, 20f * Time.deltaTime);
+		Quaternion targetRotation = Quaternion.FromToRotation(hips.transform.up, contactNormal) * transform.rotation;
+		hips.transform.localRotation = Quaternion.Slerp(hips.transform.rotation, targetRotation, 20f * Time.deltaTime);
+
+		// THIS WORKS (only rotates around planet, uses inputSpace)
+		//transform.localRotation = Quaternion.Slerp(transform.rotation, orbitCamera.gravityAlignment, 20f * Time.deltaTime);
+
+		// Get desired rotation from camera, "flip it" and lerp current rotation into it
+		//Quaternion invertQuat = Quaternion.Euler(0, 180, 0);
+		//Quaternion desiredRotation = orbitCam.GetComponent<NewOrbitCamera>().charLookRotation * invertQuat;
+
+		//hips.transform.localRotation = Quaternion.Slerp(hips.transform.rotation, desiredRotation, 20f * Time.deltaTime);
 	}
 }
