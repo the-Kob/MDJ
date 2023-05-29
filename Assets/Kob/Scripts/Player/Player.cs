@@ -524,7 +524,7 @@ public class Player : NetworkBehaviour {
 
         //meshRenderer.material = ballMaterial;
 
-		g.transform.transform.position = transform.position;
+		g.transform.position = transform.position;
 
     }
 
@@ -532,8 +532,8 @@ public class Player : NetworkBehaviour {
 	{
 		// THIS WORKS (only rotates around planet, uses contactNormal)
 		//Debug.DrawLine(transform.position, contactNormal * 2f, Color.red);
-		Quaternion targetRotation = Quaternion.FromToRotation(hips.transform.up, contactNormal) * transform.rotation;
-		hips.transform.localRotation = Quaternion.Slerp(hips.transform.rotation, targetRotation, 20f * Time.deltaTime);
+		//Quaternion targetRotation = Quaternion.FromToRotation(hips.transform.up, contactNormal) * transform.rotation;
+		//hips.transform.localRotation = Quaternion.Slerp(hips.transform.rotation, targetRotation, 20f * Time.deltaTime);
 
 		// THIS WORKS (only rotates around planet, uses inputSpace)
 		//transform.localRotation = Quaternion.Slerp(transform.rotation, orbitCamera.gravityAlignment, 20f * Time.deltaTime);

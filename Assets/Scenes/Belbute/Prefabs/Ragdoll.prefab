@@ -661,7 +661,6 @@ GameObject:
   - component: {fileID: 2503606215424684197}
   - component: {fileID: 2503606215424684196}
   - component: {fileID: 2503606215424684195}
-  - component: {fileID: 8370376521980060305}
   m_Layer: 0
   m_Name: Ragdoll
   m_TagString: Untagged
@@ -732,18 +731,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sensitivityToInput: 0.1
---- !u!114 &8370376521980060305
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2503606215424684198}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 404e8bb9e88e7264fa989d205bfe4f07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2503606215644314527
 GameObject:
   m_ObjectHideFlags: 0
@@ -3449,7 +3436,6 @@ GameObject:
   - component: {fileID: 2503606217077333941}
   - component: {fileID: 2503606217077333940}
   - component: {fileID: 5568598077852246875}
-  - component: {fileID: 5586233036617377579}
   m_Layer: 13
   m_Name: Hips
   m_TagString: Untagged
@@ -3694,18 +3680,6 @@ MonoBehaviour:
   desiresRun: 0
   isGrounded: 0
   isMoving: 0
---- !u!114 &5586233036617377579
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2503606217077333938}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 404e8bb9e88e7264fa989d205bfe4f07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2503606217088351662
 GameObject:
   m_ObjectHideFlags: 0

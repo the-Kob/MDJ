@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 
-
-[RequireComponent(typeof(InputManager))]
 public class JointControl : MonoBehaviour
 {
 	[Header("Joint Movement Settings")]

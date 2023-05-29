@@ -446,13 +446,13 @@ public class PlayerRag : MonoBehaviour {
 		//transform.localRotation = Quaternion.Slerp(transform.rotation, targetRotation, 20f * Time.deltaTime);
 
 		// THIS WORKS (only rotates around planet, uses inputSpace)
-		transform.localRotation = Quaternion.Slerp(transform.rotation, orbitCamera.gravityAlignment, 20f * Time.deltaTime);
+		//transform.localRotation = Quaternion.Slerp(transform.rotation, orbitCamera.gravityAlignment, 20f * Time.deltaTime);
 
 		// Get desired rotation from camera, "flip it" and lerp current rotation into it
 		Quaternion invertQuat = Quaternion.Euler(0, 180, 0);
 		Quaternion desiredRotation = orbitCamera.charLookRotation * invertQuat;
 
-		//transform.localRotation = Quaternion.Slerp(transform.rotation, desiredRotation, 20f * Time.deltaTime);
+		transform.localRotation = Quaternion.Slerp(transform.rotation, desiredRotation, 20f * Time.deltaTime);
 	}
 
 	private void MovingCheck()
