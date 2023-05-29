@@ -7,9 +7,11 @@ public class GrabNet : NetworkBehaviour
 {
     [Header("Grab Settings")]
     public int objectMassReduction = 2;
+    public bool isRightHand;
 
     [Header("References")]
     public Animator animator;
+
 
 
     // Auxiliary variables
@@ -23,50 +25,55 @@ public class GrabNet : NetworkBehaviour
     {
         if (!IsOwner) return;
 
-        if(InputManager.Instance.GetGrabRightFlag())
+        if (isRightHand)
         {
-            animator.SetBool("IsRightHandUp", true);
-
-            isGrabbing = true;
-        } 
-        else
-        {
-            animator.SetBool("IsRightHandUp", false);
-
-            // Reset object's mass...
-            if (objectsRB != null)
+            if (InputManager.Instance.GetGrabRightFlag())
             {
-                objectsRB.mass = originalObjectMass;
-                objectsRB = null;
+                animator.SetBool("IsRightHandUp", true);
+                isGrabbing = true;
+            }
+            else
+            {
+                animator.SetBool("IsRightHandUp", false);
+
+                // Reset object's mass...
+                if (objectsRB != null)
+                {
+                    objectsRB.mass = originalObjectMass;
+                    objectsRB = null;
+                }
+
+                // ...and eliminate fixed joint
+                Destroy(GetComponent<FixedJoint>());
+
+                isGrabbing = false;
             }
 
-            // ...and eliminate fixed joint
-            Destroy(GetComponent<FixedJoint>());
-
-            isGrabbing = false;
-        }
-
-        if (InputManager.Instance.GetGrabLeftFlag())
-        {
-            animator.SetBool("IsLeftHandUp", true);
-            
-            isGrabbing = true;
         }
         else
         {
-            animator.SetBool("IsLeftHandUp", false);
-
-            // Reset object's mass...
-            if (objectsRB != null)
+            if (InputManager.Instance.GetGrabLeftFlag())
             {
-                objectsRB.mass = originalObjectMass;
-                objectsRB = null;
+                animator.SetBool("IsLeftHandUp", true);
+                isGrabbing = true;
+            }
+            else
+            {
+                animator.SetBool("IsLeftHandUp", false);
+
+                // Reset object's mass...
+                if (objectsRB != null)
+                {
+                    objectsRB.mass = originalObjectMass;
+                    objectsRB = null;
+                }
+
+                // ...and eliminate fixed joint
+                Destroy(GetComponent<FixedJoint>());
+
+                isGrabbing = false;
             }
 
-            // ...and eliminate fixed joint
-            Destroy(GetComponent<FixedJoint>());
-
-            isGrabbing = false;
         }
     }
 

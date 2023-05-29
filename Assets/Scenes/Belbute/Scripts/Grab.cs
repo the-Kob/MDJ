@@ -12,12 +12,10 @@ public class Grab : MonoBehaviour
     [Header("References")]
     public Animator animator;
 
-
     // Auxiliary variables
     private bool isGrabbing;
     private float originalObjectMass;
     private Rigidbody objectsRB;
-
 
 
     void Update()

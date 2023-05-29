@@ -2727,6 +2727,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectMassReduction: 2
+  isRightHand: 0
   animator: {fileID: 418289899497498852}
 --- !u!1 &2964806955026303689
 GameObject:
@@ -3911,6 +3912,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectMassReduction: 2
+  isRightHand: 1
   animator: {fileID: 418289899497498852}
 --- !u!1 &2964806955617011649
 GameObject:
