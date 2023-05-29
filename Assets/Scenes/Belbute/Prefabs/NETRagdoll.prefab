@@ -3482,7 +3482,6 @@ MonoBehaviour:
   rotationSpeed: 0.5
   lowerVertLimit: -30
   upperVertLimit: 30
-  input: {fileID: 0}
 --- !u!114 &6136030894740213832
 MonoBehaviour:
   m_ObjectHideFlags: 0

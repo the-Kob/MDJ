@@ -2,7 +2,6 @@
 using Unity.Netcode;
 
 
-[RequireComponent(typeof(InputManager))]
 public class Together : NetworkBehaviour {
 
 	[SerializeField]
@@ -55,7 +54,6 @@ public class Together : NetworkBehaviour {
 		normalMaterial = default,
 		climbingMaterial = default;
 
-	public InputManager input;
 
 	Rigidbody body, connectedBody, previousConnectedBody;
 
@@ -115,7 +113,6 @@ public class Together : NetworkBehaviour {
 
 	public override void OnNetworkSpawn()
 	{
-		Debug.Log("Disabling");
 
 		playerCam.SetActive(IsOwner);
 
@@ -126,8 +123,8 @@ public class Together : NetworkBehaviour {
 	{
 		if (!IsOwner) return;
 
-		//playerInput.x = input.moveVector.x;
-		//playerInput.y = input.moveVector.y;
+		playerInput.x = InputManager.Instance.GetMovementVector().x;
+		playerInput.y = InputManager.Instance.GetMovementVector().y;
 		playerInput = Vector3.ClampMagnitude(playerInput, 1f);
 
 		MovingCheck();

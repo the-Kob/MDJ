@@ -12,8 +12,6 @@ public class JointControlNet : NetworkBehaviour
 	public float lowerVertLimit = -30; // Vertical limit for looking down
 	public float upperVertLimit = 30; // Vertical limit for looking up
 
-	public InputManager input;
-
 	private float mouseX, mouseY;
 
 	private void FixedUpdate()

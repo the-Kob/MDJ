@@ -6,19 +6,20 @@ using Unity.Netcode;
 public class AnimationControllerNet : NetworkBehaviour
 {
     public float sensitivityToInput = 0.1f;
-    Animator animator;
-    TestNet playerRag;
+    public Animator animator;
+    public Player playerRag;
 
     private void Awake()
     {
-        animator = GetComponentInChildren<Animator>();
-        playerRag = GetComponentInChildren<TestNet>();
+        //animator = GetComponentInChildren<Animator>();
+        //playerRag = GetComponentInChildren<Player>();
     }
 
     private void Update()
     {
         if (!IsOwner) return;
-        animator.SetBool("IsWalk", playerRag.isMoving); // Walking animation begin
-        animator.SetBool("IsJumping", playerRag.desiresJump); // Jumping animation begin
+
+        animator.SetBool("IsWalk", playerRag.Moving); // Walking animation begin
+       // animator.SetBool("IsJumping", playerRag.desiresJump); // Jumping animation begin
     }
 }

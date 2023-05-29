@@ -164,6 +164,8 @@ public class TestNet : NetworkBehaviour {
 		Vector3 gravity = CustomGravity.GetGravity(body.position, out upAxis);
 		UpdateState();
 
+		Debug.Log(gravity);
+
         // If we aren't affected by gravity, we don't want to be able to freely move (since we are in a vaccumm)
         if (gravity == Vector3.zero)
         {

@@ -4,6 +4,9 @@ using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Player : NetworkBehaviour {
+
+	public GameObject g;
+
 	[SerializeField]
 	private GameObject orbitCam = default;
 
@@ -81,7 +84,7 @@ public class Player : NetworkBehaviour {
 
 	int groundContactCount, steepContactCount, climbContactCount;
 
-	bool Moving;
+	public bool Moving;
 
     bool OnGround => groundContactCount > 0;
 
@@ -116,7 +119,7 @@ public class Player : NetworkBehaviour {
 	void Awake () {
 		body = GetComponent<Rigidbody>();
 		body.useGravity = false;
-		meshRenderer = playerVisual.GetComponent<MeshRenderer>();
+		//meshRenderer = playerVisual.GetComponent<MeshRenderer>();
 		OnValidate();
 
 		if(orbitCam) playerInputSpace = orbitCam.transform;
@@ -505,18 +508,21 @@ public class Player : NetworkBehaviour {
     // This can be updated with calls to an animator script
     void UpdatePlayerVisual()
 	{
-        Material ballMaterial = normalMaterial;
+        //Material ballMaterial = normalMaterial;
 
-        if (Climbing)
-        {
-            ballMaterial = climbingMaterial;
-        }
-        else if (Swimming)
-        {
-            ballMaterial = swimmingMaterial;
-        }
+        //if (Climbing)
+        //{
+        //    ballMaterial = climbingMaterial;
+        //}
+        //else if (Swimming)
+        //{
+          //  ballMaterial = swimmingMaterial;
+        //}
 
-        meshRenderer.material = ballMaterial;
+        //meshRenderer.material = ballMaterial;
+
+		g.transform.transform.position = transform.position;
+
     }
 
 	// TODO
