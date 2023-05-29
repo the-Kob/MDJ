@@ -75,11 +75,13 @@ public class Player : NetworkBehaviour {
 	
 	Vector3 upAxis, rightAxis, forwardAxis;
 
-	bool desiredJump, desiresClimbing;
+	bool desiredJump, desiresClimbing, desiresRun;
 
 	Vector3 contactNormal, steepNormal, climbNormal, lastClimbNormal;
 
 	int groundContactCount, steepContactCount, climbContactCount;
+
+	bool Moving;
 
     bool OnGround => groundContactCount > 0;
 
@@ -133,6 +135,8 @@ public class Player : NetworkBehaviour {
 		playerInput.y = InputManager.Instance.GetMovementVector().y;
 		playerInput.z = Swimming ? InputManager.Instance.GetSwimmingValue() : 0f;
 		playerInput = Vector3.ClampMagnitude(playerInput, 1f);
+
+		Moving = InputManager.Instance.GetMovementVector() != Vector2.zero ? true : false; // moving check
 
 		if (playerInputSpace) {
 			rightAxis = ProjectDirectionOnPlane(playerInputSpace.right, upAxis);
@@ -383,6 +387,7 @@ public class Player : NetworkBehaviour {
 
 	void Jump (Vector3 gravity) {
 		Vector3 jumpDirection;
+
 		if (OnGround) {
 			jumpDirection = contactNormal;
 		}
@@ -403,14 +408,18 @@ public class Player : NetworkBehaviour {
 		stepsSinceLastJump = 0;
 		jumpPhase += 1;
 		float jumpSpeed = Mathf.Sqrt(2f * gravity.magnitude * jumpHeight);
+
 		if (InWater) {
 			jumpSpeed *= Mathf.Max(0f, 1f - submergence / swimThreshold);
 		}
+
 		jumpDirection = (jumpDirection + upAxis).normalized;
 		float alignedSpeed = Vector3.Dot(velocity, jumpDirection);
+
 		if (alignedSpeed > 0f) {
 			jumpSpeed = Mathf.Max(jumpSpeed - alignedSpeed, 0f);
 		}
+
 		velocity += jumpDirection * jumpSpeed;
 	}
 
@@ -511,6 +520,7 @@ public class Player : NetworkBehaviour {
         meshRenderer.material = ballMaterial;
     }
 
+	// TODO
 	private void ChangeOrientation()
     {
 		//Debug.DrawLine(transform.position, contactNormal * 2f, Color.red);

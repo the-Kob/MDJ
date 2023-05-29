@@ -33,8 +33,8 @@ public class JointControl : MonoBehaviour
 	void UpdateJointMovement()
 	{
 		// Get inputs
-		mouseX += input.lookVector.x * rotationSpeed;
-		mouseY += input.lookVector.y * rotationSpeed;
+		//mouseX += input.lookVector.x * rotationSpeed;
+		//mouseY += input.lookVector.y * rotationSpeed;
 
 		mouseY = Mathf.Clamp(mouseY, lowerVertLimit, upperVertLimit);
 

@@ -95,7 +95,7 @@ public class TestNet : NetworkBehaviour {
 
 	int stepsSinceLastGrounded, stepsSinceLastJump;
 
-	NewOrbitCameraNet orbitCamera;
+	OrbitCamera orbitCamera;
 
 	[HideInInspector]
 	public bool desiresJump, desiresClimbing, desiresRun;
@@ -118,7 +118,7 @@ public class TestNet : NetworkBehaviour {
 		body.useGravity = false;
 		OnValidate();
 
-		orbitCamera = playerCam.GetComponent<NewOrbitCameraNet>();
+		orbitCamera = playerCam.GetComponent<OrbitCamera>();
 
 		if (playerCam) playerInputSpace = playerCam.transform;
 
@@ -485,9 +485,9 @@ public class TestNet : NetworkBehaviour {
 
 		// Get desired rotation from camera, "flip it" and lerp current rotation into it
 		Quaternion invertQuat = Quaternion.Euler(0, 180, 0);
-		Quaternion desiredRotation = orbitCamera.charLookRotation * invertQuat;
+		//Quaternion desiredRotation = orbitCamera.charLookRotation * invertQuat;
 
-		transform.localRotation = Quaternion.Slerp(transform.rotation, desiredRotation, 20f * Time.deltaTime);
+		//transform.localRotation = Quaternion.Slerp(transform.rotation, desiredRotation, 20f * Time.deltaTime);
 	}
 
 	private void MovingCheck()
