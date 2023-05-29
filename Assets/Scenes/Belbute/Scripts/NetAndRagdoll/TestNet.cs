@@ -65,8 +65,6 @@ public class TestNet : NetworkBehaviour {
 		normalMaterial = default,
 		climbingMaterial = default;
 
-	InputManager input;
-
 	Rigidbody body, connectedBody, previousConnectedBody;
 
 	Transform playerInputSpace = default;
@@ -121,25 +119,12 @@ public class TestNet : NetworkBehaviour {
 		orbitCamera = playerCam.GetComponent<OrbitCamera>();
 
 		if (playerCam) playerInputSpace = playerCam.transform;
-
-		input = GetComponent<InputManager>();
 	}
 
 	public override void OnNetworkSpawn()
 	{
-		Debug.Log("Disabling");
 
 		playerCam.SetActive(IsOwner);
-
-		head.SetActive(IsOwner);
-		torso.SetActive(IsOwner);
-		stomach.SetActive(IsOwner);
-		leftThigh.SetActive(IsOwner);
-		rightThigh.SetActive(IsOwner);
-		leftShoulder.SetActive(IsOwner);
-		rightShoulder.SetActive(IsOwner);
-		leftHand.SetActive(IsOwner);
-		rightHand.SetActive(IsOwner);
 
 		base.OnNetworkSpawn();
 	}
@@ -149,9 +134,9 @@ public class TestNet : NetworkBehaviour {
 		
 		if (!IsOwner) return;
 
-		//playerInput.x = input.moveVector.x;
-        //playerInput.y = input.moveVector.y;
-        playerInput = Vector3.ClampMagnitude(playerInput, 1f);
+		playerInput.x = InputManager.Instance.GetMovementVector().x;
+		playerInput.y = InputManager.Instance.GetMovementVector().y;
+		playerInput = Vector3.ClampMagnitude(playerInput, 1f);
 
 		MovingCheck();
 

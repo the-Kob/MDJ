@@ -34,8 +34,6 @@ public class NewOrbitCamera : MonoBehaviour
     [SerializeField]
     LayerMask obstructionMask = -1;
 
-    InputManager inputs;
-
     Camera regularCamera;
 
     Vector3 focusPoint, previousFocusPoint;
@@ -87,7 +85,6 @@ public class NewOrbitCamera : MonoBehaviour
     {
         regularCamera = GetComponent<Camera>();
         focusPoint = cameraRoot.position;
-        inputs = cameraRoot.gameObject.GetComponent<InputManager>();
         transform.localRotation = orbitRotation = Quaternion.Euler(orbitAngles);
     }
 
@@ -183,8 +180,8 @@ public class NewOrbitCamera : MonoBehaviour
     bool ManualRotation()
     {
         Vector2 input = new Vector2(
-            -inputs.lookVector.y,
-            inputs.lookVector.x
+            -InputManager.Instance.GetLookVector().y,
+            InputManager.Instance.GetLookVector().x
         );
         const float e = 0.001f;
         if (input.x < -e || input.x > e || input.y < -e || input.y > e)
