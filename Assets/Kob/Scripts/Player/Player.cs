@@ -160,7 +160,6 @@ public class Player : NetworkBehaviour {
 	}
 
 	void FixedUpdate () {
-		Debug.Log(IsOwner);
 		if (!IsOwner) return;
 
 		Vector3 gravity = CustomGravity.GetGravity(body.position, out upAxis);

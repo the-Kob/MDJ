@@ -71,6 +71,24 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""GrabLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""2b383e85-694e-40b4-b426-6ab416f4b78d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""GrabRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""b21de298-35f6-4bba-8e53-37b988b97404"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -271,6 +289,50 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
                     ""action"": ""Climb"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4a96cf6d-22db-4277-84a9-323f2f176ee9"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""GrabLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ef929360-ba42-469d-92d3-8451a8e22079"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""GrabLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0f456692-5599-4869-a6c9-6108e15d9476"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""GrabRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fbbd6b15-f713-4b1b-a319-842804db3cac"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""GrabRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -312,6 +374,8 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_UpDown = m_Player.FindAction("Up Down", throwIfNotFound: true);
         m_Player_Climb = m_Player.FindAction("Climb", throwIfNotFound: true);
+        m_Player_GrabLeft = m_Player.FindAction("GrabLeft", throwIfNotFound: true);
+        m_Player_GrabRight = m_Player.FindAction("GrabRight", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -378,6 +442,8 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_UpDown;
     private readonly InputAction m_Player_Climb;
+    private readonly InputAction m_Player_GrabLeft;
+    private readonly InputAction m_Player_GrabRight;
     public struct PlayerActions
     {
         private @CustomInput m_Wrapper;
@@ -387,6 +453,8 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @UpDown => m_Wrapper.m_Player_UpDown;
         public InputAction @Climb => m_Wrapper.m_Player_Climb;
+        public InputAction @GrabLeft => m_Wrapper.m_Player_GrabLeft;
+        public InputAction @GrabRight => m_Wrapper.m_Player_GrabRight;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -411,6 +479,12 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
             @Climb.started += instance.OnClimb;
             @Climb.performed += instance.OnClimb;
             @Climb.canceled += instance.OnClimb;
+            @GrabLeft.started += instance.OnGrabLeft;
+            @GrabLeft.performed += instance.OnGrabLeft;
+            @GrabLeft.canceled += instance.OnGrabLeft;
+            @GrabRight.started += instance.OnGrabRight;
+            @GrabRight.performed += instance.OnGrabRight;
+            @GrabRight.canceled += instance.OnGrabRight;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -430,6 +504,12 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
             @Climb.started -= instance.OnClimb;
             @Climb.performed -= instance.OnClimb;
             @Climb.canceled -= instance.OnClimb;
+            @GrabLeft.started -= instance.OnGrabLeft;
+            @GrabLeft.performed -= instance.OnGrabLeft;
+            @GrabLeft.canceled -= instance.OnGrabLeft;
+            @GrabRight.started -= instance.OnGrabRight;
+            @GrabRight.performed -= instance.OnGrabRight;
+            @GrabRight.canceled -= instance.OnGrabRight;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -472,5 +552,7 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnUpDown(InputAction.CallbackContext context);
         void OnClimb(InputAction.CallbackContext context);
+        void OnGrabLeft(InputAction.CallbackContext context);
+        void OnGrabRight(InputAction.CallbackContext context);
     }
 }

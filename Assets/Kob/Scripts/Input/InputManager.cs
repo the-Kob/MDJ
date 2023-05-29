@@ -79,6 +79,20 @@ public class InputManager : MonoBehaviour
         return climbFlag;
     }
 
+    public bool GetGrabLeftFlag()
+    {
+        bool grabLeftFlag = actions.Player.GrabLeft.ReadValue<float>() > 0;
+
+        return grabLeftFlag;
+    }
+
+    public bool GetGrabRightFlag()
+    {
+        bool grabRightFlag = actions.Player.GrabRight.ReadValue<float>() > 0;
+
+        return grabRightFlag;
+    }
+
     #region REBINDING LOGIC
 
     public void StartRebind(string actionName, int bindingIndex, TMP_Text statusText, bool excludeMouse)
