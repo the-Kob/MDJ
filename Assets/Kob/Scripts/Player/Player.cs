@@ -3,11 +3,15 @@ using Unity.Netcode;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Player : NetworkBehaviour {
+public class Player : NetworkBehaviour
+{
 
-	public GameObject g;
+	[SerializeField]
+	private GameObject realPhysicsRagdoll,
+	ragdollsHips;
 
-	public GameObject hips;
+	[SerializeField]
+	private float verticalRagdollOffset = 0.4f;
 
 	[SerializeField]
 	private GameObject orbitCam = default;
@@ -16,11 +20,12 @@ public class Player : NetworkBehaviour {
 	Transform playerVisual = default;
 
 	[SerializeField, Range(0f, 100f)]
-	float maxSpeed = 10f, maxClimbSpeed = 4f, maxSwimSpeed = 5f;
+	float maxSpeed = 10f, maxRunSpeed = 15f, maxClimbSpeed = 4f, maxSwimSpeed = 5f;
 
 	[SerializeField, Range(0f, 100f)]
 	float
 		maxAcceleration = 10f,
+		maxRunAcceleration = 15f,
 		maxAirAcceleration = 1f,
         maxAirAccelerationGrav = 10f,
         maxClimbAcceleration = 40f,
@@ -144,22 +149,27 @@ public class Player : NetworkBehaviour {
 
 		Moving = InputManager.Instance.GetMovementVector() != Vector2.zero ? true : false; // moving check
 
-		if (playerInputSpace) {
+		if (playerInputSpace)
+		{
 			rightAxis = ProjectDirectionOnPlane(playerInputSpace.right, upAxis);
 			forwardAxis =
 				ProjectDirectionOnPlane(playerInputSpace.forward, upAxis);
 		}
-		else {
+		else
+		{ 
 			rightAxis = ProjectDirectionOnPlane(Vector3.right, upAxis);
 			forwardAxis = ProjectDirectionOnPlane(Vector3.forward, upAxis);
 		}
 
-		if (Swimming) {
+		if (Swimming)
+		{
 			desiresClimbing = false;
 		}
-		else {
+		else
+		{
 			desiredJump |= InputManager.Instance.GetJumpFlag();
 			desiresClimbing = InputManager.Instance.GetClimbFlag();
+			//desiresRun = InputManager.Instance.get //////////////////////// RUN
 		}
 
 		UpdatePlayerVisual(); // we can update how our player animates in this method
@@ -358,9 +368,19 @@ public class Player : NetworkBehaviour {
 			xAxis = rightAxis;
 			zAxis = forwardAxis;
 		}
-		else {
-			acceleration = OnGround ? maxAcceleration : maxAirAcceleration;
-			speed = OnGround && desiresClimbing ? maxClimbSpeed : maxSpeed;
+		else
+		{
+			if (!OnGround) acceleration = maxAirAcceleration;
+            else
+            {
+				if (desiresRun) acceleration = maxRunAcceleration;
+				else acceleration = maxAcceleration;
+			}
+
+			if (OnGround && desiresClimbing) speed = maxClimbSpeed;
+			else if (OnGround && desiresRun) speed = maxRunSpeed;
+			else speed = maxSpeed;
+
 			xAxis = rightAxis;
 			zAxis = forwardAxis;
 		}
@@ -511,38 +531,29 @@ public class Player : NetworkBehaviour {
     // This can be updated with calls to an animator script
     void UpdatePlayerVisual()
 	{
-        //Material ballMaterial = normalMaterial;
+		//Material ballMaterial = normalMaterial;
 
-        //if (Climbing)
-        //{
-        //    ballMaterial = climbingMaterial;
-        //}
-        //else if (Swimming)
-        //{
-          //  ballMaterial = swimmingMaterial;
-        //}
+		//if (Climbing)
+		//{
+		//    ballMaterial = climbingMaterial;
+		//}
+		//else if (Swimming)
+		//{
+		//  ballMaterial = swimmingMaterial;
+		//}
 
-        //meshRenderer.material = ballMaterial;
+		//meshRenderer.material = ballMaterial;
 
-		g.transform.position = transform.position;
+		realPhysicsRagdoll.transform.position = transform.position - contactNormal.normalized * verticalRagdollOffset;
 
     }
 
 	private void ChangeGravitationalOrientation()
 	{
-		// THIS WORKS (only rotates around planet, uses contactNormal)
-		//Debug.DrawLine(transform.position, contactNormal * 2f, Color.red);
-		//Quaternion targetRotation = Quaternion.FromToRotation(hips.transform.up, contactNormal) * transform.rotation;
-		//hips.transform.localRotation = Quaternion.Slerp(hips.transform.rotation, targetRotation, 20f * Time.deltaTime);
-
-		// THIS WORKS (only rotates around planet, uses inputSpace)
-		//transform.localRotation = Quaternion.Slerp(transform.rotation, orbitCamera.gravityAlignment, 20f * Time.deltaTime);
-
 		// Get desired rotation from camera, "flip it" and lerp current rotation into it
 		Quaternion invertQuat = Quaternion.Euler(0, 180, 0);
 		Quaternion desiredRotation = orbitCam.GetComponent<NewOrbitCamera>().charLookRotation * invertQuat;
 
-		hips.transform.localRotation = Quaternion.Slerp(hips.transform.rotation, desiredRotation, 20f * Time.deltaTime);
-		g.transform.localRotation = Quaternion.Slerp(g.transform.rotation, desiredRotation, 20f * Time.deltaTime);
+		ragdollsHips.transform.rotation = Quaternion.Slerp(ragdollsHips.transform.rotation, desiredRotation, 20f * Time.deltaTime);
 	}
 }
