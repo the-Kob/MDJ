@@ -6,7 +6,6 @@ using Unity.Netcode;
 public class Grab : MonoBehaviour
 {
     [Header("Grab Settings")]
-    public KeyCode grabKey;
     public bool isRightHand;
     public int objectMassReduction = 2;
 
@@ -23,51 +22,55 @@ public class Grab : MonoBehaviour
 
     void Update()
     {
-
-        if (InputManager.Instance.GetGrabRightFlag())
+        if (isRightHand)
         {
-            animator.SetBool("IsRightHandUp", true);
+            if (InputManager.Instance.GetGrabRightFlag())
+            {
+                animator.SetBool("IsRightHandUp", true);
+                isGrabbing = true;
+            }
+            else
+            {
+                animator.SetBool("IsRightHandUp", false);
 
-            isGrabbing = true;
+                // Reset object's mass...
+                if (objectsRB != null)
+                {
+                    objectsRB.mass = originalObjectMass;
+                    objectsRB = null;
+                }
+
+                // ...and eliminate fixed joint
+                Destroy(GetComponent<FixedJoint>());
+
+                isGrabbing = false;
+            }
+
         }
         else
         {
-            animator.SetBool("IsRightHandUp", false);
-
-            // Reset object's mass...
-            if (objectsRB != null)
+            if (InputManager.Instance.GetGrabLeftFlag())
             {
-                objectsRB.mass = originalObjectMass;
-                objectsRB = null;
+                animator.SetBool("IsLeftHandUp", true);
+                isGrabbing = true;
+            }
+            else
+            {
+                animator.SetBool("IsLeftHandUp", false);
+
+                // Reset object's mass...
+                if (objectsRB != null)
+                {
+                    objectsRB.mass = originalObjectMass;
+                    objectsRB = null;
+                }
+
+                // ...and eliminate fixed joint
+                Destroy(GetComponent<FixedJoint>());
+
+                isGrabbing = false;
             }
 
-            // ...and eliminate fixed joint
-            Destroy(GetComponent<FixedJoint>());
-
-            isGrabbing = false;
-        }
-
-        if (InputManager.Instance.GetGrabLeftFlag())
-        {
-            animator.SetBool("IsLeftHandUp", true);
-
-            isGrabbing = true;
-        }
-        else
-        {
-            animator.SetBool("IsLeftHandUp", false);
-
-            // Reset object's mass...
-            if (objectsRB != null)
-            {
-                objectsRB.mass = originalObjectMass;
-                objectsRB = null;
-            }
-
-            // ...and eliminate fixed joint
-            Destroy(GetComponent<FixedJoint>());
-
-            isGrabbing = false;
         }
     }
 

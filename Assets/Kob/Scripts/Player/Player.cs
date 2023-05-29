@@ -539,9 +539,10 @@ public class Player : NetworkBehaviour {
 		//transform.localRotation = Quaternion.Slerp(transform.rotation, orbitCamera.gravityAlignment, 20f * Time.deltaTime);
 
 		// Get desired rotation from camera, "flip it" and lerp current rotation into it
-		//Quaternion invertQuat = Quaternion.Euler(0, 180, 0);
-		//Quaternion desiredRotation = orbitCam.GetComponent<NewOrbitCamera>().charLookRotation * invertQuat;
+		Quaternion invertQuat = Quaternion.Euler(0, 180, 0);
+		Quaternion desiredRotation = orbitCam.GetComponent<NewOrbitCamera>().charLookRotation * invertQuat;
 
-		//hips.transform.localRotation = Quaternion.Slerp(hips.transform.rotation, desiredRotation, 20f * Time.deltaTime);
+		hips.transform.localRotation = Quaternion.Slerp(hips.transform.rotation, desiredRotation, 20f * Time.deltaTime);
+		g.transform.localRotation = Quaternion.Slerp(g.transform.rotation, desiredRotation, 20f * Time.deltaTime);
 	}
 }
