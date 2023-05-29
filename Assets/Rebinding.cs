@@ -41,7 +41,7 @@ public class Rebinding : MonoBehaviour
 
         if (inputActionReference != null)
         {
-            InputManager.LoadBindingOverride(actionName);
+            InputManager.Instance.LoadBindingOverride(actionName);
             GetBindingInfo();
             UpdateUI();
         }
@@ -86,7 +86,7 @@ public class Rebinding : MonoBehaviour
         {
             if (Application.isPlaying)
             {
-                rebindText.text = InputManager.GetBindingName(actionName, bindingIndex);
+                rebindText.text = InputManager.Instance.GetBindingName(actionName, bindingIndex);
             }
             else
                 rebindText.text = inputActionReference.action.GetBindingDisplayString(bindingIndex);
@@ -95,12 +95,12 @@ public class Rebinding : MonoBehaviour
 
     private void DoRebind()
     {
-        InputManager.StartRebind(actionName, bindingIndex, rebindText, excludeMouse);
+        InputManager.Instance.StartRebind(actionName, bindingIndex, rebindText, excludeMouse);
     }
 
     private void ResetBinding()
     {
-        InputManager.ResetBinding(actionName, bindingIndex);
+        InputManager.Instance.ResetBinding(actionName, bindingIndex);
         UpdateUI();
     }
 }

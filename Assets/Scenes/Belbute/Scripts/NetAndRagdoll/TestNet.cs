@@ -149,8 +149,8 @@ public class TestNet : NetworkBehaviour {
 		
 		if (!IsOwner) return;
 
-		playerInput.x = input.moveVector.x;
-        playerInput.y = input.moveVector.y;
+		//playerInput.x = input.moveVector.x;
+        //playerInput.y = input.moveVector.y;
         playerInput = Vector3.ClampMagnitude(playerInput, 1f);
 
 		MovingCheck();
@@ -167,8 +167,8 @@ public class TestNet : NetworkBehaviour {
 		}
 
 
-		desiresJump |= input.jumping;
-		desiresClimbing = input.climbing;
+		desiresJump |= false;
+		desiresClimbing = false;
 		desiresRun = Input.GetButton("Fire3");
 
 	}

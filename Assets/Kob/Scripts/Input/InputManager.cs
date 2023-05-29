@@ -2,18 +2,31 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class InputManager : MonoBehaviour
 {
-    public static CustomInput controls;
+    #region Singleton
+    public static InputManager Instance
+    {
+        get
+        {
+            if (instance == null)
+                instance = FindObjectOfType(typeof(InputManager)) as InputManager;
 
-    [HideInInspector] public Vector2 moveVector;
-    [HideInInspector] public Vector2 lookVector;
-    [HideInInspector] public float upDownValue;
-    [HideInInspector] public bool jumping;
-    [HideInInspector] public bool climbing;
+            return instance;
+        }
+        set
+        {
+            instance = value;
+        }
+    }
+    private static InputManager instance;
+    #endregion
+
+    private CustomInput actions;
 
     [HideInInspector] public static event Action rebindComplete;
     [HideInInspector] public static event Action rebindCanceled;
@@ -21,44 +34,56 @@ public class InputManager : MonoBehaviour
 
     private void Awake()
     {
-        if (controls == null) controls = new CustomInput();
+        if(actions == null) actions = new CustomInput();
 
-        controls.Player.Jump.performed += OnJump;
-        controls.Player.Climb.performed += OnClimb;
+        DontDestroyOnLoad(this);
     }
 
     private void OnEnable()
     {
-        controls.Player.Enable();
+        actions.Player.Enable();
     }
 
-    public void OnDisable()
+    public Vector2 GetMovementVector()
     {
-        controls.Player.Disable();
+        Vector2 moveVector = actions.Player.Move.ReadValue<Vector2>();
+
+        return moveVector;
     }
 
-    public void Update()
+    public Vector2 GetLookVector()
     {
-        moveVector = controls.Player.Move.ReadValue<Vector2>();
-        lookVector = controls.Player.Look.ReadValue<Vector2>();
-        upDownValue = controls.Player.UpDown.ReadValue<float>();
+        Vector2 lookVector = actions.Player.Look.ReadValue<Vector2>();
+
+        return lookVector;
     }
 
-    private void OnJump(InputAction.CallbackContext ctx)
+    public float GetSwimmingValue()
     {
-        if (ctx.started) jumping = true;
-        else if (ctx.canceled) jumping = false;
+        float swimmingValue = actions.Player.UpDown.ReadValue<float>();
+
+        return swimmingValue;
     }
 
-    private void OnClimb(InputAction.CallbackContext ctx)
+    public bool GetJumpFlag()
     {
-        if (ctx.started) climbing = true;
-        else if (ctx.canceled) climbing = false;
+        bool jumpFlag = actions.Player.Jump.ReadValue<float>() > 0;
+
+        return jumpFlag;
     }
 
-    public static void StartRebind(string actionName, int bindingIndex, TMP_Text statusText, bool excludeMouse)
+    public bool GetClimbFlag()
     {
-        InputAction action = controls.asset.FindAction(actionName);
+        bool climbFlag = actions.Player.Climb.ReadValue<float>() > 0;
+
+        return climbFlag;
+    }
+
+    #region REBINDING LOGIC
+
+    public void StartRebind(string actionName, int bindingIndex, TMP_Text statusText, bool excludeMouse)
+    {
+        InputAction action = actions.asset.FindAction(actionName);
         if (action == null || action.bindings.Count <= bindingIndex)
         {
             Debug.Log("Couldn't find action or binding");
@@ -75,7 +100,7 @@ public class InputManager : MonoBehaviour
             DoRebind(action, bindingIndex, statusText, false, excludeMouse);
     }
 
-    private static void DoRebind(InputAction actionToRebind, int bindingIndex, TMP_Text statusText, bool allCompositeParts, bool excludeMouse)
+    private void DoRebind(InputAction actionToRebind, int bindingIndex, TMP_Text statusText, bool allCompositeParts, bool excludeMouse)
     {
         if (actionToRebind == null || bindingIndex < 0)
             return;
@@ -119,12 +144,12 @@ public class InputManager : MonoBehaviour
         rebind.Start(); //actually starts the rebinding process
     }
 
-    public static string GetBindingName(string actionName, int bindingIndex)
+    public string GetBindingName(string actionName, int bindingIndex)
     {
-        if (controls == null)
-            controls = new CustomInput();
+        if (actions == null)
+            actions = new CustomInput();
 
-        InputAction action = controls.asset.FindAction(actionName);
+        InputAction action = actions.asset.FindAction(actionName);
         return action.GetBindingDisplayString(bindingIndex);
     }
 
@@ -136,12 +161,12 @@ public class InputManager : MonoBehaviour
         }
     }
 
-    public static void LoadBindingOverride(string actionName)
+    public void LoadBindingOverride(string actionName)
     {
-        if (controls == null)
-            controls = new CustomInput();
+        if (actions == null)
+            actions = new CustomInput();
 
-        InputAction action = controls.asset.FindAction(actionName);
+        InputAction action = actions.asset.FindAction(actionName);
 
         for (int i = 0; i < action.bindings.Count; i++)
         {
@@ -150,9 +175,9 @@ public class InputManager : MonoBehaviour
         }
     }
 
-    public static void ResetBinding(string actionName, int bindingIndex)
+    public void ResetBinding(string actionName, int bindingIndex)
     {
-        InputAction action = controls.asset.FindAction(actionName);
+        InputAction action = actions.asset.FindAction(actionName);
 
         if (action == null || action.bindings.Count <= bindingIndex)
         {
@@ -170,4 +195,6 @@ public class InputManager : MonoBehaviour
 
         SaveBindingOverride(action);
     }
+
+    #endregion
 }
