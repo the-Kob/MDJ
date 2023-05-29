@@ -133,7 +133,7 @@ public class PlayerRag : MonoBehaviour {
 
 
 		desiresJump |= Input.GetButtonDown("Jump");
-		desiresClimbing = Input.GetButton("Climb");
+		//desiresClimbing = Input.GetButton("Climb");
 		desiresRun = Input.GetButton("Fire3");
 
 	}
