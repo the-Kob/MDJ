@@ -6,10 +6,17 @@ public class oxygen_player : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    private float oxygenLevel = 200f;
+    public float initial_oxygen_level = 200f;
+    public float oxygen_level;
+    
     private float decreaseAmount = 25f;
     private float decreaseInterval = 5f;
     private float timer = 0f;
+
+    public void Start()
+    {
+        oxygen_level = initial_oxygen_level;
+    }
 
     private void Update()
     {
@@ -25,11 +32,11 @@ public class oxygen_player : MonoBehaviour
     }
 
     private void DecreaseOxygenLevel()
-    {
-        oxygenLevel -= decreaseAmount;
-        //Debug.Log("Oxygen Level: " + oxygenLevel);
+    {  
+        oxygen_level -= decreaseAmount;
+        Debug.Log("OXYGEN PLAYER: " + oxygen_level);
 
-        if (oxygenLevel <= 0f)
+        if (oxygen_level <= 0f)
         {
             // Perform actions when oxygen level reaches 0 or below
             //Debug.Log("Out of Oxygen!");
@@ -38,24 +45,13 @@ public class oxygen_player : MonoBehaviour
 
      void OnTriggerEnter(Collider other){
         if(gameObject.tag == "Player" && other.gameObject.tag == "oxygen"){
+            oxygen_level += 25;
             Debug.Log("OXYGEEEEEEEEEEEEEEEEEEEEEEEEEN");
-            IncreaseOxygenLevel();
+           
+            
             //Debug.Log("oxygen capacity: " + oxygenLevel);
         }
 }
-
-    private void IncreaseOxygenLevel(){
-
-         if(oxygenLevel > 0)
-        {
-            oxygenLevel += 25;
-        }
-
-        if(oxygenLevel == 0)
-        {
-            //Debug.Log("oxygen capacity is 0");
-        }
-    }
 
 
 }

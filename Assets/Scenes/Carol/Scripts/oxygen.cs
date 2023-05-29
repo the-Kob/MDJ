@@ -20,7 +20,7 @@ public class oxygen : MonoBehaviour
 
         if(oxygen_capacity == 0)
         {
-            Debug.Log("oxygen capacity is 0");
+            //Debug.Log("oxygen capacity is 0");
         }
 
     }
@@ -34,6 +34,7 @@ public class oxygen : MonoBehaviour
         if(gameObject.tag == "oxygen" && other.gameObject.tag == "Player"){
            // Debug.Log("oxygen collision");
             decreaseOxygenCapacity();
+            
            // Debug.Log("oxygen capacity: " + get_oxygen_capacity());
         }
     }
