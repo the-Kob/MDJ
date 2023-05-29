@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 5199875899824626202}
   - component: {fileID: 7776954458835336924}
   m_Layer: 0
-  m_Name: NewCablePart
+  m_Name: TwoObjCablePart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
