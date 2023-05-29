@@ -2,7 +2,6 @@
 using Unity.Netcode;
 
 [RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(InputManager))]
 public class TestNet : NetworkBehaviour {
 
 	[SerializeField]

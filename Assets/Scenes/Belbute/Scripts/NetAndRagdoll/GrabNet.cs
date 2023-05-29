@@ -25,37 +25,18 @@ public class GrabNet : NetworkBehaviour
     {
         if (!IsOwner) return;
 
-        if (Input.GetKey(grabKey))
+        if(InputManager.Instance.GetGrabRightFlag())
         {
-            // Activate animations for each hand
-            if (isRightHand)
-            {
-                animator.SetBool("IsRightHandUp", true);
-            }
-            else
-            {
-                animator.SetBool("IsLeftHandUp", true);
-            }
-            
-            isGrabbing = true;
+            animator.SetBool("IsRightHandUp", true);
 
-        }
+            isGrabbing = true;
+        } 
         else
         {
-            // Deactivate animations for each hand
-            if (isRightHand)
-            {
-                animator.SetBool("IsRightHandUp", false);
-            }
-            else
-            {
-                animator.SetBool("IsLeftHandUp", false);
-            }
-            
-            isGrabbing = false;
+            animator.SetBool("IsRightHandUp", false);
 
             // Reset object's mass...
-            if(objectsRB != null)
+            if (objectsRB != null)
             {
                 objectsRB.mass = originalObjectMass;
                 objectsRB = null;
@@ -63,6 +44,31 @@ public class GrabNet : NetworkBehaviour
 
             // ...and eliminate fixed joint
             Destroy(GetComponent<FixedJoint>());
+
+            isGrabbing = false;
+        }
+
+        if (InputManager.Instance.GetGrabLeftFlag())
+        {
+            animator.SetBool("IsLeftHandUp", true);
+            
+            isGrabbing = true;
+        }
+        else
+        {
+            animator.SetBool("IsLeftHandUp", false);
+
+            // Reset object's mass...
+            if (objectsRB != null)
+            {
+                objectsRB.mass = originalObjectMass;
+                objectsRB = null;
+            }
+
+            // ...and eliminate fixed joint
+            Destroy(GetComponent<FixedJoint>());
+
+            isGrabbing = false;
         }
     }
 
