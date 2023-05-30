@@ -30,7 +30,7 @@ public class oxygen : MonoBehaviour
         oxygen_capacity = 100;
     }   
 
-    void OnTriggerEnter(Collider other){
+    //void OnTriggerEnter(Collider other){
         if(gameObject.tag == "oxygen" && other.gameObject.tag == "Player"){
            // Debug.Log("oxygen collision");
             decreaseOxygenCapacity();
@@ -43,4 +43,3 @@ public class oxygen : MonoBehaviour
 
 
 
-}
