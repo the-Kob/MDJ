@@ -48,7 +48,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 17
+  controlID: 81
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -338,13 +338,13 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes/Belbute/Prefabs
+    - Assets/Scenes/Alex/Prefabs
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scenes/Belbute/Prefabs
+  - Assets/Scenes/Alex/Prefabs
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\carol\OneDrive\Ambiente de Trabalho\MDJ\MDJ
   m_LockTracker:
@@ -480,7 +480,7 @@ MonoBehaviour:
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectInstanceID: -1
-  m_LastVerticalScrollValue: 0
+  m_LastVerticalScrollValue: 807
   m_GlobalObjectId: 
   m_InspectorMode: 0
   m_LockTracker:
@@ -914,9 +914,9 @@ MonoBehaviour:
 <<<<<<< Updated upstream
     m_Target: {x: -0.03659274, y: 0.001791109, z: -0.00006244011, w: -0.9993571}
     speed: 2
-    m_Value: {x: -0.02909817, y: -0.42420602, z: 0.013542749, w: -0.90499675}
+    m_Value: {x: 0.12886588, y: 0.13786528, z: -0.018093454, w: 0.9818652}
   m_Size:
-    m_Target: 2.3151798
+    m_Target: 12.248315
     speed: 2
     m_Value: 2.3576524
 =======
@@ -931,7 +931,7 @@ MonoBehaviour:
   m_Ortho:
     m_Target: 1
     speed: 2
-    m_Value: 0
+    m_Value: 1
   m_CameraSettings:
     m_Speed: 1
     m_SpeedNormalized: 0.5
