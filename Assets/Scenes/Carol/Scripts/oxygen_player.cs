@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class oxygen_player : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    
+    public Slider slider;
     public float oxygen_level;    
     private float decreaseAmount = 25f;
     private float decreaseInterval = 5f;
@@ -15,11 +16,18 @@ public class oxygen_player : MonoBehaviour
 
     public void Start()
     {
-        oxygen_level = 200;
+        oxygen_level = 500;
+        slider.value = oxygen_level;
+        slider.maxValue = oxygen_level;
+        slider.value = oxygen_level;
     }
+
+   
+
 
     private void Update()
     {
+        slider.value = oxygen_level;
         timer += Time.deltaTime;
 
         if (timer >= decreaseInterval)
@@ -45,6 +53,7 @@ public class oxygen_player : MonoBehaviour
 
     private void increaseOxygen(){
         oxygen_level += 25f;
+        
         sum += 25f;
     }
      void OnTriggerEnter(Collider other){
