@@ -9,12 +9,12 @@ public class CableSpawn : MonoBehaviour
 
     [SerializeField]
     [Range(1, 1000)]
-    int length = 3;
+    int length = 8;
 
     [SerializeField]
     [Range(0, 2)]
     // Distance between cable parts
-    float cablePartDistance = 0.21f; 
+    float cablePartDistance = 0.5f; 
 
     [SerializeField]
     bool reset, spawn, snapFirst, snapLast;
