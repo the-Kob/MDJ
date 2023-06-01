@@ -89,6 +89,24 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Tug"",
+                    ""type"": ""Button"",
+                    ""id"": ""41bd0d53-7c40-4ade-bb88-f32b998299be"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Sprint"",
+                    ""type"": ""Button"",
+                    ""id"": ""8daf69c7-5a06-4734-9356-56b29924b680"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -333,6 +351,50 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
                     ""action"": ""GrabRight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2bcfac69-8658-41a3-9d5b-2eb6b7f3d56d"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""Tug"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1b1eee87-78a9-440f-93da-51e921f4dd35"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Tug"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ab6b876a-e1f2-4680-87c3-d38f61d91c9b"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7116b360-8d44-4d3a-a9df-19b72cb1f9c5"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -376,6 +438,8 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
         m_Player_Climb = m_Player.FindAction("Climb", throwIfNotFound: true);
         m_Player_GrabLeft = m_Player.FindAction("GrabLeft", throwIfNotFound: true);
         m_Player_GrabRight = m_Player.FindAction("GrabRight", throwIfNotFound: true);
+        m_Player_Tug = m_Player.FindAction("Tug", throwIfNotFound: true);
+        m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -444,6 +508,8 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Climb;
     private readonly InputAction m_Player_GrabLeft;
     private readonly InputAction m_Player_GrabRight;
+    private readonly InputAction m_Player_Tug;
+    private readonly InputAction m_Player_Sprint;
     public struct PlayerActions
     {
         private @CustomInput m_Wrapper;
@@ -455,6 +521,8 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
         public InputAction @Climb => m_Wrapper.m_Player_Climb;
         public InputAction @GrabLeft => m_Wrapper.m_Player_GrabLeft;
         public InputAction @GrabRight => m_Wrapper.m_Player_GrabRight;
+        public InputAction @Tug => m_Wrapper.m_Player_Tug;
+        public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -485,6 +553,12 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
             @GrabRight.started += instance.OnGrabRight;
             @GrabRight.performed += instance.OnGrabRight;
             @GrabRight.canceled += instance.OnGrabRight;
+            @Tug.started += instance.OnTug;
+            @Tug.performed += instance.OnTug;
+            @Tug.canceled += instance.OnTug;
+            @Sprint.started += instance.OnSprint;
+            @Sprint.performed += instance.OnSprint;
+            @Sprint.canceled += instance.OnSprint;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -510,6 +584,12 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
             @GrabRight.started -= instance.OnGrabRight;
             @GrabRight.performed -= instance.OnGrabRight;
             @GrabRight.canceled -= instance.OnGrabRight;
+            @Tug.started -= instance.OnTug;
+            @Tug.performed -= instance.OnTug;
+            @Tug.canceled -= instance.OnTug;
+            @Sprint.started -= instance.OnSprint;
+            @Sprint.performed -= instance.OnSprint;
+            @Sprint.canceled -= instance.OnSprint;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -554,5 +634,7 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
         void OnClimb(InputAction.CallbackContext context);
         void OnGrabLeft(InputAction.CallbackContext context);
         void OnGrabRight(InputAction.CallbackContext context);
+        void OnTug(InputAction.CallbackContext context);
+        void OnSprint(InputAction.CallbackContext context);
     }
 }

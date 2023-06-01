@@ -93,6 +93,20 @@ public class InputManager : MonoBehaviour
         return grabRightFlag;
     }
 
+    public bool GetSprintFlag()
+    {
+        bool sprintFlag = actions.Player.Sprint.ReadValue<float>() > 0;
+
+        return sprintFlag;
+    }
+
+    public bool GetTugFlag()
+    {
+        bool tugFlag = actions.Player.Tug.triggered;
+
+        return tugFlag;
+    }
+
     #region REBINDING LOGIC
 
     public void StartRebind(string actionName, int bindingIndex, TMP_Text statusText, bool excludeMouse)
