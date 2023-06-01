@@ -53,8 +53,8 @@ public class oxygen_player : MonoBehaviour
 
     private void increaseOxygen(){
         oxygen_level += 25f;
-        
         sum += 25f;
+    
     }
      void OnTriggerEnter(Collider other){
         if(other.gameObject.tag == "oxygen" && gameObject.tag == "Player"){
