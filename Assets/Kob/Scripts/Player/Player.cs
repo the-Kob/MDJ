@@ -169,7 +169,7 @@ public class Player : NetworkBehaviour
 		{
 			desiredJump |= InputManager.Instance.GetJumpFlag();
 			desiresClimbing = InputManager.Instance.GetClimbFlag();
-			//desiresRun = InputManager.Instance.get //////////////////////// RUN
+			desiresRun = InputManager.Instance.GetSprintFlag();
 		}
 
 		UpdatePlayerVisual(); // we can update how our player animates in this method
