@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.InputSystem;
 
@@ -169,10 +169,9 @@ public class Player : NetworkBehaviour
 		{
 			desiredJump |= InputManager.Instance.GetJumpFlag();
 			desiresClimbing = InputManager.Instance.GetClimbFlag();
-			//desiresRun = InputManager.Instance.get //////////////////////// RUN
+			desiresRun = InputManager.Instance.GetSprintFlag();
 		}
 
-		UpdatePlayerVisual(); // we can update how our player animates in this method
 	}
 
 	void FixedUpdate () {
@@ -227,6 +226,7 @@ public class Player : NetworkBehaviour
 		body.velocity = velocity;
 
 		ChangeGravitationalOrientation();
+		UpdatePlayerVisual(); // we can update how our player animates in this method
 
 		ClearState();
 	}
@@ -255,7 +255,7 @@ public class Player : NetworkBehaviour
 			if (groundContactCount > 1) {
 				contactNormal.Normalize();
 			}
-		}
+        }
 		else {
 			contactNormal = upAxis;
 		}
@@ -265,7 +265,7 @@ public class Player : NetworkBehaviour
 				UpdateConnectionState();
 			}
 		}
-	}
+    }
 
 	void UpdateConnectionState () {
 		if (connectedBody == previousConnectedBody) {
@@ -545,8 +545,7 @@ public class Player : NetworkBehaviour
 		//meshRenderer.material = ballMaterial;
 
 		realPhysicsRagdoll.transform.position = transform.position - contactNormal.normalized * verticalRagdollOffset;
-
-    }
+	}
 
 	private void ChangeGravitationalOrientation()
 	{

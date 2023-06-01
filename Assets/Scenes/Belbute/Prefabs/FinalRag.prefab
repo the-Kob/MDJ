@@ -2551,7 +2551,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hipJoint: {fileID: 2964806955604960731}
   stomachJoint: {fileID: 2964806956095361443}
-  rotationSpeed: 0.5
+  rotationSpeed: 0.1
   lowerVertLimit: -30
   upperVertLimit: 30
 --- !u!54 &8090034986145915538
@@ -5546,8 +5546,8 @@ MonoBehaviour:
   verticalRagdollOffset: 0.4
   orbitCam: {fileID: 8647950527179761188}
   playerVisual: {fileID: 1199527425534953982}
-  maxSpeed: 5
-  maxRunSpeed: 10
+  maxSpeed: 3
+  maxRunSpeed: 6
   maxClimbSpeed: 2
   maxSwimSpeed: 5
   maxAcceleration: 10
@@ -5561,7 +5561,7 @@ MonoBehaviour:
   maxGroundAngle: 40
   maxStairsAngle: 50
   maxClimbAngle: 140
-  maxSnapSpeed: 100
+  maxSnapSpeed: 10
   probeDistance: 1
   submergenceOffset: 0.5
   submergenceRange: 1
