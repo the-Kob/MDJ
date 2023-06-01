@@ -5546,8 +5546,8 @@ MonoBehaviour:
   verticalRagdollOffset: 0.4
   orbitCam: {fileID: 8647950527179761188}
   playerVisual: {fileID: 1199527425534953982}
-  maxSpeed: 5
-  maxRunSpeed: 10
+  maxSpeed: 3
+  maxRunSpeed: 6
   maxClimbSpeed: 2
   maxSwimSpeed: 5
   maxAcceleration: 10
@@ -5561,7 +5561,7 @@ MonoBehaviour:
   maxGroundAngle: 40
   maxStairsAngle: 50
   maxClimbAngle: 140
-  maxSnapSpeed: 100
+  maxSnapSpeed: 10
   probeDistance: 1
   submergenceOffset: 0.5
   submergenceRange: 1
@@ -5756,7 +5756,7 @@ MonoBehaviour:
   distance: 5.7
   focusRadius: 1
   focusCentering: 0.75
-  rotationSpeed: 5
+  rotationSpeed: 15
   minVerticalAngle: -30
   maxVerticalAngle: 60
   alignDelay: 5
