@@ -255,9 +255,11 @@ public class Player : NetworkBehaviour
 			if (groundContactCount > 1) {
 				contactNormal.Normalize();
 			}
-		}
+            verticalRagdollOffset = 0.4f;
+        }
 		else {
 			contactNormal = upAxis;
+			verticalRagdollOffset = 0f;
 		}
 		
 		if (connectedBody) {
