@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.InputSystem;
 
@@ -265,7 +265,7 @@ public class Player : NetworkBehaviour
 				UpdateConnectionState();
 			}
 		}
-	}
+    }
 
 	void UpdateConnectionState () {
 		if (connectedBody == previousConnectedBody) {
