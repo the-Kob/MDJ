@@ -2551,7 +2551,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hipJoint: {fileID: 2964806955604960731}
   stomachJoint: {fileID: 2964806956095361443}
-  rotationSpeed: 0.5
+  rotationSpeed: 0.1
   lowerVertLimit: -30
   upperVertLimit: 30
 --- !u!54 &8090034986145915538
@@ -5756,7 +5756,7 @@ MonoBehaviour:
   distance: 5.7
   focusRadius: 1
   focusCentering: 0.75
-  rotationSpeed: 15
+  rotationSpeed: 5
   minVerticalAngle: -30
   maxVerticalAngle: 60
   alignDelay: 5
