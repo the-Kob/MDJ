@@ -172,7 +172,6 @@ public class Player : NetworkBehaviour
 			desiresRun = InputManager.Instance.GetSprintFlag();
 		}
 
-		UpdatePlayerVisual(); // we can update how our player animates in this method
 	}
 
 	void FixedUpdate () {
@@ -227,6 +226,7 @@ public class Player : NetworkBehaviour
 		body.velocity = velocity;
 
 		ChangeGravitationalOrientation();
+		UpdatePlayerVisual(); // we can update how our player animates in this method
 
 		ClearState();
 	}
@@ -255,11 +255,9 @@ public class Player : NetworkBehaviour
 			if (groundContactCount > 1) {
 				contactNormal.Normalize();
 			}
-            verticalRagdollOffset = 0.4f;
         }
 		else {
 			contactNormal = upAxis;
-			verticalRagdollOffset = 0f;
 		}
 		
 		if (connectedBody) {
@@ -547,8 +545,7 @@ public class Player : NetworkBehaviour
 		//meshRenderer.material = ballMaterial;
 
 		realPhysicsRagdoll.transform.position = transform.position - contactNormal.normalized * verticalRagdollOffset;
-
-    }
+	}
 
 	private void ChangeGravitationalOrientation()
 	{
