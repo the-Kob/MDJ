@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731713, g: 0.13414736, b: 0.12107852, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -647,6 +647,10 @@ PrefabInstance:
     - target: {fileID: 879499277, guid: fb4c12f82b356ac4784c451366cdd2b0, type: 3}
       propertyPath: maxConnections
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 879499277, guid: fb4c12f82b356ac4784c451366cdd2b0, type: 3}
+      propertyPath: gameplaySceneName
+      value: carol
       objectReference: {fileID: 0}
     - target: {fileID: 8950656886617044264, guid: fb4c12f82b356ac4784c451366cdd2b0,
         type: 3}
