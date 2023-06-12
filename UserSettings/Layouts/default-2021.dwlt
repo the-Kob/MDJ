@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1536
     height: 772.8
   m_ShowMode: 4
-  m_Title: Hierarchy
+  m_Title: Game
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -118,7 +118,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 36236
+  controlID: 1230
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -143,7 +143,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 1
-  controlID: 36237
+  controlID: 1231
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -170,7 +170,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 100}
   m_MaxSize: {x: 32384, y: 8096}
   vertical: 0
-  controlID: 36238
+  controlID: 1232
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -431,9 +431,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 40480400
-      m_LastClickedID: 280640
-      m_ExpandedIDs: 0a49fbff4e49fbff4a4afbff9e4afbffaa4efbff604ffbff1650fbfff452fbffa262fbff2463fbff0a64fbff7a64fbff066dfbff6276fbff7283fbffec89fbff028dfbff408efbffb695fbff5898fbff0a9ffbff1ea2fbffc2a6fbfff4aafbff90b6fbff0cbdfbffdac4fbff52cbfbff32d0fbff10d4fbff68d8fbff70d8fbff80d8fbff88d8fbffa0d8fbffa8d8fbffb0d8fbffc0d8fbffc8d8fbffd8d8fbffe0d8fbffe8d8fbff22dafbff9ae0fbff68e4fbff98eefbff22f5fbff66fefbff1205fcff3205fcff3405fcff920efcff2a10fcffd011fcff8221fcffe234fcffee36fcff4e3afcff9c3cfcffa83efcffc44bfcff1055fcff1455fcff3255fcff105ffcffcab1fcff1ae3fcffee13fdff0c48fdff144bfdff1e4bfdffaab9fdff22ebfdff142bfeff8a2bfeffb46ffeff40a2feff7ed6feff9a3fffff9e3fffffba3fffffbc3fffff3c46ffff0478ffff24a9ffffc4afffffd4b2ffff36b3ffffe2f6ffffecf6fffff0f6ffff0ef7ffff0cfbffff5cb40100dab40100b2b701000ac202002ec202006e0003000807030086d60300da010400f81a0400
+      m_SelectedIDs: f2180000
+      m_LastClickedID: 0
+      m_ExpandedIDs: b0c3ffff0cfbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -805,7 +805,7 @@ MonoBehaviour:
   m_Size:
     m_Target: 22.14219
     speed: 2
-    m_Value: 21.1887
+    m_Value: 22.14219
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -916,22 +916,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes/Belbute
+    - Assets/Scenes/Belbute/Scripts
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scenes/Belbute
+  - Assets/Scenes/Belbute/Scripts
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\mfbel\Documents\GitHub\MDJ
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 180}
-    m_SelectedIDs: 06680000
-    m_LastClickedID: 26630
-    m_ExpandedIDs: 000000000268000004680000066800002c68000000ca9a3b
+    scrollPos: {x: 0, y: 145.40002}
+    m_SelectedIDs: c4950000
+    m_LastClickedID: 38340
+    m_ExpandedIDs: 000000004495000046950000489500004a95000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -959,7 +959,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000000268000004680000066800002c68000000ca9a3b
+    m_ExpandedIDs: 000000004495000046950000489500004a95000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -986,7 +986,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 1
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c6230000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
