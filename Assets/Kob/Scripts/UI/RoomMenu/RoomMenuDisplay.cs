@@ -8,6 +8,7 @@ using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class RoomMenuDisplay : MonoBehaviour
 {
@@ -19,6 +20,9 @@ public class RoomMenuDisplay : MonoBehaviour
     [SerializeField] private TMP_InputField joinCodeInputField;
     [SerializeField] private Button joinButton;
 
+    [Header("Settings")]
+    [SerializeField] private string mainMenuSceneName = "MainMenu";
+
     private async void Start()
     {
         joinCodeInputField.onValidateInput += delegate (string s, int i, char c)
@@ -29,11 +33,13 @@ public class RoomMenuDisplay : MonoBehaviour
 
         joinCodeInputField.onValueChanged .AddListener(ValidateInput);
 
+        await UnityServices.InitializeAsync();
+
         try
         {
-            await UnityServices.InitializeAsync();
-            await AuthenticationService.Instance.SignInAnonymouslyAsync();
-            Debug.Log($"Player Id: {AuthenticationService.Instance.PlayerId}");
+            if(!AuthenticationService.Instance.IsSignedIn) // added this to prevent "player is already signed in", hopefully doesnt break everything
+                await AuthenticationService.Instance.SignInAnonymouslyAsync();
+                Debug.Log($"Player Id: {AuthenticationService.Instance.PlayerId}");
         }
         catch (Exception e)
         {
@@ -65,5 +71,10 @@ public class RoomMenuDisplay : MonoBehaviour
     {
         if (code.Length < 6) { joinButton.interactable = false; }
         else { joinButton.interactable = true; }
+    }
+
+    public void Back()
+    {
+        SceneManager.LoadScene(mainMenuSceneName);
     }
 }
