@@ -10,6 +10,10 @@ public class MainMenuDisplay : MonoBehaviour
     [SerializeField] private GameObject menuPanel;
     [SerializeField] private GameObject optionsPanel;
     [SerializeField] private GameObject bindingsPanel;
+    [SerializeField] private GameObject spaceshipImage;
+    [SerializeField] private GameObject smokeEffect;
+
+
 
     [Header("Settings")]
     [SerializeField] private float fadeSpeed = 0.5f; 
@@ -20,6 +24,7 @@ public class MainMenuDisplay : MonoBehaviour
 
     void Awake()
     {
+
         StartCoroutine(FadeFromBlack());
 
         Menu();
@@ -44,6 +49,12 @@ public class MainMenuDisplay : MonoBehaviour
         foreground.gameObject.SetActive(false);
     }
 
+    public IEnumerator WaitForSmoke()
+    {
+        yield return new WaitForSeconds(fadeTime);
+        smokeEffect.SetActive(true);
+    }
+
     public void Play()
     {
         SceneManager.LoadScene(roomMenuSceneName);
@@ -56,6 +67,9 @@ public class MainMenuDisplay : MonoBehaviour
 
     public void Menu()
     {
+        spaceshipImage.SetActive(true);
+        StartCoroutine(WaitForSmoke());
+
         menuPanel.SetActive(true);
         optionsPanel.SetActive(false);
         bindingsPanel.SetActive(false);
@@ -63,6 +77,9 @@ public class MainMenuDisplay : MonoBehaviour
 
     public void Options()
     {
+        spaceshipImage.SetActive(false);
+        smokeEffect.SetActive(false);
+
         menuPanel.SetActive(false);
         optionsPanel.SetActive(true);
         bindingsPanel.SetActive(false);
@@ -70,6 +87,9 @@ public class MainMenuDisplay : MonoBehaviour
 
     public void Binds()
     {
+        spaceshipImage.SetActive(false);
+        smokeEffect.SetActive(false);
+
         menuPanel.SetActive(false);
         optionsPanel.SetActive(false);
         bindingsPanel.SetActive(true);
