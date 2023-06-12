@@ -7,7 +7,7 @@ public class oxygen_player : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    public Slider slider;
+    private Slider slider;
     public float oxygen_level;    
     private float decreaseAmount = 25f;
     private float decreaseInterval = 5f;
@@ -16,6 +16,8 @@ public class oxygen_player : MonoBehaviour
 
     public void Start()
     {
+
+        slider = FindObjectOfType<Slider>();
         oxygen_level = 500;
         slider.value = oxygen_level;
         slider.maxValue = oxygen_level;
