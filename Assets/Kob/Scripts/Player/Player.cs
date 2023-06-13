@@ -531,18 +531,6 @@ public class Player : NetworkBehaviour
     // This can be updated with calls to an animator script
     void UpdatePlayerVisual()
 	{
-		//Material ballMaterial = normalMaterial;
-
-		//if (Climbing)
-		//{
-		//    ballMaterial = climbingMaterial;
-		//}
-		//else if (Swimming)
-		//{
-		//  ballMaterial = swimmingMaterial;
-		//}
-
-		//meshRenderer.material = ballMaterial;
 
 		realPhysicsRagdoll.transform.position = transform.position - contactNormal.normalized * verticalRagdollOffset;
 	}
