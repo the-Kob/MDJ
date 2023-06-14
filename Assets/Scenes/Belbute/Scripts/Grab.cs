@@ -16,7 +16,9 @@ public class Grab : MonoBehaviour
     private bool wantsToGrab;
     private float originalObjectMass;
     private Rigidbody objectsRB;
-    private bool handOccupied;
+    
+    [HideInInspector]
+    public bool handOccupied;
 
 
 

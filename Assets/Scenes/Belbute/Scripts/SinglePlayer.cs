@@ -86,6 +86,7 @@ public class SinglePlayer : MonoBehaviour
 
 	int groundContactCount, steepContactCount, climbContactCount;
 
+	[HideInInspector]
 	public bool Moving;
 
     bool OnGround => groundContactCount > 0;
@@ -106,7 +107,8 @@ public class SinglePlayer : MonoBehaviour
 
 	int stepsSinceLastGrounded, stepsSinceLastJump;
 
-	MeshRenderer meshRenderer;
+	Grab [] grabbingScripts;
+
 
 	public void PreventSnapToGround () {
 		stepsSinceLastJump = -1;
@@ -118,16 +120,19 @@ public class SinglePlayer : MonoBehaviour
 		minClimbDotProduct = Mathf.Cos(maxClimbAngle * Mathf.Deg2Rad);
 	}
 
-	void Awake () {
+	void Awake ()
+	{
 		body = GetComponent<Rigidbody>();
 		body.useGravity = false;
-		//meshRenderer = playerVisual.GetComponent<MeshRenderer>();
 		OnValidate();
 
 		if(orbitCam) playerInputSpace = orbitCam.transform;
+
+		grabbingScripts = GetComponentsInChildren<Grab>();
 	}
 
-    void Update () {
+    void Update ()
+	{
 
         playerInput.x = InputManager.Instance.GetMovementVector().x;
 		playerInput.y = InputManager.Instance.GetMovementVector().y;
@@ -161,7 +166,8 @@ public class SinglePlayer : MonoBehaviour
 
 	}
 
-	void FixedUpdate () {
+	void FixedUpdate ()
+	{
 
 		Vector3 gravity = CustomGravity.GetGravity(body.position, out upAxis);
 		UpdateState();
@@ -217,7 +223,8 @@ public class SinglePlayer : MonoBehaviour
 		ClearState();
 	}
 
-	void ClearState () {
+	void ClearState ()
+	{
 		groundContactCount = steepContactCount = climbContactCount = 0;
 		contactNormal = steepNormal = climbNormal = Vector3.zero;
 		connectionVelocity = Vector3.zero;
@@ -514,10 +521,8 @@ public class SinglePlayer : MonoBehaviour
 			minGroundDotProduct : minStairsDotProduct;
 	}
 
-    // This can be updated with calls to an animator script
     void UpdatePlayerVisual()
 	{
-
 		realPhysicsRagdoll.transform.position = transform.position - contactNormal.normalized * verticalRagdollOffset;
 	}
 
@@ -529,4 +534,9 @@ public class SinglePlayer : MonoBehaviour
 
 		ragdollsHips.transform.rotation = Quaternion.Slerp(ragdollsHips.transform.rotation, desiredRotation, 20f * Time.deltaTime);
 	}
+
+	private void RestrictMovement()
+    {
+
+    }
 }
