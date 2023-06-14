@@ -107,9 +107,6 @@ public class SinglePlayer : MonoBehaviour
 
 	int stepsSinceLastGrounded, stepsSinceLastJump;
 
-	Grab [] grabbingScripts;
-	private bool alreadyGrabbing;
-
 
 	public void PreventSnapToGround () {
 		stepsSinceLastJump = -1;
@@ -128,8 +125,6 @@ public class SinglePlayer : MonoBehaviour
 		OnValidate();
 
 		if(orbitCam) playerInputSpace = orbitCam.transform;
-
-		grabbingScripts = GetComponentsInChildren<Grab>();
 	}
 
     void Update ()
@@ -164,9 +159,6 @@ public class SinglePlayer : MonoBehaviour
 			desiresClimbing = InputManager.Instance.GetClimbFlag();
 			desiresRun = InputManager.Instance.GetSprintFlag();
 		}
-
-		if (CheckGrabbing())
-			RestrictMovement();
 
 	}
 
@@ -539,20 +531,4 @@ public class SinglePlayer : MonoBehaviour
 		ragdollsHips.transform.rotation = Quaternion.Slerp(ragdollsHips.transform.rotation, desiredRotation, 20f * Time.deltaTime);
 	}
 
-	private void RestrictMovement()
-    {
-        if (!alreadyGrabbing)
-        {
-			SpringJoint fj = transform.gameObject.AddComponent(typeof(SpringJoint)) as SpringJoint;
-			alreadyGrabbing = true;
-		}
-		
-
-	}
-
-	private bool CheckGrabbing()
-    {
-		return (grabbingScripts[0].handOccupied || grabbingScripts[1].handOccupied);
-
-	}
 }

@@ -2472,7 +2472,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectMassReduction: 2
   isRightHand: 0
+  otherObjectResponsibleForMovement: 1
+  playerMovementObject: {fileID: 6533861962438489033}
   animator: {fileID: 418289899497498852}
+  handOccupied: 0
 --- !u!1 &2964806955026303689
 GameObject:
   m_ObjectHideFlags: 0
@@ -3657,7 +3660,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectMassReduction: 2
   isRightHand: 1
+  otherObjectResponsibleForMovement: 1
+  playerMovementObject: {fileID: 6533861962438489033}
   animator: {fileID: 418289899497498852}
+  handOccupied: 0
 --- !u!1 &2964806955617011649
 GameObject:
   m_ObjectHideFlags: 0
