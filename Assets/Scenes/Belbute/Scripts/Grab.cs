@@ -6,26 +6,29 @@ using Unity.Netcode;
 public class Grab : MonoBehaviour
 {
     [Header("Grab Settings")]
-    public bool isRightHand;
     public int objectMassReduction = 2;
+    public bool isRightHand;
 
     [Header("References")]
     public Animator animator;
 
     // Auxiliary variables
-    private bool isGrabbing;
+    private bool wantsToGrab;
     private float originalObjectMass;
     private Rigidbody objectsRB;
+    private bool handOccupied;
+
 
 
     void Update()
     {
+
         if (isRightHand)
         {
             if (InputManager.Instance.GetGrabRightFlag())
             {
                 animator.SetBool("IsRightHandUp", true);
-                isGrabbing = true;
+                wantsToGrab = true;
             }
             else
             {
@@ -41,7 +44,8 @@ public class Grab : MonoBehaviour
                 // ...and eliminate fixed joint
                 Destroy(GetComponent<FixedJoint>());
 
-                isGrabbing = false;
+                wantsToGrab = false;
+                handOccupied = false;
             }
 
         }
@@ -50,7 +54,7 @@ public class Grab : MonoBehaviour
             if (InputManager.Instance.GetGrabLeftFlag())
             {
                 animator.SetBool("IsLeftHandUp", true);
-                isGrabbing = true;
+                wantsToGrab = true;
             }
             else
             {
@@ -66,7 +70,8 @@ public class Grab : MonoBehaviour
                 // ...and eliminate fixed joint
                 Destroy(GetComponent<FixedJoint>());
 
-                isGrabbing = false;
+                wantsToGrab = false;
+                handOccupied = false;
             }
 
         }
@@ -76,7 +81,7 @@ public class Grab : MonoBehaviour
 
     private void OnCollisionEnter(Collision col)
     {
-        if (isGrabbing)
+        if (wantsToGrab && !handOccupied)
         {
             // Get rigidbody of object we want to grab
             objectsRB = col.transform.GetComponent<Rigidbody>();
@@ -98,6 +103,8 @@ public class Grab : MonoBehaviour
             {
                 FixedJoint fj = transform.gameObject.AddComponent(typeof(FixedJoint)) as FixedJoint;
             }
+
+            handOccupied = true;
 
         }
 
