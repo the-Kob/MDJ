@@ -8,14 +8,17 @@ public class Grab : MonoBehaviour
     [Header("Grab Settings")]
     public int objectMassReduction = 2;
     public bool isRightHand;
+    public bool otherObjectResponsibleForMovement;
 
     [Header("References")]
+    public GameObject playerMovementObject;
     public Animator animator;
 
     // Auxiliary variables
     private bool wantsToGrab;
     private float originalObjectMass;
     private Rigidbody objectsRB;
+    private SpringJoint playersJoint;
     
     [HideInInspector]
     public bool handOccupied;
@@ -36,12 +39,20 @@ public class Grab : MonoBehaviour
             {
                 animator.SetBool("IsRightHandUp", false);
 
+                // Make object responsible for movement also have a joint
+                //if (otherObjectResponsibleForMovement && (objectsRB == null || objectsRB.isKinematic))
+               //{
+                //    Destroy(playersJoint);
+                //    playersJoint = null;
+                //}
+
                 // Reset object's mass...
                 if (objectsRB != null)
                 {
                     objectsRB.mass = originalObjectMass;
                     objectsRB = null;
                 }
+
 
                 // ...and eliminate fixed joint
                 Destroy(GetComponent<FixedJoint>());
@@ -61,6 +72,14 @@ public class Grab : MonoBehaviour
             else
             {
                 animator.SetBool("IsLeftHandUp", false);
+
+                // Make object responsible for movement also have a joint
+                //if (otherObjectResponsibleForMovement && (objectsRB == null || objectsRB.isKinematic))
+                //{
+                //   Destroy(playersJoint);
+                //    playersJoint = null;
+                //}
+
 
                 // Reset object's mass...
                 if (objectsRB != null)
@@ -88,7 +107,7 @@ public class Grab : MonoBehaviour
             // Get rigidbody of object we want to grab
             objectsRB = col.transform.GetComponent<Rigidbody>();
 
-            if (objectsRB != null)
+            if (objectsRB != null) // for objects
             {
 
                 // Create fixed joint on player
@@ -101,10 +120,17 @@ public class Grab : MonoBehaviour
                 originalObjectMass = objectsRB.mass;
                 objectsRB.mass /= objectMassReduction;
             }
-            else
-            {
-                FixedJoint fj = transform.gameObject.AddComponent(typeof(FixedJoint)) as FixedJoint;
-            }
+            //else // for walls and stuff
+            //{
+            //    FixedJoint fj = transform.gameObject.AddComponent(typeof(FixedJoint)) as FixedJoint;
+                
+            //}
+
+            //if (otherObjectResponsibleForMovement && (objectsRB == null || objectsRB.isKinematic))
+            //{
+            //    playersJoint = playerMovementObject.AddComponent(typeof(SpringJoint)) as SpringJoint;
+            //    playersJoint.spring = 20f;
+            //}
 
             handOccupied = true;
 
