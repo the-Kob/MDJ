@@ -108,6 +108,7 @@ public class SinglePlayer : MonoBehaviour
 	int stepsSinceLastGrounded, stepsSinceLastJump;
 
 	Grab [] grabbingScripts;
+	private bool alreadyGrabbing;
 
 
 	public void PreventSnapToGround () {
@@ -163,6 +164,9 @@ public class SinglePlayer : MonoBehaviour
 			desiresClimbing = InputManager.Instance.GetClimbFlag();
 			desiresRun = InputManager.Instance.GetSprintFlag();
 		}
+
+		if (CheckGrabbing())
+			RestrictMovement();
 
 	}
 
@@ -537,6 +541,18 @@ public class SinglePlayer : MonoBehaviour
 
 	private void RestrictMovement()
     {
+        if (!alreadyGrabbing)
+        {
+			SpringJoint fj = transform.gameObject.AddComponent(typeof(SpringJoint)) as SpringJoint;
+			alreadyGrabbing = true;
+		}
+		
 
-    }
+	}
+
+	private bool CheckGrabbing()
+    {
+		return (grabbingScripts[0].handOccupied || grabbingScripts[1].handOccupied);
+
+	}
 }
