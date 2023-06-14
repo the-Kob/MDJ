@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Unity.Netcode;
 
 public class JointControl : MonoBehaviour
 {
@@ -14,13 +13,7 @@ public class JointControl : MonoBehaviour
 
 	private float mouseX, mouseY;
 
-
-    private void Awake()
-    {
-    }
-
-
-    private void FixedUpdate()
+	private void FixedUpdate()
 	{
 
 		UpdateJointMovement();
@@ -29,8 +22,8 @@ public class JointControl : MonoBehaviour
 	void UpdateJointMovement()
 	{
 		// Get inputs
-		mouseX += InputManager.Instance.GetLookVector().x * rotationSpeed;
-		mouseY += InputManager.Instance.GetLookVector().y * rotationSpeed;
+		mouseX += InputManager.Instance.GetLookVector().x * rotationSpeed * Time.unscaledDeltaTime;
+		mouseY += InputManager.Instance.GetLookVector().y * rotationSpeed * Time.unscaledDeltaTime;
 
 		mouseY = Mathf.Clamp(mouseY, lowerVertLimit, upperVertLimit);
 
