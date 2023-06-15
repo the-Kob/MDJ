@@ -19933,36 +19933,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2109172254}
   m_Mesh: {fileID: 8204137566577028532, guid: 803734cfb476b1743ac0f4a25a0a76ea, type: 3}
---- !u!1 &2119839160 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6533861962438489033, guid: ea0b6e81535e14b4cb8bfbeeeb9c33f3,
-    type: 3}
-  m_PrefabInstance: {fileID: 95582741}
-  m_PrefabAsset: {fileID: 0}
---- !u!145 &2119839165
-SpringJoint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2119839160}
-  m_ConnectedBody: {fileID: 1987039471}
-  m_ConnectedArticulationBody: {fileID: 0}
-  m_Anchor: {x: 0, y: 0, z: 0}
-  m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 0, z: 0}
-  serializedVersion: 2
-  m_Spring: 10
-  m_Damper: 0.2
-  m_MinDistance: 0
-  m_MaxDistance: 0
-  m_Tolerance: 0.025
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_EnableCollision: 0
-  m_EnablePreprocessing: 1
-  m_MassScale: 1
-  m_ConnectedMassScale: 1
 --- !u!1001 &2131102993
 PrefabInstance:
   m_ObjectHideFlags: 0
