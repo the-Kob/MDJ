@@ -12159,17 +12159,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: da70cb67cdbf1dd4992cd2d63cdf390b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 205.6
+      value: 205.22
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: da70cb67cdbf1dd4992cd2d63cdf390b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 47.9
+      value: 47.88
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: da70cb67cdbf1dd4992cd2d63cdf390b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -67.2
+      value: -67.26
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: da70cb67cdbf1dd4992cd2d63cdf390b,
         type: 3}
@@ -12215,6 +12215,11 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: da70cb67cdbf1dd4992cd2d63cdf390b,
         type: 3}
       propertyPath: m_Name
+      value: trampoline
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: da70cb67cdbf1dd4992cd2d63cdf390b,
+        type: 3}
+      propertyPath: m_TagString
       value: trampoline
       objectReference: {fileID: 0}
     m_RemovedComponents: []
