@@ -24,8 +24,8 @@ public class JointControlNet : NetworkBehaviour
 	void UpdateJointMovement()
 	{
 		// Get inputs
-		mouseX += InputManager.Instance.GetLookVector().x * rotationSpeed;
-		mouseY += InputManager.Instance.GetLookVector().y * rotationSpeed;
+		mouseX += InputManager.Instance.GetLookVector().x * rotationSpeed * Time.unscaledDeltaTime;
+		mouseY += InputManager.Instance.GetLookVector().y * rotationSpeed * Time.unscaledDeltaTime;
 
 		mouseY = Mathf.Clamp(mouseY, lowerVertLimit, upperVertLimit);
 

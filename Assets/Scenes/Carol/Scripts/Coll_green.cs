@@ -8,6 +8,7 @@ public class Coll_green : MonoBehaviour
     void OnTriggerEnter( Collider other)
 {
     if (other.gameObject.tag=="green" && gameObject.tag=="green" )
+        
     {
         Debug.Log("green collision");
         destroyGameObject(other.gameObject);

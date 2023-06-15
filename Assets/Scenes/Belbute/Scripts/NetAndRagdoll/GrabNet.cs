@@ -12,12 +12,11 @@ public class GrabNet : NetworkBehaviour
     [Header("References")]
     public Animator animator;
 
-
-
     // Auxiliary variables
-    private bool isGrabbing;
+    private bool wantsToGrab;
     private float originalObjectMass;
     private Rigidbody objectsRB;
+    private bool handOccupied;
 
 
 
@@ -30,7 +29,7 @@ public class GrabNet : NetworkBehaviour
             if (InputManager.Instance.GetGrabRightFlag())
             {
                 animator.SetBool("IsRightHandUp", true);
-                isGrabbing = true;
+                wantsToGrab = true;
             }
             else
             {
@@ -46,7 +45,8 @@ public class GrabNet : NetworkBehaviour
                 // ...and eliminate fixed joint
                 Destroy(GetComponent<FixedJoint>());
 
-                isGrabbing = false;
+                wantsToGrab = false;
+                handOccupied = false;
             }
 
         }
@@ -55,7 +55,7 @@ public class GrabNet : NetworkBehaviour
             if (InputManager.Instance.GetGrabLeftFlag())
             {
                 animator.SetBool("IsLeftHandUp", true);
-                isGrabbing = true;
+                wantsToGrab = true;
             }
             else
             {
@@ -71,7 +71,8 @@ public class GrabNet : NetworkBehaviour
                 // ...and eliminate fixed joint
                 Destroy(GetComponent<FixedJoint>());
 
-                isGrabbing = false;
+                wantsToGrab = false;
+                handOccupied = false;
             }
 
         }
@@ -81,7 +82,7 @@ public class GrabNet : NetworkBehaviour
 
     private void OnCollisionEnter(Collision col)
     {
-        if (isGrabbing)
+        if (wantsToGrab && !handOccupied)
         {
             // Get rigidbody of object we want to grab
             objectsRB = col.transform.GetComponent<Rigidbody>();
@@ -103,6 +104,8 @@ public class GrabNet : NetworkBehaviour
             {
                 FixedJoint fj = transform.gameObject.AddComponent(typeof(FixedJoint)) as FixedJoint;
             }
+
+            handOccupied = true;
 
         }
 
