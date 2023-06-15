@@ -60,7 +60,7 @@ public class LocalOrbitCamera : MonoBehaviour
     [SerializeField, Range(-89f, 89f)]
     float minCharVerticalAngle = -10f, maxCharVerticalAngle = 10f;
 
-
+    // INPUTS 
     private Vector2 lookInput;
     public void OnLook(InputAction.CallbackContext ctx) => lookInput = ctx.ReadValue<Vector2>();
 
@@ -97,6 +97,10 @@ public class LocalOrbitCamera : MonoBehaviour
     {
         UpdateGravityAlignment();
         UpdateFocusPoint();
+
+        // For character rotation
+        restrictedOrbitRotation = Quaternion.Euler(restrictedOrbitAngles);
+
         if (ManualRotation() || AutomaticRotation())
         {
             ConstrainAngles();
