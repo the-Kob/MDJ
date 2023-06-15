@@ -40,11 +40,11 @@ public class Grab : MonoBehaviour
                 animator.SetBool("IsRightHandUp", false);
 
                 // Make object responsible for movement also have a joint
-                //if (otherObjectResponsibleForMovement && (objectsRB == null || objectsRB.isKinematic))
-               //{
-                //    Destroy(playersJoint);
-                //    playersJoint = null;
-                //}
+                if (otherObjectResponsibleForMovement && (objectsRB == null || objectsRB.isKinematic))
+                {
+                    Destroy(playersJoint);
+                    playersJoint = null;
+                }
 
                 // Reset object's mass...
                 if (objectsRB != null)
@@ -74,11 +74,11 @@ public class Grab : MonoBehaviour
                 animator.SetBool("IsLeftHandUp", false);
 
                 // Make object responsible for movement also have a joint
-                //if (otherObjectResponsibleForMovement && (objectsRB == null || objectsRB.isKinematic))
-                //{
-                //   Destroy(playersJoint);
-                //    playersJoint = null;
-                //}
+                if (otherObjectResponsibleForMovement && (objectsRB == null || objectsRB.isKinematic))
+                {
+                   Destroy(playersJoint);
+                    playersJoint = null;
+                }
 
 
                 // Reset object's mass...
@@ -120,17 +120,17 @@ public class Grab : MonoBehaviour
                 originalObjectMass = objectsRB.mass;
                 objectsRB.mass /= objectMassReduction;
             }
-            //else // for walls and stuff
-            //{
-            //    FixedJoint fj = transform.gameObject.AddComponent(typeof(FixedJoint)) as FixedJoint;
+            else // for walls and stuff
+            {
+                FixedJoint fj = transform.gameObject.AddComponent(typeof(FixedJoint)) as FixedJoint;
                 
-            //}
+            }
 
-            //if (otherObjectResponsibleForMovement && (objectsRB == null || objectsRB.isKinematic))
-            //{
-            //    playersJoint = playerMovementObject.AddComponent(typeof(SpringJoint)) as SpringJoint;
-            //    playersJoint.spring = 20f;
-            //}
+            if (otherObjectResponsibleForMovement && (objectsRB == null || objectsRB.isKinematic))
+            {
+                playersJoint = playerMovementObject.AddComponent(typeof(SpringJoint)) as SpringJoint;
+                playersJoint.spring = 20f;
+            }
 
             handOccupied = true;
 
