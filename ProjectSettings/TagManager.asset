@@ -22,8 +22,8 @@ TagManager:
   - Stairs
   - Unclimbable
   - See-Through
-  - NoSelfCollision
-  - 
+  - Player1
+  - Player2
   - 
   - 
   - 
