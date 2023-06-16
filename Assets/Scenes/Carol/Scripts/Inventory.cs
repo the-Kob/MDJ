@@ -5,23 +5,23 @@ using UnityEngine;
 
     public class Inventory : MonoBehaviour
     {
-        public List<InventoryItem> iventory = new List<InventoryItem>();
+        public List<InventoryItem> inventory = new List<InventoryItem>();
         private Dictionary<ItemData, InventoryItem> itemDictionary = new Dictionary<ItemData, InventoryItem>();
 
         public void OnEnable()
         {
-            Component.OnCollect += Add;
+            SatelliteDish.OnCollect += Add;
         }
         
         public void OnDisable()
         {
-            Component.OnCollect -= Add;
+            SatelliteDish.OnCollect -= Add;
             
         }
 
         public void Add(ItemData itemData)
         {
-            if(itemDictionary.TryGetValue(itemData, out InventoryItem item))
+            if(itemDictionary.TryGetValue(itemData , out InventoryItem item))
             {
                 item.AddToStack();
                 Debug.Log($"{item.itemData.displayName} total stack is now: {item.stackSize}");
@@ -29,7 +29,7 @@ using UnityEngine;
             else
             {
                 InventoryItem newItem = new InventoryItem(itemData);
-                iventory.Add(newItem); //add to list of inventory items
+                inventory.Add(newItem); //add to list of inventory items
                 itemDictionary.Add(itemData, newItem); //add to dictionary
                 Debug.Log($"Added {itemData.displayName} to inventory");
             }
@@ -42,7 +42,7 @@ using UnityEngine;
                 item.RemoveFromStack();
                 if(item.stackSize == 0)
                 {
-                    iventory.Remove(item);
+                    inventory.Remove(item);
                     itemDictionary.Remove(itemData);
                 }
             }
