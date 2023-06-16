@@ -19,6 +19,7 @@ public class LocalGrab : MonoBehaviour
     private float originalObjectMass;
     private Rigidbody objectsRB;
     private SpringJoint playersJoint;
+    private bool grabbingOtherPlayer;
     
     [HideInInspector]
     public bool handOccupied;
@@ -46,7 +47,7 @@ public class LocalGrab : MonoBehaviour
                 animator.SetBool("IsRightHandUp", false);
 
                 // Make object responsible for movement also have a joint
-                if (otherObjectResponsibleForMovement && (objectsRB == null || objectsRB.isKinematic))
+                if (otherObjectResponsibleForMovement && (objectsRB == null || objectsRB.isKinematic || grabbingOtherPlayer))
                 {
                     Destroy(playersJoint);
                     playersJoint = null;
@@ -55,7 +56,8 @@ public class LocalGrab : MonoBehaviour
                 // Reset object's mass...
                 if (objectsRB != null)
                 {
-                    objectsRB.mass = originalObjectMass;
+                    if (!grabbingOtherPlayer)
+                        objectsRB.mass = originalObjectMass;
                     objectsRB = null;
                 }
 
@@ -80,7 +82,7 @@ public class LocalGrab : MonoBehaviour
                 animator.SetBool("IsLeftHandUp", false);
 
                 // Make object responsible for movement also have a joint
-                if (otherObjectResponsibleForMovement && (objectsRB == null || objectsRB.isKinematic))
+                if (otherObjectResponsibleForMovement && (objectsRB == null || objectsRB.isKinematic || grabbingOtherPlayer))
                 {
                    Destroy(playersJoint);
                     playersJoint = null;
@@ -90,7 +92,9 @@ public class LocalGrab : MonoBehaviour
                 // Reset object's mass...
                 if (objectsRB != null)
                 {
-                    objectsRB.mass = originalObjectMass;
+                    if(!grabbingOtherPlayer)
+                        objectsRB.mass = originalObjectMass;
+
                     objectsRB = null;
                 }
 
@@ -113,6 +117,8 @@ public class LocalGrab : MonoBehaviour
             // Get rigidbody of object we want to grab
             objectsRB = col.transform.GetComponent<Rigidbody>();
 
+            grabbingOtherPlayer = (col.gameObject.layer == LayerMask.NameToLayer("Player1") || col.gameObject.layer == LayerMask.NameToLayer("Player2"));
+
             if (objectsRB != null) // for objects
             {
 
@@ -124,7 +130,9 @@ public class LocalGrab : MonoBehaviour
 
                 // Store objects original mass and reduce current value (simulates strength) -> REVIEW THIS FOR OTHER UNPICKABLE OBJECTS
                 originalObjectMass = objectsRB.mass;
-                objectsRB.mass /= objectMassReduction;
+
+                if(!grabbingOtherPlayer)
+                    objectsRB.mass /= objectMassReduction;
             }
             else // for walls and stuff
             {
@@ -132,7 +140,7 @@ public class LocalGrab : MonoBehaviour
                 
             }
 
-            if (otherObjectResponsibleForMovement && (objectsRB == null || objectsRB.isKinematic))
+            if (otherObjectResponsibleForMovement && (objectsRB == null || objectsRB.isKinematic || grabbingOtherPlayer))
             {
                 playersJoint = playerMovementObject.AddComponent(typeof(SpringJoint)) as SpringJoint;
                 playersJoint.spring = 20f;
