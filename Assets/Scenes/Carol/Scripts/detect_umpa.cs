@@ -16,11 +16,21 @@ public class detect_umpa : MonoBehaviour
         
     }
     
-    /*private void Update()
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Umpa")
+        {
+            umpa_detected = false;  
+            Debug.Log("umpa false");
+            
+        }
+    }
+    
+    private void Update()
     {
         if (Detect_neil.neil_detected && umpa_detected)
         {
             Destroy(this.gameObject);
         }
-    }*/
+    }
 }

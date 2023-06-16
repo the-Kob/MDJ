@@ -29,7 +29,7 @@ public class oxygen_player : MonoBehaviour
 
     private void Update()
     {
-        slider.value = oxygen_level;
+        //slider.value = oxygen_level;
         timer += Time.deltaTime;
 
         if (timer >= decreaseInterval)
