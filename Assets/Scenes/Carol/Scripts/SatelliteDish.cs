@@ -4,13 +4,25 @@ using System.Collections.Generic;
 using System;
 using Scenes.Carol.Scripts;
 
-/*public class SatelliteDish : Collectible
+public class SatelliteDish : MonoBehaviour, ICollectible
 {
-    public override void Collect()
+    
+    [SerializeField]
+    private GameObject umpa_ground;
+    
+    [SerializeField]
+    private GameObject neil_ground;
+    
+    public static event CollectibleAction OnCollect;
+    public delegate void CollectibleAction(ItemData itemData);
+    public ItemData itemData;
+    public void Collect()
     {
-        
-        Destroy(gameObject);
-        OnCollect?.Invoke(itemData);
+        if (neil_ground == null && umpa_ground == null)
+        {
+            Destroy(gameObject);
+            OnCollect?.Invoke(itemData);
+        }
+      
     }
 }
-*/

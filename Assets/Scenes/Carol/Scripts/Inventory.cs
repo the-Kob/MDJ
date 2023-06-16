@@ -16,6 +16,7 @@ using UnityEngine;
         public void OnDisable()
         {
             Component.OnCollect -= Add;
+            
         }
 
         public void Add(ItemData itemData)
@@ -23,12 +24,14 @@ using UnityEngine;
             if(itemDictionary.TryGetValue(itemData, out InventoryItem item))
             {
                 item.AddToStack();
+                Debug.Log($"{item.itemData.displayName} total stack is now: {item.stackSize}");
             }
             else
             {
                 InventoryItem newItem = new InventoryItem(itemData);
                 iventory.Add(newItem); //add to list of inventory items
                 itemDictionary.Add(itemData, newItem); //add to dictionary
+                Debug.Log($"Added {itemData.displayName} to inventory");
             }
         }
         
