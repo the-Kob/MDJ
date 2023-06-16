@@ -15,7 +15,7 @@ public class Coll_green : MonoBehaviour
         destroyGameObject(gameObject);
     }
     if(other.gameObject.tag=="purple" && gameObject.tag=="purple")
-    {
+    {   
         Debug.Log("purple collision");
        
         destroyGameObject(other.gameObject);
