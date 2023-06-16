@@ -5,11 +5,15 @@ using UnityEngine;
 
 public class Detect_neil : MonoBehaviour
 {
-    public static bool neil_detected = false;
-    
- 
+    public static bool neil_detected;
 
-    private void OnTriggerStay(Collider other)
+    public void Start()
+    {
+        neil_detected = false;
+        Debug.Log(neil_detected);
+    }
+
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Neil")
         {
@@ -19,12 +23,24 @@ public class Detect_neil : MonoBehaviour
         }
     }
 
-
-    /*private void Update()
+    private void OnTriggerExit(Collider other)
     {
-        if (detect_umpa.umpa_detected && neil_detected)
+        if (other.gameObject.tag == "Neil")
+        {
+            neil_detected = false;  
+            Debug.Log("neil false");
+            
+        }
+    }
+
+
+    private void FixedUpdate()
+    {
+       
+        Debug.Log(neil_detected);
+        /*if (detect_umpa.umpa_detected && neil_detected)
         {
             Destroy(this.gameObject);
-        }
-    }*/
+        }*/
+    }
 }
