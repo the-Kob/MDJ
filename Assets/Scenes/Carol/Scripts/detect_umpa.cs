@@ -6,7 +6,7 @@ using UnityEngine;
 public class detect_umpa : MonoBehaviour
 {
     public static bool umpa_detected = false;
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.tag == "Umpa")
         {
@@ -16,11 +16,11 @@ public class detect_umpa : MonoBehaviour
         
     }
     
-    private void Update()
+    /*private void Update()
     {
         if (Detect_neil.neil_detected && umpa_detected)
         {
             Destroy(this.gameObject);
         }
-    }
+    }*/
 }

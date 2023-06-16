@@ -8,6 +8,8 @@ TagManager:
   - trampoline
   - neil_ground
   - umpa_ground
+  - Neil
+  - Umpa
   layers:
   - Default
   - TransparentFX
