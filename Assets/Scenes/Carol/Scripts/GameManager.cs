@@ -23,6 +23,11 @@ public class GameManager : MonoBehaviour
     private static GameManager instance;
     #endregion
 
+    DateTime oldDate;
+    DateTime currentDate;
+    float minutes;
+    const float CAT_DIES_THRESHOLD = 20.0f;
+
     void Awake()
     {
         DontDestroyOnLoad(this);
@@ -30,11 +35,40 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        UpdateGameState(GameState.Menu); // When the game starts, 
+        minutes = 0;
+        oldDate = DateTime.Now;
+        UpdateGameState(GameState.GameWithCat);
+    }
+
+    void Update()
+    {
+        currentDate = DateTime.Now;
+        minutes = currentDate.Minute - oldDate.Minute;
+
+        // If 20 minutes have passed, kill the cat
+        if (minutes >= CAT_DIES_THRESHOLD)
+        {
+            UpdateGameState(GameState.GameWithoutCat);
+        }
     }
 
     public GameState state;
 
+    // TODO, we need to subscribe the entities that need to know when the game state changes to this event
+    /*
+     * Example:
+     * 
+     * On the OnEnable method of the entities (ie. player, cat) -> GameManager.OnGameStateChanged += MethodResponsibleToHandleTheStateChanged
+     * On the OnDisable method of the entities (ie. player, cat) -> GameManager.OnGameStateChanged -= MethodResponsibleToHandleTheStateChanged
+     * 
+     * Outside, create the new method:
+     * 
+     * private void MethodResponsibleToHandleTheStateChanged(GameState state) {
+     *      if(state == GameState.GameWithoutCat) {
+     *          // change cat appearance, disable movement -> for example 
+     *      }
+     * }
+     */
     public static event Action<GameState> OnGameStateChanged;
 
     public void UpdateGameState(GameState newState)
@@ -43,8 +77,6 @@ public class GameManager : MonoBehaviour
 
         switch(newState)
         {
-            case GameState.Menu:
-                break;
             case GameState.GameWithCat:
                 break;
             case GameState.GameWithoutCat:
@@ -110,7 +142,6 @@ public class GameManager : MonoBehaviour
 
 public enum GameState
 {
-    Menu,
     GameWithCat,
     GameWithoutCat,
     Win,
