@@ -7,6 +7,8 @@ using System;
 
 public class PlayerOxygenManager : MonoBehaviour
 {
+    public static PlayerOxygenManager playerOxygenManager { get; set; }
+
     public List<Slider> oxygenSliders;
     public TMP_Text oxygenLevelsText;
 
@@ -21,9 +23,24 @@ public class PlayerOxygenManager : MonoBehaviour
     public bool resetOxygen = false;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        if (playerOxygenManager != null && playerOxygenManager != this)
+        {
+            Debug.Log("Destroying this");
+            Destroy(this);
+        }
+        else
+        {
+            playerOxygenManager = this;
+        }
+
         ResetOxygen();
+    }
+
+    public float getMaxOxygenLevels()
+    {
+        return maxOxygenLevels;
     }
 
     // Update is called once per frame

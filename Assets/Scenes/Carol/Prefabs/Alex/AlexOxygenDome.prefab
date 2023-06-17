@@ -11,9 +11,8 @@ GameObject:
   - component: {fileID: 1218751061114274420}
   - component: {fileID: 1218751061114274423}
   - component: {fileID: 1218751061114274422}
-  - component: {fileID: 1218751061114274421}
-  - component: {fileID: 1218751061114274409}
   - component: {fileID: 1218751061114274418}
+  - component: {fileID: -6579749938997843322}
   m_Layer: 0
   m_Name: AlexOxygenDome
   m_TagString: oxygen
@@ -86,32 +85,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1218751061114274421
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1218751061114274408}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e705cd70a90d5484f8b5b4f08892c889, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!136 &1218751061114274409
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1218751061114274408}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &1218751061114274418
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -126,3 +99,20 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-6579749938997843322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1218751061114274408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba2c3a95617c8244fb1604455c7f4984, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  oxygenDome: {fileID: 1218751061114274408}
+  maxOxygen: 0
+  oxygenPercentPerTime: 0
+  increaseTimer: 0
+  timeElapsed: 0
