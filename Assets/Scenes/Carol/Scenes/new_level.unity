@@ -36528,6 +36528,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2496104809076546756, guid: 77b367dbe3b8fee49b4d0d8f06aa2e6c,
+        type: 3}
+      propertyPath: outerRadius
+      value: 78.93
+      objectReference: {fileID: 0}
     - target: {fileID: 2496104809076546758, guid: 77b367dbe3b8fee49b4d0d8f06aa2e6c,
         type: 3}
       propertyPath: m_Materials.Array.size
