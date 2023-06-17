@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        UpdateGameState(GameState.Menu);
+        UpdateGameState(GameState.Menu); // When the game starts, 
     }
 
     public GameState state;
