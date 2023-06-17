@@ -493,14 +493,24 @@ public class LocalPlayer : MonoBehaviour
 		}
 	}
 
-	void OnTriggerEnter (Collider other) {
-		if ((waterMask & (1 << other.gameObject.layer)) != 0) {
+	void OnTriggerEnter(Collider other)
+	{
+		if (other.CompareTag("trampoline"))
+		{
+			jumpHeight = 20f;
+			Debug.Log("trampoline");
+		}
+		if ((waterMask & (1 << other.gameObject.layer)) != 0)
+		{
 			EvaluateSubmergence(other);
 		}
+
 	}
 
-	void OnTriggerStay (Collider other) {
-		if ((waterMask & (1 << other.gameObject.layer)) != 0) {
+	void OnTriggerStay(Collider other)
+	{
+		if ((waterMask & (1 << other.gameObject.layer)) != 0)
+		{
 			EvaluateSubmergence(other);
 		}
 	}
