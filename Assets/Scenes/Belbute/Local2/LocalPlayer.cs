@@ -106,6 +106,8 @@ public class LocalPlayer : MonoBehaviour
 
 	int stepsSinceLastGrounded, stepsSinceLastJump;
 
+	private float defaultJumpHeight;
+
 	// INPUTS
 	private Vector2 movementInput;
 	public void OnMove(InputAction.CallbackContext ctx) => movementInput = ctx.ReadValue<Vector2>();
@@ -137,9 +139,11 @@ public class LocalPlayer : MonoBehaviour
 		OnValidate();
 
 		if(orbitCam) playerInputSpace = orbitCam.transform;
+
+		defaultJumpHeight = jumpHeight;
 	}
 
-    void Update ()
+	void Update ()
 	{
 
         playerInput.x = movementInput.x;
@@ -498,7 +502,6 @@ public class LocalPlayer : MonoBehaviour
 		if (other.CompareTag("trampoline"))
 		{
 			jumpHeight = 20f;
-			Debug.Log("trampoline");
 		}
 		if ((waterMask & (1 << other.gameObject.layer)) != 0)
 		{
@@ -513,6 +516,15 @@ public class LocalPlayer : MonoBehaviour
 		{
 			EvaluateSubmergence(other);
 		}
+	}
+
+	void OnTriggerExit(Collider other)
+	{
+		if (other.CompareTag("trampoline"))
+		{
+			jumpHeight = defaultJumpHeight;
+		}
+
 	}
 
 	void EvaluateSubmergence (Collider collider) {
