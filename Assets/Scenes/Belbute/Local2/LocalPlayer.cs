@@ -70,6 +70,8 @@ public class LocalPlayer : MonoBehaviour
 
 	Rigidbody body, connectedBody, previousConnectedBody;
 
+	private LocalOrbitCamera localOrbitCamera;
+
 	Vector3 playerInput;
 
 	Vector3 velocity, connectionVelocity;
@@ -141,6 +143,8 @@ public class LocalPlayer : MonoBehaviour
 		if(orbitCam) playerInputSpace = orbitCam.transform;
 
 		defaultJumpHeight = jumpHeight;
+
+		localOrbitCamera = orbitCam.GetComponent<LocalOrbitCamera>();
 	}
 
 	void Update ()
@@ -561,7 +565,7 @@ public class LocalPlayer : MonoBehaviour
 	{
 		// Get desired rotation from camera, "flip it" and lerp current rotation into it
 		Quaternion invertQuat = Quaternion.Euler(0, 180, 0);
-		Quaternion desiredRotation = orbitCam.GetComponent<LocalOrbitCamera>().charLookRotation * invertQuat;
+		Quaternion desiredRotation = localOrbitCamera.charLookRotation * invertQuat;
 
 		ragdollsHips.transform.rotation = Quaternion.Slerp(ragdollsHips.transform.rotation, desiredRotation, 20f * Time.deltaTime);
 	}
