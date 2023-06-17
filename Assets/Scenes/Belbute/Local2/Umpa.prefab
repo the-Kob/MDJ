@@ -141,7 +141,6 @@ GameObject:
   - component: {fileID: 4400965368864278812}
   - component: {fileID: 6101339941795639421}
   - component: {fileID: 2475999186603062432}
-  - component: {fileID: 3927782360171033360}
   m_Layer: 14
   m_Name: Umpa
   m_TagString: Untagged
@@ -401,20 +400,6 @@ MonoBehaviour:
   desiresClimbing: 0
   desiresRun: 0
   Moving: 0
---- !u!136 &3927782360171033360
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2573917994652395009}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.59
-  m_Height: 2.15
-  m_Direction: 1
-  m_Center: {x: 0, y: 1.42, z: 0}
 --- !u!1 &5709030684149949615
 GameObject:
   m_ObjectHideFlags: 0
@@ -460,6 +445,7 @@ GameObject:
   - component: {fileID: 671326496012203866}
   - component: {fileID: 3906096563581856673}
   - component: {fileID: 7968956095975621776}
+  - component: {fileID: 7338534233272821462}
   m_Layer: 14
   m_Name: PhysicsRag
   m_TagString: Untagged
@@ -545,6 +531,20 @@ MonoBehaviour:
   rotationSpeed: 0.5
   lowerVertLimit: -30
   upperVertLimit: 30
+--- !u!136 &7338534233272821462
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5778549496088338177}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.62
+  m_Height: 3.01
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.57, z: 0}
 --- !u!1 &5778549496124591325
 GameObject:
   m_ObjectHideFlags: 0
