@@ -13,6 +13,7 @@ TagManager:
   - Blue
   - Orange
   - Red
+  - Ring
   layers:
   - Default
   - TransparentFX
