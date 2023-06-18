@@ -5442,7 +5442,7 @@ GameObject:
   - component: {fileID: 3532332566980319371}
   m_Layer: 14
   m_Name: Umpa
-  m_TagString: Untagged
+  m_TagString: Umpa
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5567,10 +5567,6 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 83a93057-ba99-4353-8d23-84783300a2d6
     m_ActionName: Player/Look[/Mouse/delta,/XInputControllerWindows/rightStick,/XInputControllerWindows1/rightStick]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 9c6a768e-3398-4aed-8311-33b787327dbf
-    m_ActionName: Player/Up Down[/Keyboard/x,/Keyboard/space,/XInputControllerWindows/buttonWest,/XInputControllerWindows1/buttonWest,/XInputControllerWindows/buttonSouth,/XInputControllerWindows1/buttonSouth]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5185201989392784814}
