@@ -10,7 +10,7 @@ public class MainMenuDisplay : MonoBehaviour
     [SerializeField] private Image foreground;
     [SerializeField] private GameObject menuPanel;
     [SerializeField] private GameObject optionsPanel;
-    //[SerializeField] private GameObject bindingsPanel;
+    [SerializeField] private GameObject controlsPanel;
     [SerializeField] private GameObject spaceshipImage;
     [SerializeField] private GameObject smokeEffect;
 
@@ -23,6 +23,7 @@ public class MainMenuDisplay : MonoBehaviour
 
     public GameObject firstOptionsButton;
     public GameObject firstMenuButton;
+    public GameObject firstControlsButton;
 
 
     void Awake()
@@ -75,7 +76,7 @@ public class MainMenuDisplay : MonoBehaviour
 
         menuPanel.SetActive(true);
         optionsPanel.SetActive(false);
-        //bindingsPanel.SetActive(false);
+        controlsPanel.SetActive(false);
 
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(firstMenuButton);
@@ -89,20 +90,23 @@ public class MainMenuDisplay : MonoBehaviour
 
         menuPanel.SetActive(false);
         optionsPanel.SetActive(true);
-        //bindingsPanel.SetActive(false);
+        controlsPanel.SetActive(false);
 
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(firstOptionsButton);
 
     }
 
-    public void Binds()
+    public void ControlScheme()
     {
         spaceshipImage.SetActive(false);
         smokeEffect.SetActive(false);
 
         menuPanel.SetActive(false);
         optionsPanel.SetActive(false);
-        //bindingsPanel.SetActive(true);
+        controlsPanel.SetActive(true);
+
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(firstControlsButton);
     }
 }
