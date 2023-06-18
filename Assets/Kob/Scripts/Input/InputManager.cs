@@ -58,12 +58,6 @@ public class InputManager : MonoBehaviour
         return lookVector;
     }
 
-    public float GetSwimmingValue()
-    {
-        float swimmingValue = actions.Player.UpDown.ReadValue<float>();
-
-        return swimmingValue;
-    }
 
     public bool GetJumpFlag()
     {

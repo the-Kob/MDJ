@@ -144,7 +144,7 @@ public class Player : NetworkBehaviour
 
         playerInput.x = InputManager.Instance.GetMovementVector().x;
 		playerInput.y = InputManager.Instance.GetMovementVector().y;
-		playerInput.z = Swimming ? InputManager.Instance.GetSwimmingValue() : 0f;
+		//playerInput.z = Swimming ? InputManager.Instance.GetSwimmingValue() : 0f;
 		playerInput = Vector3.ClampMagnitude(playerInput, 1f);
 
 		Moving = InputManager.Instance.GetMovementVector() != Vector2.zero ? true : false; // moving check
