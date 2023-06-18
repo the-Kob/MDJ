@@ -66,6 +66,9 @@ public class LocalPlayer : MonoBehaviour
 	[SerializeField]
 	LayerMask probeMask = -1, stairsMask = -1, climbMask = -1, waterMask = 0;
 
+	[SerializeField]
+	bool isCoopPlayer = false;
+
 	Transform playerInputSpace = default;
 
 	Rigidbody body, connectedBody, previousConnectedBody;
@@ -123,6 +126,9 @@ public class LocalPlayer : MonoBehaviour
 	private bool runFlag;
 	public void OnSprint(InputAction.CallbackContext ctx) => runFlag = ctx.performed;
 
+	private bool tugFlag;
+	public void OnTug(InputAction.CallbackContext ctx) => tugFlag = ctx.performed;
+
 
 	public void PreventSnapToGround () {
 		stepsSinceLastJump = -1;
@@ -178,6 +184,9 @@ public class LocalPlayer : MonoBehaviour
 			desiresJump |= jumpFlag;
 			desiresClimbing = climbFlag;
 			desiresRun = runFlag;
+
+			if (isCoopPlayer && tugFlag)
+				TugOtherPlayer();
 		}
 
 	}
@@ -573,6 +582,24 @@ public class LocalPlayer : MonoBehaviour
 		Quaternion desiredRotation = localOrbitCamera.charLookRotation * invertQuat;
 
 		ragdollsHips.transform.rotation = Quaternion.Slerp(ragdollsHips.transform.rotation, desiredRotation, 20f * Time.deltaTime);
+	}
+
+	public void TugOtherPlayer()
+    {
+		LocalPlayer[] players = FindObjectsByType<LocalPlayer>(FindObjectsSortMode.None);
+		LocalPlayer otherPlayer;
+
+		if (players[0] == this)
+        {
+			otherPlayer = players[1];
+		}
+		else
+        {
+			otherPlayer = players[0];
+		}
+
+		Vector3 force = (transform.position - otherPlayer.transform.position).normalized;
+		otherPlayer.GetComponent<Rigidbody>().AddForce(force * 0.3f, ForceMode.Impulse);
 	}
 
 }

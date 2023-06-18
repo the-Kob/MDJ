@@ -1827,7 +1827,7 @@ GameObject:
   - component: {fileID: 6529582617898785278}
   m_Layer: 14
   m_Name: RightHand
-  m_TagString: Untagged
+  m_TagString: Umpa
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4458,7 +4458,7 @@ GameObject:
   - component: {fileID: 8829534372234386473}
   m_Layer: 14
   m_Name: LeftHand
-  m_TagString: Untagged
+  m_TagString: Umpa
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5568,10 +5568,6 @@ MonoBehaviour:
     m_ActionId: 83a93057-ba99-4353-8d23-84783300a2d6
     m_ActionName: Player/Look[/Mouse/delta,/XInputControllerWindows/rightStick,/XInputControllerWindows1/rightStick]
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 9c6a768e-3398-4aed-8311-33b787327dbf
-    m_ActionName: Player/Up Down[/Keyboard/x,/Keyboard/space,/XInputControllerWindows/buttonWest,/XInputControllerWindows1/buttonWest,/XInputControllerWindows/buttonSouth,/XInputControllerWindows1/buttonSouth]
-  - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5185201989392784814}
         m_TargetAssemblyTypeName: LocalPlayer, Assembly-CSharp
@@ -5620,7 +5616,19 @@ MonoBehaviour:
     m_ActionId: b21de298-35f6-4bba-8e53-37b988b97404
     m_ActionName: Player/GrabRight[/Mouse/rightButton,/XInputControllerWindows/rightTrigger,/XInputControllerWindows1/rightTrigger]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5185201989392784814}
+        m_TargetAssemblyTypeName: LocalPlayer, Assembly-CSharp
+        m_MethodName: OnTug
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 41bd0d53-7c40-4ade-bb88-f32b998299be
     m_ActionName: Player/Tug[/Keyboard/e,/XInputControllerWindows/buttonNorth,/XInputControllerWindows1/buttonNorth]
   - m_PersistentCalls:
@@ -5639,6 +5647,18 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 8daf69c7-5a06-4734-9356-56b29924b680
     m_ActionName: Player/Sprint[/Keyboard/shift,/XInputControllerWindows/buttonEast,/XInputControllerWindows1/buttonEast]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4d60ebd6-090f-43d6-96bc-462aabfb67e2
+    m_ActionName: UI/Navigate[/XInputControllerWindows1/leftStick,/XInputControllerWindows/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/XInputControllerWindows1/dpad,/XInputControllerWindows/dpad]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8cf3397c-e827-46aa-b1f8-313e0d63b7f6
+    m_ActionName: UI/Submit[/Keyboard/space,/XInputControllerWindows1/buttonSouth,/XInputControllerWindows/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2b2e359b-225d-418c-a4bb-e3df11e6f9c4
+    m_ActionName: UI/Cancel[/Keyboard/shift,/XInputControllerWindows1/buttonEast,/XInputControllerWindows/buttonEast]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Player
@@ -5695,6 +5715,7 @@ MonoBehaviour:
   waterMask:
     serializedVersion: 2
     m_Bits: 16
+  isCoopPlayer: 1
   desiresJump: 0
   desiresClimbing: 0
   desiresRun: 0
