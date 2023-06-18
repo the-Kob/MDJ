@@ -170,7 +170,7 @@ public class PlayerOxygenManager : MonoBehaviour
         Time.timeScale = 0f;
         gameOverScreen.SetActive(true);
         stopOxygen = true;
-        yield return new WaitForSecondsRealtime(5f);
+        yield return new WaitForSecondsRealtime(4.5f);
         gameOverScreen.SetActive(false);
         stopOxygen = false;
         Time.timeScale = 1f;
