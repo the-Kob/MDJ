@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class HeavyObject : MonoBehaviour
 {
     private Rigidbody rb;
@@ -12,6 +13,7 @@ public class HeavyObject : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+
     }
 
     void Update()
@@ -22,34 +24,38 @@ public class HeavyObject : MonoBehaviour
     private void CheckForPlayers()
     {
 
-        rb.isKinematic = !(neilDetected && umpaDetected);
+        if (!(neilDetected && umpaDetected))
+            rb.constraints = RigidbodyConstraints.FreezePosition;
+        else
+            rb.constraints = RigidbodyConstraints.None;
+
     }
 
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Neil")
+        if (other.tag == "Neil")
         {
             neilDetected = true;
-            Debug.Log("neil detected");
         }
-        if (other.gameObject.tag == "Umpa")
+        if (other.tag == "Umpa")
         {
             umpaDetected = true;
-            Debug.Log("umpa detected");
         }
     }
 
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Neil")
+        if (other.tag == "Neil")
         {
             neilDetected = false;
+            rb.freezeRotation = true;
         }
-        if (other.gameObject.tag == "Umpa")
+        if (other.tag == "Umpa")
         {
             umpaDetected = false;
+            rb.freezeRotation = true;
         }
     }
 }

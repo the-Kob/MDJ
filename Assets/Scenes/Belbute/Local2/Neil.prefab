@@ -1596,7 +1596,7 @@ Transform:
   - {fileID: 3861983733315663372}
   - {fileID: 1833961185569936417}
   m_Father: {fileID: 5048932516417473783}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3861983731632208647
 GameObject:
@@ -1827,7 +1827,7 @@ GameObject:
   - component: {fileID: 6529582617898785278}
   m_Layer: 13
   m_Name: RightHand
-  m_TagString: Untagged
+  m_TagString: Neil
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4458,7 +4458,7 @@ GameObject:
   - component: {fileID: 8829534372234386473}
   m_Layer: 13
   m_Name: LeftHand
-  m_TagString: Untagged
+  m_TagString: Neil
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5442,7 +5442,7 @@ GameObject:
   - component: {fileID: 3532332566980319371}
   m_Layer: 13
   m_Name: Neil
-  m_TagString: Neil
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5459,8 +5459,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8298678984009235071}
   - {fileID: 871457932581483832}
+  - {fileID: 8298678984009235071}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5861,7 +5861,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5048932516417473783}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 5.688, z: 0}
 --- !u!20 &7377686878837399958
 Camera:

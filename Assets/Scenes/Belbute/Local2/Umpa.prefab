@@ -1827,7 +1827,7 @@ GameObject:
   - component: {fileID: 6529582617898785278}
   m_Layer: 14
   m_Name: RightHand
-  m_TagString: Untagged
+  m_TagString: Umpa
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4458,7 +4458,7 @@ GameObject:
   - component: {fileID: 8829534372234386473}
   m_Layer: 14
   m_Name: LeftHand
-  m_TagString: Untagged
+  m_TagString: Umpa
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5442,7 +5442,7 @@ GameObject:
   - component: {fileID: 3532332566980319371}
   m_Layer: 14
   m_Name: Umpa
-  m_TagString: Umpa
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
