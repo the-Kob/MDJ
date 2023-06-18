@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -9,18 +10,20 @@ public class MainMenuDisplay : MonoBehaviour
     [SerializeField] private Image foreground;
     [SerializeField] private GameObject menuPanel;
     [SerializeField] private GameObject optionsPanel;
-    [SerializeField] private GameObject bindingsPanel;
+    //[SerializeField] private GameObject bindingsPanel;
     [SerializeField] private GameObject spaceshipImage;
     [SerializeField] private GameObject smokeEffect;
-
 
 
     [Header("Settings")]
     [SerializeField] private float fadeSpeed = 0.5f; 
     [SerializeField] private float fadeTime = 1f;
-    [SerializeField] private string roomMenuSceneName = "RoomMenu";
+    [SerializeField] private string nextSceneName = "RoomMenu";
 
-    bool showingOptions = false;
+
+    public GameObject firstOptionsButton;
+    public GameObject firstMenuButton;
+
 
     void Awake()
     {
@@ -57,7 +60,7 @@ public class MainMenuDisplay : MonoBehaviour
 
     public void Play()
     {
-        SceneManager.LoadScene(roomMenuSceneName);
+        SceneManager.LoadScene(nextSceneName);
     }
 
     public void Quit()
@@ -72,17 +75,25 @@ public class MainMenuDisplay : MonoBehaviour
 
         menuPanel.SetActive(true);
         optionsPanel.SetActive(false);
-        bindingsPanel.SetActive(false);
+        //bindingsPanel.SetActive(false);
+
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(firstMenuButton);
     }
 
     public void Options()
     {
+
         spaceshipImage.SetActive(false);
         smokeEffect.SetActive(false);
 
         menuPanel.SetActive(false);
         optionsPanel.SetActive(true);
-        bindingsPanel.SetActive(false);
+        //bindingsPanel.SetActive(false);
+
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(firstOptionsButton);
+
     }
 
     public void Binds()
@@ -92,6 +103,6 @@ public class MainMenuDisplay : MonoBehaviour
 
         menuPanel.SetActive(false);
         optionsPanel.SetActive(false);
-        bindingsPanel.SetActive(true);
+        //bindingsPanel.SetActive(true);
     }
 }
