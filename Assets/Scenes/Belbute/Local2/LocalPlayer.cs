@@ -558,7 +558,12 @@ public class LocalPlayer : MonoBehaviour
 
     void UpdatePlayerVisual()
 	{
-		realPhysicsRagdoll.transform.position = transform.position - contactNormal.normalized * verticalRagdollOffset;
+
+		if (!Climbing)
+			realPhysicsRagdoll.transform.position = transform.position - contactNormal.normalized * verticalRagdollOffset;
+		else
+			realPhysicsRagdoll.transform.position = transform.position;
+
 	}
 
 	private void ChangeGravitationalOrientation()
