@@ -1214,6 +1214,8 @@ GameObject:
   - component: {fileID: 160465551}
   - component: {fileID: 160465550}
   - component: {fileID: 160465549}
+  - component: {fileID: 160465552}
+  - component: {fileID: 160465553}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -1299,6 +1301,31 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 160465547}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &160465552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 160465547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd425f5c34b244fe97bb79c432f15641, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &160465553
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 160465547}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &176928995
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8948,7 +8975,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 596553287}
   serializedVersion: 8
-  lengthInSec: 100000
+  lengthInSec: 999
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -14009,6 +14036,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5048932516417474319, guid: 5c7a1c9bd9427e545b57abdd8ba83449,
+        type: 3}
+      propertyPath: m_TagString
+      value: Umpa
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c7a1c9bd9427e545b57abdd8ba83449, type: 3}
@@ -19810,32 +19842,12 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!1 &855886308 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2496104809076546778, guid: 77b367dbe3b8fee49b4d0d8f06aa2e6c,
-    type: 3}
-  m_PrefabInstance: {fileID: 138930650}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &855886309 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2496104809076546752, guid: 77b367dbe3b8fee49b4d0d8f06aa2e6c,
     type: 3}
   m_PrefabInstance: {fileID: 138930650}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &855886315
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 855886308}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a39ebe4979814c479d096001e4893e67, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  planet: {fileID: 1680771545}
-  speed: 15.15
 --- !u!1001 &858108810
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22745,6 +22757,11 @@ PrefabInstance:
     - target: {fileID: 6533861962438489033, guid: ea0b6e81535e14b4cb8bfbeeeb9c33f3,
         type: 3}
       propertyPath: m_Name
+      value: Neil
+      objectReference: {fileID: 0}
+    - target: {fileID: 6533861962438489033, guid: ea0b6e81535e14b4cb8bfbeeeb9c33f3,
+        type: 3}
+      propertyPath: m_TagString
       value: Neil
       objectReference: {fileID: 0}
     - target: {fileID: 8853890677898435920, guid: ea0b6e81535e14b4cb8bfbeeeb9c33f3,
@@ -30695,12 +30712,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1654880570}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1680771545 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2496104809076546778, guid: 77b367dbe3b8fee49b4d0d8f06aa2e6c,
-    type: 3}
-  m_PrefabInstance: {fileID: 1843075663}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1688629003
 GameObject:
   m_ObjectHideFlags: 0
