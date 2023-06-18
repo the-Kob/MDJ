@@ -44,6 +44,9 @@ public class DomeOxygenManager : MonoBehaviour
     {
         if (neilDetected || umpaDetected)
         {
+            if (!isSaved)
+                Save();
+
             timeElapsed += Time.deltaTime;
             if (timeElapsed > increaseTimeframe)
             {
@@ -59,6 +62,7 @@ public class DomeOxygenManager : MonoBehaviour
         isSaved = true;
         activeAtSave = oxygenDome.activeInHierarchy; // ??
         oxygenAtSave = currentOxygen;
+        PlayerOxygenManager.playerOxygenManager.Save(oxygenDome);
     }
 
     public void ResetDome()

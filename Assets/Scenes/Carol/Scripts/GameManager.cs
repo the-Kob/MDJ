@@ -84,6 +84,7 @@ public class GameManager : MonoBehaviour
             case GameState.Win:
                 break;
             case GameState.GameOver:
+                // HandleGameOver (might change state to GameWith or GameWithout Cat, depends on time)
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
