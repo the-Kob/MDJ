@@ -55,15 +55,6 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Up Down"",
-                    ""type"": ""Button"",
-                    ""id"": ""9c6a768e-3398-4aed-8311-33b787327dbf"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Climb"",
                     ""type"": ""Button"",
                     ""id"": ""95affd86-16e5-425b-9946-e30a1e57ec2c"",
@@ -230,72 +221,6 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
                     ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""1D Axis"",
-                    ""id"": ""0b3aa3e7-4c79-4088-978e-be7ec3221930"",
-                    ""path"": ""1DAxis"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Up Down"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""negative"",
-                    ""id"": ""673dbfba-9d97-4a4e-aeb2-f6371856b652"",
-                    ""path"": ""<Keyboard>/x"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""Up Down"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""81132fa5-86c0-4596-b9f3-563a97611db4"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""Up Down"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""1D Axis"",
-                    ""id"": ""78d89ac0-35c9-45f0-9de3-cd5cebf719e0"",
-                    ""path"": ""1DAxis"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Up Down"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""negative"",
-                    ""id"": ""ba05e674-8a3f-47ad-80ed-c12d15e5c170"",
-                    ""path"": ""<Gamepad>/buttonWest"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Up Down"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""c425e29b-8cb1-4f72-b850-9a26c06dbc5f"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Up Down"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
                 },
                 {
                     ""name"": """",
@@ -601,7 +526,6 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
-        m_Player_UpDown = m_Player.FindAction("Up Down", throwIfNotFound: true);
         m_Player_Climb = m_Player.FindAction("Climb", throwIfNotFound: true);
         m_Player_GrabLeft = m_Player.FindAction("GrabLeft", throwIfNotFound: true);
         m_Player_GrabRight = m_Player.FindAction("GrabRight", throwIfNotFound: true);
@@ -676,7 +600,6 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Look;
-    private readonly InputAction m_Player_UpDown;
     private readonly InputAction m_Player_Climb;
     private readonly InputAction m_Player_GrabLeft;
     private readonly InputAction m_Player_GrabRight;
@@ -689,7 +612,6 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Look => m_Wrapper.m_Player_Look;
-        public InputAction @UpDown => m_Wrapper.m_Player_UpDown;
         public InputAction @Climb => m_Wrapper.m_Player_Climb;
         public InputAction @GrabLeft => m_Wrapper.m_Player_GrabLeft;
         public InputAction @GrabRight => m_Wrapper.m_Player_GrabRight;
@@ -713,9 +635,6 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
             @Look.started += instance.OnLook;
             @Look.performed += instance.OnLook;
             @Look.canceled += instance.OnLook;
-            @UpDown.started += instance.OnUpDown;
-            @UpDown.performed += instance.OnUpDown;
-            @UpDown.canceled += instance.OnUpDown;
             @Climb.started += instance.OnClimb;
             @Climb.performed += instance.OnClimb;
             @Climb.canceled += instance.OnClimb;
@@ -744,9 +663,6 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
             @Look.started -= instance.OnLook;
             @Look.performed -= instance.OnLook;
             @Look.canceled -= instance.OnLook;
-            @UpDown.started -= instance.OnUpDown;
-            @UpDown.performed -= instance.OnUpDown;
-            @UpDown.canceled -= instance.OnUpDown;
             @Climb.started -= instance.OnClimb;
             @Climb.performed -= instance.OnClimb;
             @Climb.canceled -= instance.OnClimb;
@@ -864,7 +780,6 @@ public partial class @CustomInput: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
-        void OnUpDown(InputAction.CallbackContext context);
         void OnClimb(InputAction.CallbackContext context);
         void OnGrabLeft(InputAction.CallbackContext context);
         void OnGrabRight(InputAction.CallbackContext context);
