@@ -10,6 +10,9 @@ TagManager:
   - umpa_ground
   - Neil
   - Umpa
+  - Blue
+  - Orange
+  - Red
   layers:
   - Default
   - TransparentFX
