@@ -38,9 +38,9 @@ public class Detect_neil : MonoBehaviour
     {
        
         //Debug.Log(neil_detected);
-        /*if (detect_umpa.umpa_detected && neil_detected)
+        if (detect_umpa.umpa_detected && neil_detected)
         {
             Destroy(this.gameObject);
-        }*/
+        }
     }
 }
