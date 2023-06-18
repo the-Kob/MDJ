@@ -483,7 +483,7 @@ public class SinglePlayer : MonoBehaviour
 	void OnTriggerEnter (Collider other) {
 		if (other.CompareTag("trampoline"))
 			{
-				jumpHeight = 20f;
+				jumpHeight = 60f;
 				Debug.Log("trampoline");
 			}
 		if ((waterMask & (1 << other.gameObject.layer)) != 0) {
