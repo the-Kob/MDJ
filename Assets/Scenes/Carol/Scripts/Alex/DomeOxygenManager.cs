@@ -16,8 +16,8 @@ public class DomeOxygenManager : MonoBehaviour
     private bool neilDetected;
     private bool umpaDetected;
 
-    public float oxygenPercentPerHell = 0.01f;
-    public float increaseHell = 0.2f;
+    public float oxygenPercentPerTimeframe = 0.01f;
+    public float increaseTimeframe = 0.2f;
 
     public float timeElapsed = 0f;
 
@@ -45,10 +45,10 @@ public class DomeOxygenManager : MonoBehaviour
         if (neilDetected || umpaDetected)
         {
             timeElapsed += Time.deltaTime;
-            if (timeElapsed > increaseHell)
+            if (timeElapsed > increaseTimeframe)
             {
-                Debug.Log("timeElapsed = " + timeElapsed + "  |  increaseHell = " + increaseHell);
-                GiveOxygen(Mathf.FloorToInt(timeElapsed / increaseHell));
+                //Debug.Log("timeElapsed = " + timeElapsed + "  |  increaseTimeframe = " + increaseTimeframe);
+                GiveOxygen(Mathf.FloorToInt(timeElapsed / increaseTimeframe));
                 timeElapsed = 0f;
             }
         }
@@ -83,20 +83,20 @@ public class DomeOxygenManager : MonoBehaviour
 
     public void GiveOxygen(int nrTimesteps = 1)
     {
-        Debug.Log("Will give O2. #Timesteps = " + nrTimesteps);
+        //Debug.Log("Will give O2. #Timesteps = " + nrTimesteps);
 
-        float oxygenPercentToGive = nrTimesteps * oxygenPercentPerHell;
+        float oxygenPercentToGive = nrTimesteps * oxygenPercentPerTimeframe;
 
-        Debug.Log("Percent to give = " + oxygenPercentToGive);
+        //Debug.Log("Percent to give = " + oxygenPercentToGive);
 
         oxygenPercentToGive = oxygenPercentToGive * maxOxygen <= currentOxygen ? 
                               oxygenPercentToGive : currentOxygen / maxOxygen;
 
-        Debug.Log("Will give " + oxygenPercentToGive + "%");
+        //Debug.Log("Will give " + oxygenPercentToGive + "%");
 
         float oxygenGiven = PlayerOxygenManager.playerOxygenManager.IncreaseOxygenLevels(oxygenPercentToGive);
 
-        Debug.Log("Gave " + oxygenGiven + " total");
+        //Debug.Log("Gave " + oxygenGiven + " total");
 
         currentOxygen = Mathf.Max(0, currentOxygen + oxygenGiven);
     }
@@ -107,12 +107,12 @@ public class DomeOxygenManager : MonoBehaviour
         if (other.gameObject.tag == "Neil")
         {
             neilDetected = true;
-            Debug.Log("neil detected");
+            //Debug.Log("neil detected");
         }
         if (other.gameObject.tag == "Umpa")
         {
             umpaDetected = true;
-            Debug.Log("umpa detected");
+            //Debug.Log("umpa detected");
         }
     }
     
@@ -122,12 +122,12 @@ public class DomeOxygenManager : MonoBehaviour
         if (other.gameObject.tag == "Neil")
         {
             neilDetected = false;
-            Debug.Log("neil NOT detected");
+            //Debug.Log("neil NOT detected");
         }
         if (other.gameObject.tag == "Umpa")
         {
             umpaDetected = false;
-            Debug.Log("umpa NOT detected");
+            //Debug.Log("umpa NOT detected");
         }
     }
     /*
@@ -136,12 +136,12 @@ public class DomeOxygenManager : MonoBehaviour
         if (other.gameObject.tag == "Neil")
         {
             neilDetected = true;
-            Debug.Log("neil detected - STAY");
+            //Debug.Log("neil detected - STAY");
         }
         if (other.gameObject.tag == "Umpa")
         {
             umpaDetected = true;
-            Debug.Log("umpa detected - STAY");
+            //Debug.Log("umpa detected - STAY");
         }
 
     }*/

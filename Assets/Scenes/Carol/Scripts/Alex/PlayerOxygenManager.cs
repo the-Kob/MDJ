@@ -15,8 +15,8 @@ public class PlayerOxygenManager : MonoBehaviour
     public float oxygenLevels;
     public float maxOxygenLevels = 1000f;
     
-    public float oxygenDecrease = 1f;
-    public float decreaseTimer = 0.75f;
+    public float oxygenDecreasePerTimeframe = 1f;
+    public float decreaseTimeframe = 0.75f;
     public float timeElapsed = 0f;
 
     public bool stopOxygen = false;
@@ -79,10 +79,10 @@ public class PlayerOxygenManager : MonoBehaviour
     {
         timeElapsed += Time.deltaTime;
 
-        if (timeElapsed > decreaseTimer)
+        if (timeElapsed > decreaseTimeframe)
         {
             timeElapsed = 0f;
-            float percent = oxygenDecrease / maxOxygenLevels;
+            float percent = oxygenDecreasePerTimeframe / maxOxygenLevels;
             DecreaseOxygenLevels(percent);
         }
 
