@@ -6,6 +6,7 @@ public class DomeOxygenManager : MonoBehaviour
 {
     public GameObject oxygenDome;
 
+   
     public float maxOxygen;
     public float currentOxygen;
 
@@ -24,7 +25,11 @@ public class DomeOxygenManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        maxOxygen = PlayerOxygenManager.playerOxygenManager.maxOxygenLevels;
+        if (maxOxygen == 0)
+        {
+            maxOxygen = PlayerOxygenManager.playerOxygenManager.maxOxygenLevels;
+        }
+        
         ResetDome();
     }
 

@@ -514,7 +514,7 @@ public class LocalPlayer : MonoBehaviour
 	{
 		if (other.CompareTag("trampoline"))
 		{
-			jumpHeight = 20f;
+			jumpHeight = 70f;
 		}
 		if ((waterMask & (1 << other.gameObject.layer)) != 0)
 		{

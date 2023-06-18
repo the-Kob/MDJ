@@ -17,7 +17,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Carol/Tutorial.unity
     guid: bafeda27b6fcbb9498a9dfb8fce69dcb
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Belbute/Local2/Local2.unity
     guid: 4bf9b86ec978694458e1c6d6940f9a82
   - enabled: 1
