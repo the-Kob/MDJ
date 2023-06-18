@@ -9,6 +9,7 @@ public class PlayerOxygenManager : MonoBehaviour
 {
     public static PlayerOxygenManager playerOxygenManager { get; set; }
 
+
     /* Needs to use the GameManager either way, the subscribing aspect mentioned
      * When state changes, it needs to do diff things based on state
      * If GameWith/Wo Cat, then respawn
@@ -33,6 +34,7 @@ public class PlayerOxygenManager : MonoBehaviour
     public List<GameObject> players;
     public List<Vector3> playersPositionAtSave;
     public GameObject lastOxygenDome;
+    public GameObject gameOverScreen;
 
 
     // Start is called before the first frame update
@@ -67,6 +69,7 @@ public class PlayerOxygenManager : MonoBehaviour
         if (resetOxygen)
         {
             ResetOxygen();
+            return;
         }
 
         if (stopOxygen) return;
@@ -74,6 +77,7 @@ public class PlayerOxygenManager : MonoBehaviour
         if (oxygenLevels <= 0)
         {
             ReturnToCheckpoint();
+            return;
         }
 
         UpdateOxygenLevels();
@@ -136,6 +140,8 @@ public class PlayerOxygenManager : MonoBehaviour
 
     public void ReturnToCheckpoint()
     {
+        StartCoroutine(GameOver());
+
         if (lastOxygenDome == null)
         {
             Restart();
@@ -157,6 +163,17 @@ public class PlayerOxygenManager : MonoBehaviour
         ResetPlayersPosition();
         ResetPlayersOxygen();
         ResetOxygenDome();
+    }
+
+    IEnumerator GameOver()
+    {
+        Time.timeScale = 0f;
+        gameOverScreen.SetActive(true);
+        stopOxygen = true;
+        yield return new WaitForSecondsRealtime(5f);
+        gameOverScreen.SetActive(false);
+        stopOxygen = false;
+        Time.timeScale = 1f;
     }
 
     public void SavePlayersPosition()
