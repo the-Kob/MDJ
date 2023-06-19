@@ -17,6 +17,8 @@ public class RopeManager : MonoBehaviour
 
     [Range(0.1f, 100)]
     public float maxDistanceBetweenCharacters = 10;
+    [Range(1, 100)]
+    public float ropeLenght = 25;
 
     private int particlePoolSize = 100;
 

@@ -3353,6 +3353,8 @@ GameObject:
   - component: {fileID: 3861983732244508004}
   - component: {fileID: 3861983732244508005}
   - component: {fileID: 4198971667077325789}
+  - component: {fileID: 5749778976858362946}
+  - component: {fileID: 5955991542745865106}
   m_Layer: 14
   m_Name: Stomach
   m_TagString: Untagged
@@ -3564,6 +3566,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetLimb: {fileID: 1833961185590189246}
   mirror: 0
+--- !u!114 &5749778976858362946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3861983732244508003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6757b231cedd544c583ef8aeaf773b2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thickness: 0
+  material: {fileID: 0}
+  filter: -65535
+  m_SourceCollider: {fileID: 3861983732244508001}
+  m_DistanceField: {fileID: 0}
+--- !u!114 &5955991542745865106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3861983732244508003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62359d80fdc0e4315ab6331b78ec5b90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  kinematicForParticles: 0
 --- !u!1 &3861983732286150650
 GameObject:
   m_ObjectHideFlags: 0
