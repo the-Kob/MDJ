@@ -1,42 +1,30 @@
-﻿using System.Collections;
+using Obi;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Obi;
+using UnityEngine.TextCore.Text;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
+using static UnityEngine.UI.Image;
 
-/**
- * Sample component that shows how to use Obi Rope to create a grappling hook for a 2.5D game.
- * 95% of the code is the grappling hook logic (user input, scene raycasting, launching, attaching the hook, etc) and parameter setup,
- * to show how to use Obi completely at runtime. This might not be practical for real-world scenarios,
- * but illustrates how to do it.
- *
- * Note that the choice of using actual rope simulation for grapple dynamics is debatable. Usually
- * a simple spring works better both in terms of performance and controllability. 
- *
- * If complex interaction is required with the scene, a purely geometry-based approach (ala Worms ninja rope) can
- * be the right choice under certain circumstances.
- */
-public class ExtendableGrapplingHook : MonoBehaviour
+public class RopeManager : MonoBehaviour
 {
-
     public ObiSolver solver;
-    public ObiCollider character;
+    public List<ObiCollider> characters = new List<ObiCollider>();
 
     public Material material;
     public ObiRopeSection section;
 
-    [Range(0, 1)]
-    public float hookResolution = 0.5f;
-    public float hookExtendRetractSpeed = 2;
-    public float hookShootSpeed = 30;
-    public int particlePoolSize = 100;
+    [Range(0.1f, 100)]
+    public float maxDistanceBetweenCharacters = 10;
+
+    private int particlePoolSize = 100;
 
     private ObiRope rope;
     private ObiRopeBlueprint blueprint;
     private ObiRopeExtrudedRenderer ropeRenderer;
 
     private ObiRopeCursor cursor;
-
-    private RaycastHit hookAttachment;
 
     void Awake()
     {
@@ -52,49 +40,31 @@ public class ExtendableGrapplingHook : MonoBehaviour
 
         // Setup a blueprint for the rope:
         blueprint = ScriptableObject.CreateInstance<ObiRopeBlueprint>();
-        blueprint.resolution = 0.5f;
+        blueprint.resolution = 1f;
         blueprint.pooledParticles = particlePoolSize;
 
         // Tweak rope parameters:
-        rope.tearingEnabled = true;
-
         rope.maxBending = 0.02f;
 
         // Add a cursor to be able to change rope length:
         cursor = rope.gameObject.AddComponent<ObiRopeCursor>();
         cursor.cursorMu = 0;
         cursor.direction = true;
+
+        CreateRope();
     }
 
-    private void OnDestroy()
+    void LateUpdate()
     {
-        DestroyImmediate(blueprint);
+        CheckIfRopeBreaks();
     }
 
-    /**
-	 * Raycast against the scene to see if we can attach the hook to something.
-	 */
-    private void LaunchHook()
+    private void CreateRope()
     {
-
-        // Get the mouse position in the scene, in the same XY plane as this object:
-        Vector3 mouse = Input.mousePosition;
-        mouse.z = transform.position.z - Camera.main.transform.position.z;
-        Vector3 mouseInScene = Camera.main.ScreenToWorldPoint(mouse);
-
-        // Get a ray from the character to the mouse:
-        Ray ray = new Ray(transform.position, mouseInScene - transform.position);
-
-        // Raycast to see what we hit:
-        if (Physics.Raycast(ray, out hookAttachment))
-        {
-            // We actually hit something, so attach the hook!
-            StartCoroutine(AttachHook());
-        }
-
+        StartCoroutine(CreateRopeCoroutine());
     }
 
-    private IEnumerator AttachHook()
+    private IEnumerator CreateRopeCoroutine()
     {
         yield return null;
 
@@ -102,18 +72,19 @@ public class ExtendableGrapplingHook : MonoBehaviour
         var pinConstraints = rope.GetConstraintsByType(Oni.ConstraintType.Pin) as ObiConstraints<ObiPinConstraintsBatch>;
         pinConstraints.Clear();
 
-        Vector3 localHit = rope.transform.InverseTransformPoint(hookAttachment.point);
+        Vector3 ropeStartAttachement = rope.transform.InverseTransformPoint(characters[0].transform.position);
+        Vector3 ropeEndAttachement = rope.transform.InverseTransformPoint(characters[1].transform.position);
 
         // Procedurally generate the rope path (just a short segment, as we will extend it over time):
         int filter = ObiUtils.MakeFilter(ObiUtils.CollideWithEverything, 0);
         blueprint.path.Clear();
-        blueprint.path.AddControlPoint(Vector3.zero, Vector3.zero, Vector3.zero, Vector3.up, 0.1f, 0.1f, 1, filter, Color.white, "Hook start");
-        blueprint.path.AddControlPoint(localHit.normalized * 0.5f, Vector3.zero, Vector3.zero, Vector3.up, 0.1f, 0.1f, 1, filter, Color.white, "Hook end");
+        blueprint.path.AddControlPoint(ropeStartAttachement, Vector3.zero, Vector3.zero, Vector3.up, 0.1f, 0.1f, 1, filter, Color.white, "Start");
+        blueprint.path.AddControlPoint(ropeEndAttachement.normalized * 0.5f, Vector3.zero, Vector3.zero, Vector3.up, 0.1f, 0.1f, 1, filter, Color.white, "End");
         blueprint.path.FlushEvents();
 
         // Generate the particle representation of the rope (wait until it has finished):
         yield return blueprint.Generate();
-        
+
         // Set the blueprint (this adds particles/constraints to the solver and starts simulating them).
         rope.ropeBlueprint = blueprint;
 
@@ -135,12 +106,12 @@ public class ExtendableGrapplingHook : MonoBehaviour
             Vector3 origin = solver.transform.InverseTransformPoint(rope.transform.position);
 
             // update direction and distance to hook point:
-            Vector3 direction = hookAttachment.point - origin;
+            Vector3 direction = characters[1].transform.position - origin;
             float distance = direction.magnitude;
             direction.Normalize();
 
             // increase length:
-            currentLength += hookShootSpeed * Time.deltaTime;
+            currentLength += 100 * Time.deltaTime;
 
             // if we have reached the desired length, break the loop:
             if (currentLength >= distance)
@@ -172,44 +143,26 @@ public class ExtendableGrapplingHook : MonoBehaviour
 
         // Pin both ends of the rope (this enables two-way interaction between character and rope):
         var batch = new ObiPinConstraintsBatch();
-        batch.AddConstraint(rope.elements[0].particle1, character, transform.localPosition, Quaternion.identity, 0, 0, float.PositiveInfinity);
-        batch.AddConstraint(rope.elements[rope.elements.Count-1].particle2, hookAttachment.collider.GetComponent<ObiColliderBase>(),
-                                                          hookAttachment.collider.transform.InverseTransformPoint(hookAttachment.point), Quaternion.identity, 0, 0, float.PositiveInfinity);
+        batch.AddConstraint(rope.elements[0].particle1, characters[0],
+                                                          characters[0].gameObject.GetComponent<Collider>().transform.InverseTransformPoint(characters[0].transform.position), Quaternion.identity, 0, 0, float.PositiveInfinity);
+        batch.AddConstraint(rope.elements[rope.elements.Count - 1].particle2, characters[1],
+                                                          characters[1].gameObject.GetComponent<Collider>().transform.InverseTransformPoint(characters[1].transform.position), Quaternion.identity, 0, 0, float.PositiveInfinity);
         batch.activeConstraintCount = 2;
         pinConstraints.AddBatch(batch);
 
         rope.SetConstraintsDirty(Oni.ConstraintType.Pin);
     }
 
-    private void DetachHook()
+    private void CheckIfRopeBreaks()
     {
-        // Set the rope blueprint to null (automatically removes the previous blueprint from the solver, if any).
-        rope.ropeBlueprint = null;
-        rope.GetComponent<MeshRenderer>().enabled = false;
-    }
+        float distance = (characters[1].transform.position - characters[0].transform.position).magnitude;
 
-
-    void Update()
-    {
-
-        if (Input.GetMouseButtonDown(0))
+        if (distance >= maxDistanceBetweenCharacters)
         {
-            if (!rope.isLoaded)
-                LaunchHook();
-            else
-                DetachHook();
-        }
-
-        if (rope.isLoaded)
-        {
-            if (Input.GetKey(KeyCode.W))
-            {
-                cursor.ChangeLength(rope.restLength - hookExtendRetractSpeed * Time.deltaTime);
-            }
-            if (Input.GetKey(KeyCode.S))
-            {
-                cursor.ChangeLength(rope.restLength + hookExtendRetractSpeed * Time.deltaTime);
-            }
+            int middleOfRopeIndex = Mathf.FloorToInt(rope.elements.Count / 2);
+            rope.Tear(rope.elements[middleOfRopeIndex]);
+            rope.RebuildConstraintsFromElements();
+            GameManager.Instance.UpdateGameState(GameState.GameOver);
         }
     }
 }
