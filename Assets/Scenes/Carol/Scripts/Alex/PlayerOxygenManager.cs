@@ -56,6 +56,7 @@ public class PlayerOxygenManager : MonoBehaviour
         {
             playersPositionAtSave.Add(players[i].transform.position);
         }
+        Debug.Log("Game started.");
     }
 
     public float getMaxOxygenLevels()
@@ -174,6 +175,7 @@ public class PlayerOxygenManager : MonoBehaviour
         gameOverScreen.SetActive(false);
         stopOxygen = false;
         Time.timeScale = 1f;
+        Debug.Log("Out of oxygen!");
     }
 
     public void SavePlayersPosition()
