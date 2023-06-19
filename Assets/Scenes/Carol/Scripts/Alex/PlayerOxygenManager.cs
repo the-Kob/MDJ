@@ -34,8 +34,6 @@ public class PlayerOxygenManager : MonoBehaviour
     public List<GameObject> players;
     public List<Vector3> playersPositionAtSave;
     public GameObject lastOxygenDome;
-    public GameObject gameOverScreen;
-
 
     // Start is called before the first frame update
     void Awake()
@@ -49,13 +47,18 @@ public class PlayerOxygenManager : MonoBehaviour
         {
             playerOxygenManager = this;
         }
+    }
 
+    void Start()
+    {
         ResetOxygen();
 
         for (int i = 0; i < players.Count; i++)
         {
             playersPositionAtSave.Add(players[i].transform.position);
         }
+
+        oxygenLevelsAtSave = maxOxygenLevels;
         Debug.Log("Game started.");
     }
 
@@ -77,7 +80,9 @@ public class PlayerOxygenManager : MonoBehaviour
 
         if (oxygenLevels <= 0)
         {
-            ReturnToCheckpoint();
+            Debug.Log("O2 asked for gen reset");
+            GameManager.Instance.GeneralReset();
+//            GameManager.Instance.UpdateGameState(GameState.GameOver);
             return;
         }
 
@@ -138,25 +143,12 @@ public class PlayerOxygenManager : MonoBehaviour
         Time.timeScale = 0f;
         Debug.Log("Out of O2 :/");
     }
-
-    public void ReturnToCheckpoint()
-    {
-        StartCoroutine(GameOver());
-
-        if (lastOxygenDome == null)
-        {
-            Restart();
-            return;
-        }
-
-        Reset();
-    }
-
+    
     public void Save(GameObject oxygenDome)
     {
         SavePlayersOxygen();
         SavePlayersPosition();
-        SaveOxygenDome(oxygenDome);        
+        SaveOxygenDome(oxygenDome);
     }
 
     public void Reset()
@@ -164,18 +156,6 @@ public class PlayerOxygenManager : MonoBehaviour
         ResetPlayersPosition();
         ResetPlayersOxygen();
         ResetOxygenDome();
-    }
-
-    IEnumerator GameOver()
-    {
-        Time.timeScale = 0f;
-        gameOverScreen.SetActive(true);
-        stopOxygen = true;
-        yield return new WaitForSecondsRealtime(4.5f);
-        gameOverScreen.SetActive(false);
-        stopOxygen = false;
-        Time.timeScale = 1f;
-        Debug.Log("Out of oxygen!");
     }
 
     public void SavePlayersPosition()

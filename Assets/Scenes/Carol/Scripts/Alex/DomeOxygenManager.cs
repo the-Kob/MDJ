@@ -18,7 +18,7 @@ public class DomeOxygenManager : MonoBehaviour
     private bool umpaDetected;
 
     public float oxygenPercentPerTimeframe = 0.01f;
-    public float increaseTimeframe = 0.2f;
+    public float increaseTimeframe = 0.1f;
 
     public float timeElapsed = 0f;
 
@@ -49,6 +49,7 @@ public class DomeOxygenManager : MonoBehaviour
     {
         if (neilDetected || umpaDetected)
         {
+            Debug.Log("Player detected!");
             if (!isSaved)
                 Save();
 
@@ -111,20 +112,21 @@ public class DomeOxygenManager : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.tag == "Neil")
         {
             neilDetected = true;
-            //Debug.Log("neil detected");
+            Debug.Log("neil detected");
         }
+
         if (other.gameObject.tag == "Umpa")
         {
             umpaDetected = true;
-            //Debug.Log("umpa detected");
+            Debug.Log("umpa detected");
         }
     }
-    
+
 
     private void OnTriggerExit(Collider other)
     {

@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
     DateTime currentDate;
     float minutes;
     const float CAT_DIES_THRESHOLD = 20.0f;
+    
+    public GameObject gameOverScreen;
 
     void Awake()
     {
@@ -37,19 +39,31 @@ public class GameManager : MonoBehaviour
     {
         minutes = 0;
         oldDate = DateTime.Now;
+        
         UpdateGameState(GameState.GameWithCat);
     }
 
     void Update()
     {
+        if (CheckIfCatDies())
+        {
+            UpdateGameState(GameState.GameWithoutCat);
+        }
+    }
+
+    private bool CheckIfCatDies()
+    {
+        bool catDies = false;
         currentDate = DateTime.Now;
         minutes = currentDate.Minute - oldDate.Minute;
 
         // If 20 minutes have passed, kill the cat
         if (minutes >= CAT_DIES_THRESHOLD)
         {
-            UpdateGameState(GameState.GameWithoutCat);
+            catDies = true;
         }
+
+        return catDies;
     }
 
     public GameState state;
@@ -78,19 +92,56 @@ public class GameManager : MonoBehaviour
         switch(newState)
         {
             case GameState.GameWithCat:
+                HandleGameWithCat();
                 break;
             case GameState.GameWithoutCat:
+                HandleGameWithoutCat();
                 break;
             case GameState.Win:
                 break;
             case GameState.GameOver:
-                // HandleGameOver (might change state to GameWith or GameWithout Cat, depends on time)
+                HandleGameOver();
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
         }
 
         OnGameStateChanged?.Invoke(newState);
+    }
+
+    private void HandleGameWithCat()
+    {
+        RopeManager.Instance.CreateRope();
+    }
+
+    private void HandleGameWithoutCat()
+    {
+        RopeManager.Instance.CreateRope();
+    }
+
+    private void HandleGameOver()
+    {
+    }
+
+    public void GeneralReset()
+    {
+        Debug.Log("General reset");
+        PlayerOxygenManager.playerOxygenManager.Reset();
+        RopeManager.Instance.Reset();
+        StartCoroutine(GameOver());
+    }
+
+    IEnumerator GameOver()
+    {
+        Debug.Log("GameOver");
+        Time.timeScale = 0f;
+        PlayerOxygenManager.playerOxygenManager.stopOxygen = true;
+        gameOverScreen.SetActive(true);
+        yield return new WaitForSecondsRealtime(4.5f);
+        gameOverScreen.SetActive(false);
+        PlayerOxygenManager.playerOxygenManager.stopOxygen = false;
+        Time.timeScale = 1f;
+        Debug.Log("No longer game over");
     }
 
     #region Inventory

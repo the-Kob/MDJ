@@ -3,14 +3,31 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
-using static UnityEngine.UI.Image;
+
 
 public class RopeManager : MonoBehaviour
 {
+    #region Singleton
+    public static RopeManager Instance
+    {
+        get
+        {
+            if (instance == null)
+                instance = FindObjectOfType(typeof(RopeManager)) as RopeManager;
+
+            return instance;
+        }
+        set
+        {
+            instance = value;
+        }
+    }
+    private static RopeManager instance;
+    #endregion
+    
     public ObiSolver solver;
     public List<ObiCollider> characters = new List<ObiCollider>();
+    public bool isRopeBuilt = false;
 
     public Material material;
     public ObiRopeSection section;
@@ -52,8 +69,6 @@ public class RopeManager : MonoBehaviour
         cursor = rope.gameObject.AddComponent<ObiRopeCursor>();
         cursor.cursorMu = 0;
         cursor.direction = true;
-
-        CreateRope();
     }
 
     void LateUpdate()
@@ -61,13 +76,14 @@ public class RopeManager : MonoBehaviour
         CheckIfRopeBreaks();
     }
 
-    private void CreateRope()
+    public void CreateRope()
     {
         StartCoroutine(CreateRopeCoroutine());
     }
 
     private IEnumerator CreateRopeCoroutine()
     {
+        Debug.Log("Creating rope");
         yield return null;
 
         // Clear pin constraints:
@@ -153,10 +169,21 @@ public class RopeManager : MonoBehaviour
         pinConstraints.AddBatch(batch);
 
         rope.SetConstraintsDirty(Oni.ConstraintType.Pin);
+        isRopeBuilt = true;
+    }
+
+    public void DestroyRope()
+    {
+        Debug.Log("Destroying rope");
+        rope.ropeBlueprint = null;
+        rope.GetComponent<MeshRenderer>().enabled = false;
+        isRopeBuilt = false;
     }
 
     private void CheckIfRopeBreaks()
     {
+        if (!isRopeBuilt) return;
+        
         float distance = (characters[1].transform.position - characters[0].transform.position).magnitude;
 
         if (distance >= maxDistanceBetweenCharacters)
@@ -164,7 +191,21 @@ public class RopeManager : MonoBehaviour
             int middleOfRopeIndex = Mathf.FloorToInt(rope.elements.Count / 2);
             rope.Tear(rope.elements[middleOfRopeIndex]);
             rope.RebuildConstraintsFromElements();
-            GameManager.Instance.UpdateGameState(GameState.GameOver);
+            AskToReset();
         }
+    }
+    
+    public void AskToReset()
+    {
+        
+//        GameManager.Instance.UpdateGameState(GameState.GameOver);
+Debug.Log("Rope asked for general reset");
+        GameManager.Instance.GeneralReset();
+    }
+
+    public void Reset()
+    {
+        DestroyRope();
+        CreateRope();
     }
 }
