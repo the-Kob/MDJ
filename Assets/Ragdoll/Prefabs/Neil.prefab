@@ -5781,6 +5781,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sc: {fileID: 3532332566980319373}
   head: {fileID: 3861983731646355736}
+  transformToFollow: {fileID: 3861983731646355736}
 --- !u!135 &3532332566980319373
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -5808,6 +5809,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sc: {fileID: 3532332566980319372}
   head: {fileID: 3861983732738233772}
+  transformToFollow: {fileID: 3861983732738233772}
 --- !u!135 &3532332566980319372
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -5848,6 +5850,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sc: {fileID: 3532332566980319369}
   head: {fileID: 3861983732244508000}
+  transformToFollow: {fileID: 3861983732244508000}
 --- !u!135 &3532332566980319368
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -5875,6 +5878,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sc: {fileID: 3532332566980319368}
   head: {fileID: 7325401217857537853}
+  transformToFollow: {fileID: 7325401217857537853}
 --- !u!1 &7259284344053504738
 GameObject:
   m_ObjectHideFlags: 0
@@ -5970,7 +5974,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7259284344053504738}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e032f0eda887d6c46b13acf2e6a4dac9, type: 3}
+  m_Script: {fileID: 11500000, guid: d4dbf58c4e4ec784aa9b78715a04eb68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &2013397164788603536
