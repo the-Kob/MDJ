@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -113,6 +115,14 @@ public class LocalPlayer : MonoBehaviour
 
 	private float defaultJumpHeight;
 
+
+	// Tugging
+	private LocalPlayer otherPlayer;
+
+	private LocalPlayer[] players;
+
+	private bool canTug = true;
+
 	// INPUTS
 	private Vector2 movementInput;
 	public void OnMove(InputAction.CallbackContext ctx) => movementInput = ctx.ReadValue<Vector2>();
@@ -151,6 +161,8 @@ public class LocalPlayer : MonoBehaviour
 		defaultJumpHeight = jumpHeight;
 
 		localOrbitCamera = orbitCam.GetComponent<LocalOrbitCamera>();
+
+		SetUpTugInteraction();
 	}
 
 	void Update ()
@@ -185,7 +197,7 @@ public class LocalPlayer : MonoBehaviour
 			desiresClimbing = climbFlag;
 			desiresRun = runFlag;
 
-			if (isCoopPlayer && tugFlag)
+			if (isCoopPlayer && tugFlag && canTug)
 				TugOtherPlayer();
 		}
 
@@ -584,22 +596,35 @@ public class LocalPlayer : MonoBehaviour
 		ragdollsHips.transform.rotation = Quaternion.Slerp(ragdollsHips.transform.rotation, desiredRotation, 20f * Time.deltaTime);
 	}
 
-	public void TugOtherPlayer()
+	private void SetUpTugInteraction()
     {
-		LocalPlayer[] players = FindObjectsByType<LocalPlayer>(FindObjectsSortMode.None);
-		LocalPlayer otherPlayer;
+		players = FindObjectsByType<LocalPlayer>(FindObjectsSortMode.None);
 
 		if (players[0] == this)
-        {
+		{
 			otherPlayer = players[1];
 		}
 		else
-        {
+		{
 			otherPlayer = players[0];
 		}
+	}
+
+	public void TugOtherPlayer()
+    {
+		Debug.Log("Tug");
 
 		Vector3 force = (transform.position - otherPlayer.transform.position).normalized;
-		otherPlayer.GetComponent<Rigidbody>().AddForce(force * 0.3f, ForceMode.Impulse);
+		otherPlayer.GetComponent<Rigidbody>().AddForce(force * 12f, ForceMode.Impulse);
+
+		StartCoroutine(TugCooldown());
 	}
+
+   IEnumerator TugCooldown()
+   {
+		canTug = false;
+		yield return new WaitForSecondsRealtime(1f);
+		canTug = true;
+   }
 
 }
