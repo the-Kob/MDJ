@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Main/MainMenu.unity
+    path: Assets/Scenes/MainMenu.unity
     guid: e21a69c2cc9b10a4a87c913c911af67c
   - enabled: 0
     path: Assets/Kob/RoomMenu.unity
@@ -21,9 +21,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Belbute/Local2/Local2.unity
     guid: 4bf9b86ec978694458e1c6d6940f9a82
   - enabled: 1
-    path: Assets/Scenes/Carol/Scenes/FINAL_NAO_MEXER.unity
+    path: Assets/Scenes/FINAL_NAO_MEXER.unity
     guid: a6150be4dc65b0c42b2a6d9f41e9af72
   - enabled: 1
-    path: Assets/Scenes/Carol/Scenes/GAME_END.unity
+    path: Assets/Scenes/EndMenu.unity
     guid: 4c059b1c5775ed944b32fcb654e27858
   m_configObjects: {}

@@ -1,0 +1,72 @@
+# Blender 3.3.0 MTL File: 'космолет4.blend'
+# www.blender.org
+
+newmtl Материал
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:/Users/Nikita/Documents/Урок XYZ/космолет/Текстуры/K_Low_Материал_BaseColor.png
+map_Ns C:/Users/Nikita/Documents/Урок XYZ/космолет/Текстуры/K_Low_Материал_Roughness.png
+map_Ke C:/Users/Nikita/Documents/Урок XYZ/космолет/Текстуры/K_Low_Материал_Emissive.png
+map_Bump -bm 1.000000 C:/Users/Nikita/Documents/Урок XYZ/космолет/Текстуры/K_Low_Материал_Normal.png
+
+newmtl Материал.001
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ni 1.480000
+d 1.000000
+illum 2
+map_Ns C:/Users/Nikita/Documents/Урок XYZ/космолет/Текстуры2/K_Low_Материал.001_Roughness.png
+map_refl C:/Users/Nikita/Documents/Урок XYZ/космолет/Текстуры2/K_Low_Материал.001_Metallic.png
+map_Ke C:/Users/Nikita/Documents/Урок XYZ/космолет/Текстуры2/K_Low_Материал.001_Emissive.png
+map_Bump -bm 1.000000 C:/Users/Nikita/Documents/Урок XYZ/космолет/Текстуры2/K_Low_Материал.001_Normal.png
+
+newmtl Материал.002
+Ka 1.000000 1.000000 1.000000
+Ks 0.354545 0.354545 0.354545
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:/Users/Nikita/Documents/Урок XYZ/космолет/Текстуры2/K_Low_Материал.002_BaseColor.png
+map_Ns C:/Users/Nikita/Documents/Урок XYZ/космолет/Текстуры2/K_Low_Материал.002_Roughness.png
+map_refl C:/Users/Nikita/Documents/Урок XYZ/космолет/Текстуры2/K_Low_Материал.002_Metallic.png
+map_Bump -bm 1.000000 C:/Users/Nikita/Documents/Урок XYZ/космолет/Текстуры2/K_Low_Материал.002_Normal.png
+
+newmtl Материал.003
+Ka 1.000000 1.000000 1.000000
+Ks 0.286364 0.286364 0.286364
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:/Users/Nikita/Documents/Урок XYZ/космолет/Текстуры2/K_Low_Материал.003_BaseColor.png
+map_Ns C:/Users/Nikita/Documents/Урок XYZ/космолет/Текстуры2/K_Low_Материал.003_Roughness.png
+map_refl C:/Users/Nikita/Documents/Урок XYZ/космолет/Текстуры2/K_Low_Материал.003_Metallic.png
+map_Ke C:/Users/Nikita/Documents/Урок XYZ/космолет/Текстуры2/K_Low_Материал.003_Emissive.png
+map_Bump -bm 1.000000 C:/Users/Nikita/Documents/Урок XYZ/космолет/Текстуры2/K_Low_Материал.003_Normal.png
+
+newmtl Материал.004
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:/Users/Nikita/Documents/Урок XYZ/космолет/Текстуры2/K_Low_Материал.004_BaseColor.png
+map_Ns C:/Users/Nikita/Documents/Урок XYZ/космолет/Текстуры2/K_Low_Материал.004_Roughness.png
+map_refl C:/Users/Nikita/Documents/Урок XYZ/космолет/Текстуры2/K_Low_Материал.004_Metallic.png
+map_Ke C:/Users/Nikita/Documents/Урок XYZ/космолет/Текстуры2/K_Low_Материал.004_Emissive.png
+
+newmtl Материал.005
+Ka 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ni 0.970000
+d 0.370038
+illum 1
+map_Kd C:/Users/Nikita/Documents/Урок XYZ/космолет/Текстуры2/K_Low_Материал.005_BaseColor.png
+map_Ns C:/Users/Nikita/Documents/Урок XYZ/космолет/Текстуры2/K_Low_Материал.005_Roughness.png
+map_refl C:/Users/Nikita/Documents/Урок XYZ/космолет/Текстуры2/K_Low_Материал.005_Metallic.png
+map_Ke C:/Users/Nikita/Documents/Урок XYZ/космолет/Текстуры2/K_Low_Материал.005_Emissive.png
+map_Bump -bm 1.000000 C:/Users/Nikita/Documents/Урок XYZ/космолет/Текстуры2/K_Low_Материал.005_Normal.png
