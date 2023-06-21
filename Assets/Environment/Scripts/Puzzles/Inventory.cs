@@ -10,14 +10,13 @@ using UnityEngine;
 
         public void OnEnable()
         {
-            SatelliteDish.OnCollect += Add;
+            Collectible.OnCollect += Add;
           
         }
         
         public void OnDisable()
         {
-            SatelliteDish.OnCollect -= Add;
-      
+            Collectible.OnCollect -= Add;
             
         }
 

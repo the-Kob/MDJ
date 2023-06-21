@@ -5487,6 +5487,7 @@ GameObject:
   - component: {fileID: 3532332566980319374}
   - component: {fileID: 3532332566980319368}
   - component: {fileID: 3532332566980319371}
+  - component: {fileID: 1344852180690637001}
   m_Layer: 13
   m_Name: Neil
   m_TagString: Untagged
@@ -5780,7 +5781,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sc: {fileID: 3532332566980319373}
-  head: {fileID: 3861983731646355736}
   transformToFollow: {fileID: 3861983731646355736}
 --- !u!135 &3532332566980319373
 SphereCollider:
@@ -5808,7 +5808,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sc: {fileID: 3532332566980319372}
-  head: {fileID: 3861983732738233772}
   transformToFollow: {fileID: 3861983732738233772}
 --- !u!135 &3532332566980319372
 SphereCollider:
@@ -5849,7 +5848,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sc: {fileID: 3532332566980319369}
-  head: {fileID: 3861983732244508000}
   transformToFollow: {fileID: 3861983732244508000}
 --- !u!135 &3532332566980319368
 SphereCollider:
@@ -5877,8 +5875,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sc: {fileID: 3532332566980319368}
-  head: {fileID: 7325401217857537853}
   transformToFollow: {fileID: 7325401217857537853}
+--- !u!114 &1344852180690637001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5048932516417474319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac37bbbe6e184d9398bafca32dcbf75b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7259284344053504738
 GameObject:
   m_ObjectHideFlags: 0

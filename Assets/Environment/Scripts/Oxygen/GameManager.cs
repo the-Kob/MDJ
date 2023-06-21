@@ -100,12 +100,12 @@ public class GameManager : MonoBehaviour
 
     public void OnEnable()
     {
-        SatelliteDish.OnCollect += AddItemToInventory;
+        Collectible.OnCollect += AddItemToInventory;
     }
 
     public void OnDisable()
     {
-        SatelliteDish.OnCollect -= RemoveItemFromInventory;
+        Collectible.OnCollect -= RemoveItemFromInventory;
 
     }
 

@@ -8,21 +8,18 @@ public class detect_umpa : MonoBehaviour
     public static bool umpa_detected = false;
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Umpa")
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player2"))
         {
           umpa_detected = true;  
-          Debug.Log("umpa detected");
         }
         
     }
     
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Umpa")
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player2"))
         {
-            umpa_detected = false;  
-            Debug.Log("umpa false");
-            
+            umpa_detected = false;              
         }
     }
     
