@@ -612,8 +612,6 @@ public class LocalPlayer : MonoBehaviour
 
 	public void TugOtherPlayer()
     {
-		Debug.Log("Tug");
-
 		Vector3 force = (transform.position - otherPlayer.transform.position).normalized;
 		otherPlayer.GetComponent<Rigidbody>().AddForce(force * 12f, ForceMode.Impulse);
 
