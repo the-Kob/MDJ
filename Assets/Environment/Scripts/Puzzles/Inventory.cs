@@ -5,6 +5,8 @@ using UnityEngine;
 
     public class Inventory : MonoBehaviour
     {
+        public static event Action<List<InventoryItem>> OnInventoryChange = delegate { };
+        
         public List<InventoryItem> inventory = new List<InventoryItem>();
         private Dictionary<ItemData, InventoryItem> itemDictionary = new Dictionary<ItemData, InventoryItem>();
 
@@ -26,6 +28,7 @@ using UnityEngine;
             {
                 item.AddToStack();
                 Debug.Log($"{item.itemData.displayName} total stack is now: {item.stackSize}");
+                OnInventoryChange?.Invoke(inventory);
             }
             else
             {
@@ -33,6 +36,7 @@ using UnityEngine;
                 inventory.Add(newItem); //add to list of inventory items
                 itemDictionary.Add(itemData, newItem); //add to dictionary
                 Debug.Log($"Added {itemData.displayName} to inventory");
+                OnInventoryChange?.Invoke(inventory);
             }
         }
         
@@ -45,6 +49,8 @@ using UnityEngine;
                 {
                     inventory.Remove(item);
                     itemDictionary.Remove(itemData);
+                    OnInventoryChange?.Invoke(inventory);
+
                 }
             }
         }
