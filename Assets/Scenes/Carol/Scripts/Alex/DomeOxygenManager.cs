@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class DomeOxygenManager : MonoBehaviour
 {
-    public GameObject oxygenDome;
-
+    public List<Vector3> spawnPlayerPositions;
    
     public float maxOxygen;
     public float currentOxygen;
@@ -38,7 +37,7 @@ public class DomeOxygenManager : MonoBehaviour
     {
        if (currentOxygen <= 0f)
        {
-            oxygenDome.SetActive(false);
+            gameObject.SetActive(false);
             return;
        }
 
@@ -66,16 +65,16 @@ public class DomeOxygenManager : MonoBehaviour
     public void Save()
     {
         isSaved = true;
-        activeAtSave = oxygenDome.activeInHierarchy; // ??
+        activeAtSave = gameObject.activeInHierarchy; // ??
         oxygenAtSave = currentOxygen;
-        PlayerOxygenManager.playerOxygenManager.Save(oxygenDome);
+        PlayerOxygenManager.playerOxygenManager.Save(this);
     }
 
     public void ResetDome()
     {
         isSaved = false;
 
-        oxygenDome.SetActive(true);
+        gameObject.SetActive(true);
         activeAtSave = true;
         
         currentOxygen = maxOxygen;
@@ -87,7 +86,7 @@ public class DomeOxygenManager : MonoBehaviour
 
     public void ResetDomeSave()
     {
-        oxygenDome.SetActive(activeAtSave);
+        gameObject.SetActive(activeAtSave);
         currentOxygen = oxygenAtSave;
     }
 

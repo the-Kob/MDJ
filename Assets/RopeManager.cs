@@ -27,7 +27,6 @@ public class RopeManager : MonoBehaviour
     
     public ObiSolver solver;
     public List<ObiCollider> characters = new List<ObiCollider>();
-    public bool isRopeBuilt = false;
 
     public Material material;
     public ObiRopeSection section;
@@ -38,6 +37,7 @@ public class RopeManager : MonoBehaviour
     public float ropeLenght = 25;
 
     private int particlePoolSize = 100;
+    private bool ropeBroke;
 
     private ObiRope rope;
     private ObiRopeBlueprint blueprint;
@@ -47,7 +47,6 @@ public class RopeManager : MonoBehaviour
 
     void Awake()
     {
-
         // Create both the rope and the solver:	
         rope = gameObject.AddComponent<ObiRope>();
         ropeRenderer = gameObject.AddComponent<ObiRopeExtrudedRenderer>();
@@ -71,6 +70,11 @@ public class RopeManager : MonoBehaviour
         cursor.direction = true;
     }
 
+    private void OnDestroy()
+    {
+        DestroyImmediate(blueprint);
+    }
+
     void LateUpdate()
     {
         CheckIfRopeBreaks();
@@ -92,6 +96,8 @@ public class RopeManager : MonoBehaviour
 
         Vector3 ropeStartAttachement = rope.transform.InverseTransformPoint(characters[0].transform.position);
         Vector3 ropeEndAttachement = rope.transform.InverseTransformPoint(characters[1].transform.position);
+        Debug.Log("Rope start: " + ropeStartAttachement + " " + characters[0].transform.position);
+        Debug.Log("Rope end: " + ropeEndAttachement + " " + characters[1].transform.position);
 
         // Procedurally generate the rope path (just a short segment, as we will extend it over time):
         int filter = ObiUtils.MakeFilter(ObiUtils.CollideWithEverything, 0);
@@ -126,6 +132,7 @@ public class RopeManager : MonoBehaviour
             // update direction and distance to hook point:
             Vector3 direction = characters[1].transform.position - origin;
             float distance = direction.magnitude;
+            Debug.Log(distance);
             direction.Normalize();
 
             // increase length:
@@ -169,7 +176,6 @@ public class RopeManager : MonoBehaviour
         pinConstraints.AddBatch(batch);
 
         rope.SetConstraintsDirty(Oni.ConstraintType.Pin);
-        isRopeBuilt = true;
     }
 
     public void DestroyRope()
@@ -177,35 +183,28 @@ public class RopeManager : MonoBehaviour
         Debug.Log("Destroying rope");
         rope.ropeBlueprint = null;
         rope.GetComponent<MeshRenderer>().enabled = false;
-        isRopeBuilt = false;
     }
 
     private void CheckIfRopeBreaks()
     {
-        if (!isRopeBuilt) return;
-        
         float distance = (characters[1].transform.position - characters[0].transform.position).magnitude;
 
-        if (distance >= maxDistanceBetweenCharacters)
+        if (distance >= maxDistanceBetweenCharacters && !ropeBroke)
         {
+            ropeBroke = true;
+
             int middleOfRopeIndex = Mathf.FloorToInt(rope.elements.Count / 2);
             rope.Tear(rope.elements[middleOfRopeIndex]);
             rope.RebuildConstraintsFromElements();
-            AskToReset();
+            GameManager.Instance.UpdateGameState(GameState.GameOver);
         }
-    }
-    
-    public void AskToReset()
-    {
-        
-//        GameManager.Instance.UpdateGameState(GameState.GameOver);
-Debug.Log("Rope asked for general reset");
-        GameManager.Instance.GeneralReset();
     }
 
     public void Reset()
     {
         DestroyRope();
         CreateRope();
+
+        ropeBroke = false;
     }
 }

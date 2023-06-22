@@ -145,7 +145,7 @@ namespace Obi
 
             for (int i = 0; i < totalParticles - 1; i++)
             {
-                var batch = distanceConstraintsData.batches[i % 2] as ObiDistanceConstraintsBatch;
+                var batch = distanceConstraintsData.batches[i % 2];
 
                 if (i < m_ActiveParticleCount - 1)
                 {
@@ -190,7 +190,7 @@ namespace Obi
 
             for (int i = 0; i < totalParticles - 2; i++)
             {
-                var batch = bendConstraintsData.batches[i % 3] as ObiBendConstraintsBatch;
+                var batch = bendConstraintsData.batches[i % 3];
 
                 Vector3Int indices = new Vector3Int(i, i + 2, i + 1);
                 float restBend = ObiUtils.RestBendingConstraint(restPositions[indices[0]], restPositions[indices[1]], restPositions[indices[2]]);

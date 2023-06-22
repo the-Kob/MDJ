@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
     }
 
     void Start()
+
     {
         minutes = 0;
         oldDate = DateTime.Now;
@@ -87,20 +88,21 @@ public class GameManager : MonoBehaviour
 
     public void UpdateGameState(GameState newState)
     {
+        GameState oldState = state;
         state = newState;
 
         switch(newState)
         {
             case GameState.GameWithCat:
-                HandleGameWithCat();
+                StartCoroutine(HandleGameWithCat());
                 break;
             case GameState.GameWithoutCat:
-                HandleGameWithoutCat();
+                StartCoroutine(HandleGameWithoutCat(oldState));
                 break;
             case GameState.Win:
                 break;
             case GameState.GameOver:
-                HandleGameOver();
+                StartCoroutine(HandleGameOver());
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
@@ -109,39 +111,46 @@ public class GameManager : MonoBehaviour
         OnGameStateChanged?.Invoke(newState);
     }
 
-    private void HandleGameWithCat()
+    private IEnumerator HandleGameWithCat()
     {
-        RopeManager.Instance.CreateRope();
-    }
-
-    private void HandleGameWithoutCat()
-    {
-        RopeManager.Instance.CreateRope();
-    }
-
-    private void HandleGameOver()
-    {
-    }
-
-    public void GeneralReset()
-    {
-        Debug.Log("General reset");
+        // This order matters
         PlayerOxygenManager.playerOxygenManager.Reset();
+        yield return new WaitForSecondsRealtime(1);
         RopeManager.Instance.Reset();
-        StartCoroutine(GameOver());
     }
 
-    IEnumerator GameOver()
+    private IEnumerator HandleGameWithoutCat(GameState oldState)
     {
-        Debug.Log("GameOver");
-        Time.timeScale = 0f;
+        if (oldState != GameState.GameWithCat)
+        {
+            // This order matters
+            PlayerOxygenManager.playerOxygenManager.Reset();
+            yield return new WaitForSecondsRealtime(1);
+            RopeManager.Instance.Reset();
+        }
+    }
+
+    private IEnumerator HandleGameOver()
+    {
         PlayerOxygenManager.playerOxygenManager.stopOxygen = true;
+        
+        yield return new WaitForSecondsRealtime(1.5f);
+
         gameOverScreen.SetActive(true);
-        yield return new WaitForSecondsRealtime(4.5f);
+
+        if (CheckIfCatDies())
+        {
+            UpdateGameState(GameState.GameWithoutCat);
+        }
+        else
+        {
+            UpdateGameState(GameState.GameWithCat);
+        }
+        
+        yield return new WaitForSecondsRealtime(3.5f);
+
         gameOverScreen.SetActive(false);
         PlayerOxygenManager.playerOxygenManager.stopOxygen = false;
-        Time.timeScale = 1f;
-        Debug.Log("No longer game over");
     }
 
     #region Inventory

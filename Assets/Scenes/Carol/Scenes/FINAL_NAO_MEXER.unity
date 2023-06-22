@@ -8184,10 +8184,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7484492315638891457, guid: 4b49d5f96f22de34996573003bb925e2,
+        type: 3}
+      propertyPath: ropeLenght
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7484492315638891457, guid: 4b49d5f96f22de34996573003bb925e2,
+        type: 3}
+      propertyPath: isRopeBuilt
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7484492316333311058, guid: 4b49d5f96f22de34996573003bb925e2,
         type: 3}
       propertyPath: m_RootOrder
-      value: 63
+      value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 7484492316333311058, guid: 4b49d5f96f22de34996573003bb925e2,
         type: 3}
@@ -16095,9 +16105,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1014145729056608118, guid: 1a5aa84b623c262468cbaa35f905a0c8,
         type: 3}
+      propertyPath: oxygenLevels
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1014145729056608118, guid: 1a5aa84b623c262468cbaa35f905a0c8,
+        type: 3}
       propertyPath: lastOxygenDome
       value: 
-      objectReference: {fileID: 1218751062394406226}
+      objectReference: {fileID: 2643622098741521852}
     - target: {fileID: 1014145729056608118, guid: 1a5aa84b623c262468cbaa35f905a0c8,
         type: 3}
       propertyPath: players.Array.data[0]
@@ -16108,6 +16123,11 @@ PrefabInstance:
       propertyPath: players.Array.data[1]
       value: 
       objectReference: {fileID: 1430086881}
+    - target: {fileID: 1014145729056608118, guid: 1a5aa84b623c262468cbaa35f905a0c8,
+        type: 3}
+      propertyPath: playersPositionAtSave.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1014145729095326230, guid: 1a5aa84b623c262468cbaa35f905a0c8,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -22417,7 +22437,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1104850653}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 14.89, y: -26.917, z: 180.42}
 --- !u!65 &652498609
 BoxCollider:
@@ -22807,11 +22827,11 @@ Transform:
   m_GameObject: {fileID: 669774840}
   m_LocalRotation: {x: -0.4568946, y: 0.6386585, z: 0.39660108, w: 0.4754684}
   m_LocalPosition: {x: 73.5, y: 33.6, z: -37}
-  m_LocalScale: {x: 24.356026, y: 24.356026, z: 24.356026}
+  m_LocalScale: {x: 24.356028, y: 24.356026, z: 24.356028}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 64
+  m_RootOrder: 63
   m_LocalEulerAnglesHint: {x: -70.231, y: 133.606, z: -37.619}
 --- !u!114 &669774844
 MonoBehaviour:
@@ -33185,9 +33205,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1964735200}
   - {fileID: 652498608}
   - {fileID: 1996881119}
-  - {fileID: 1964735200}
   m_Father: {fileID: 0}
   m_RootOrder: 74
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -33207,7 +33227,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: d3b2afd00f831e5478504fdbae188b05,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d3b2afd00f831e5478504fdbae188b05,
         type: 3}
@@ -43708,7 +43728,7 @@ RectTransform:
   - {fileID: 545250743}
   - {fileID: 1057750809}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -45594,15 +45614,50 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1104850653}
     m_Modifications:
+    - target: {fileID: -6579749938997843322, guid: 75ab08fc24c5ff1449b26769fe1bb7a3,
+        type: 3}
+      propertyPath: spawnPlayerPositions.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -6579749938997843322, guid: 75ab08fc24c5ff1449b26769fe1bb7a3,
+        type: 3}
+      propertyPath: spawnPlayerPositions.Array.data[0].x
+      value: 188
+      objectReference: {fileID: 0}
+    - target: {fileID: -6579749938997843322, guid: 75ab08fc24c5ff1449b26769fe1bb7a3,
+        type: 3}
+      propertyPath: spawnPlayerPositions.Array.data[0].y
+      value: 66
+      objectReference: {fileID: 0}
+    - target: {fileID: -6579749938997843322, guid: 75ab08fc24c5ff1449b26769fe1bb7a3,
+        type: 3}
+      propertyPath: spawnPlayerPositions.Array.data[0].z
+      value: -22
+      objectReference: {fileID: 0}
+    - target: {fileID: -6579749938997843322, guid: 75ab08fc24c5ff1449b26769fe1bb7a3,
+        type: 3}
+      propertyPath: spawnPlayerPositions.Array.data[1].x
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: -6579749938997843322, guid: 75ab08fc24c5ff1449b26769fe1bb7a3,
+        type: 3}
+      propertyPath: spawnPlayerPositions.Array.data[1].y
+      value: 67
+      objectReference: {fileID: 0}
+    - target: {fileID: -6579749938997843322, guid: 75ab08fc24c5ff1449b26769fe1bb7a3,
+        type: 3}
+      propertyPath: spawnPlayerPositions.Array.data[1].z
+      value: -22
+      objectReference: {fileID: 0}
     - target: {fileID: 1218751061114274408, guid: 75ab08fc24c5ff1449b26769fe1bb7a3,
         type: 3}
       propertyPath: m_Name
-      value: AlexOxygenDome
+      value: Oxygen Dome P1
       objectReference: {fileID: 0}
     - target: {fileID: 1218751061114274420, guid: 75ab08fc24c5ff1449b26769fe1bb7a3,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1218751061114274420, guid: 75ab08fc24c5ff1449b26769fe1bb7a3,
         type: 3}
@@ -62872,7 +62927,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 14.89, y: -26.917, z: 180.42}
 --- !u!1 &1977195779
 GameObject:
@@ -63313,7 +63368,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1104850653}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: -19.501, z: 0}
 --- !u!65 &1996881120
 BoxCollider:
@@ -70444,12 +70499,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1218751062394406226}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 179.3, y: 54.7, z: -42.46696}
+  m_LocalPosition: {x: 185.1, y: 38.6, z: -26.8}
   m_LocalScale: {x: 6.4801, y: 6.4801, z: 6.4801}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1218751062394406226
 GameObject:
@@ -70466,7 +70521,7 @@ GameObject:
   - component: {fileID: 1218751062394406216}
   - component: {fileID: 1057066805340727878}
   m_Layer: 0
-  m_Name: FAKEOxygen
+  m_Name: Initial Oxygen (DON'T DELETE)
   m_TagString: oxygen
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -71031,6 +71086,42 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2496104809605966868}
   m_PrefabAsset: {fileID: 0}
+--- !u!135 &2496104809605966872 stripped
+SphereCollider:
+  m_CorrespondingSourceObject: {fileID: 2496104809076546757, guid: 77b367dbe3b8fee49b4d0d8f06aa2e6c,
+    type: 3}
+  m_PrefabInstance: {fileID: 2496104809605966868}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2496104809605966875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1981874884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62359d80fdc0e4315ab6331b78ec5b90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  kinematicForParticles: 0
+--- !u!114 &2496104809605966876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1981874884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6757b231cedd544c583ef8aeaf773b2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thickness: 0
+  material: {fileID: 0}
+  filter: -65535
+  m_SourceCollider: {fileID: 2496104809605966872}
+  m_DistanceField: {fileID: 0}
 --- !u!1001 &2523499810365207744
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -71154,7 +71245,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba2c3a95617c8244fb1604455c7f4984, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  oxygenDome: {fileID: 1218751062394406226}
+  spawnPlayerPositions:
+  - {x: 200, y: 63, z: -35}
+  - {x: 193, y: 65, z: -35}
   maxOxygen: 1
   currentOxygen: 0
   oxygenPercentPerTimeframe: 0.01

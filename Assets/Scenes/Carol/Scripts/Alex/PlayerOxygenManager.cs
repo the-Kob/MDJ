@@ -32,8 +32,8 @@ public class PlayerOxygenManager : MonoBehaviour
 
     public float oxygenLevelsAtSave;
     public List<GameObject> players;
-    public List<Vector3> playersPositionAtSave;
-    public GameObject lastOxygenDome;
+    public List<Vector3> playersPositionAtSave = new List<Vector3>(2);
+    public DomeOxygenManager lastOxygenDome;
 
     // Start is called before the first frame update
     void Awake()
@@ -51,12 +51,8 @@ public class PlayerOxygenManager : MonoBehaviour
 
     void Start()
     {
+        SavePlayersPosition();
         ResetOxygen();
-
-        for (int i = 0; i < players.Count; i++)
-        {
-            playersPositionAtSave.Add(players[i].transform.position);
-        }
 
         oxygenLevelsAtSave = maxOxygenLevels;
         Debug.Log("Game started.");
@@ -81,8 +77,7 @@ public class PlayerOxygenManager : MonoBehaviour
         if (oxygenLevels <= 0)
         {
             Debug.Log("O2 asked for gen reset");
-            GameManager.Instance.GeneralReset();
-//            GameManager.Instance.UpdateGameState(GameState.GameOver);
+            GameManager.Instance.UpdateGameState(GameState.GameOver);
             return;
         }
 
@@ -137,18 +132,13 @@ public class PlayerOxygenManager : MonoBehaviour
 
         return oldOxygenLevels - oxygenLevels;
     }
-
-    public void Restart()
-    {
-        Time.timeScale = 0f;
-        Debug.Log("Out of O2 :/");
-    }
     
-    public void Save(GameObject oxygenDome)
+    public void Save(DomeOxygenManager oxygenDome)
     {
+        lastOxygenDome = oxygenDome;
+
         SavePlayersOxygen();
         SavePlayersPosition();
-        SaveOxygenDome(oxygenDome);
     }
 
     public void Reset()
@@ -160,9 +150,11 @@ public class PlayerOxygenManager : MonoBehaviour
 
     public void SavePlayersPosition()
     {
+        Debug.Log("saving");
+        Debug.Log(lastOxygenDome.spawnPlayerPositions[0]);
         for (int i = 0; i < players.Count; i++)
         {
-            playersPositionAtSave[i] = players[i].transform.position;
+            playersPositionAtSave[i] = lastOxygenDome.spawnPlayerPositions[i];
         }
     }
 
@@ -178,11 +170,9 @@ public class PlayerOxygenManager : MonoBehaviour
 
     public void ResetPlayersOxygen() { oxygenLevels = oxygenLevelsAtSave; }
 
-    public void SaveOxygenDome(GameObject oxygenDome) { lastOxygenDome = oxygenDome; }
-
     public void ResetOxygenDome()
     {
-        DomeOxygenManager domeOxygenManager = (DomeOxygenManager)lastOxygenDome.GetComponentInChildren<DomeOxygenManager>();
+        DomeOxygenManager domeOxygenManager = lastOxygenDome;
         domeOxygenManager.ResetDome();
     }
 }

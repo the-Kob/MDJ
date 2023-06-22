@@ -25,11 +25,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7484492315638891456}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 195.54211, y: 69.524826, z: -37.621933}
+  m_LocalPosition: {x: 0, y: 0.86099625, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7484492316333311058}
+  m_Father: {fileID: 2436213498615923818}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7484492315638891457
@@ -51,6 +51,7 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: 44ab0cc40b59345718856f6e1c1225f3, type: 2}
   section: {fileID: 11400000, guid: a0bc36a59515f413e90e10895929c938, type: 2}
   maxDistanceBetweenCharacters: 20
+  ropeLenght: 25
 --- !u!1 &7484492316333311063
 GameObject:
   m_ObjectHideFlags: 0
@@ -83,7 +84,6 @@ Transform:
   m_Children:
   - {fileID: 2436213498615923818}
   - {fileID: 2436213496885043248}
-  - {fileID: 7484492315638891458}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
