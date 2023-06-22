@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour
     
     public GameObject gameOverScreen;
 
+    public List<LocalPlayer> players;
+
     void Awake()
     {
         DontDestroyOnLoad(this);
@@ -133,8 +135,12 @@ public class GameManager : MonoBehaviour
     private IEnumerator HandleGameOver()
     {
         PlayerOxygenManager.playerOxygenManager.stopOxygen = true;
+
+        foreach(LocalPlayer player in players) {
+            player.isGameOver = true;
+        }
         
-        yield return new WaitForSecondsRealtime(1.5f);
+        yield return new WaitForSecondsRealtime(2f);
 
         gameOverScreen.SetActive(true);
 
@@ -147,9 +153,15 @@ public class GameManager : MonoBehaviour
             UpdateGameState(GameState.GameWithCat);
         }
         
-        yield return new WaitForSecondsRealtime(3.5f);
+        yield return new WaitForSecondsRealtime(4f);
 
         gameOverScreen.SetActive(false);
+
+        foreach (LocalPlayer player in players)
+        {
+            player.isGameOver = false;
+        }
+
         PlayerOxygenManager.playerOxygenManager.stopOxygen = false;
     }
 

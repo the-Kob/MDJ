@@ -4,8 +4,9 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody))]
 public class LocalPlayer : MonoBehaviour
 {
+	public bool isGameOver = false;
 
-	[SerializeField]
+    [SerializeField]
 	private GameObject realPhysicsRagdoll,
 	ragdollsHips;
 
@@ -129,8 +130,10 @@ public class LocalPlayer : MonoBehaviour
 	private bool tugFlag;
 	public void OnTug(InputAction.CallbackContext ctx) => tugFlag = ctx.performed;
 
+    float timeElapsedSinceNoGravity = 0f;
 
-	public void PreventSnapToGround () {
+
+    public void PreventSnapToGround () {
 		stepsSinceLastJump = -1;
 	}
 
@@ -155,6 +158,7 @@ public class LocalPlayer : MonoBehaviour
 
 	void Update ()
 	{
+		if (isGameOver) return;
 
         playerInput.x = movementInput.x;
 		playerInput.y = movementInput.y;
@@ -193,17 +197,24 @@ public class LocalPlayer : MonoBehaviour
 
 	void FixedUpdate ()
 	{
-
 		Vector3 gravity = CustomGravity.GetGravity(body.position, out upAxis);
 		UpdateState();
 
         // If we aren't affected by gravity, we don't want to be able to freely move (since we are in a vaccumm)
         if (gravity == Vector3.zero)
         {
+			timeElapsedSinceNoGravity += Time.deltaTime;
+			timeElapsedSinceNoGravity %= 60;
+
+			if (timeElapsedSinceNoGravity >= 5) {
+				GameManager.Instance.UpdateGameState(GameState.GameOver);
+			}
+
             maxAirAcceleration = 0f;
         }
         else
         {
+			timeElapsedSinceNoGravity = 0f;
             maxAirAcceleration = maxAirAccelerationGrav;
         }
 

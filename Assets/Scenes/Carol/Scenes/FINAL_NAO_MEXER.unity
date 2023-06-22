@@ -8194,6 +8194,11 @@ PrefabInstance:
       propertyPath: isRopeBuilt
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7484492315638891457, guid: 4b49d5f96f22de34996573003bb925e2,
+        type: 3}
+      propertyPath: maxDistanceBetweenCharacters
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 7484492316333311058, guid: 4b49d5f96f22de34996573003bb925e2,
         type: 3}
       propertyPath: m_RootOrder
@@ -15930,6 +15935,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1014145727822291706, guid: 1a5aa84b623c262468cbaa35f905a0c8,
         type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1500
+      objectReference: {fileID: 0}
+    - target: {fileID: 1014145727822291706, guid: 1a5aa84b623c262468cbaa35f905a0c8,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1014145727822291706, guid: 1a5aa84b623c262468cbaa35f905a0c8,
+        type: 3}
       propertyPath: m_LocalScale.x
       value: 2
       objectReference: {fileID: 0}
@@ -15958,6 +15973,26 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1014145727822291707, guid: 1a5aa84b623c262468cbaa35f905a0c8,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1014145727822291707, guid: 1a5aa84b623c262468cbaa35f905a0c8,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1014145727822291707, guid: 1a5aa84b623c262468cbaa35f905a0c8,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1014145727822291707, guid: 1a5aa84b623c262468cbaa35f905a0c8,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1014145728201647616, guid: 1a5aa84b623c262468cbaa35f905a0c8,
         type: 3}
       propertyPath: m_text
@@ -15967,6 +16002,26 @@ PrefabInstance:
         Rope broke? Out of oxygen?
 
         RIP'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1014145728201647616, guid: 1a5aa84b623c262468cbaa35f905a0c8,
+        type: 3}
+      propertyPath: m_fontColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1014145728201647616, guid: 1a5aa84b623c262468cbaa35f905a0c8,
+        type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1014145728201647616, guid: 1a5aa84b623c262468cbaa35f905a0c8,
+        type: 3}
+      propertyPath: m_fontColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1014145728201647616, guid: 1a5aa84b623c262468cbaa35f905a0c8,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 1014145728213942822, guid: 1a5aa84b623c262468cbaa35f905a0c8,
         type: 3}
@@ -15982,6 +16037,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: -24
+      objectReference: {fileID: 0}
+    - target: {fileID: 1014145728237536157, guid: 1a5aa84b623c262468cbaa35f905a0c8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1014145728237536159, guid: 1a5aa84b623c262468cbaa35f905a0c8,
         type: 3}
@@ -56773,6 +56833,48 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!1 &1888940688 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2496104809076546778, guid: 77b367dbe3b8fee49b4d0d8f06aa2e6c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1613902830}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &1888940691 stripped
+SphereCollider:
+  m_CorrespondingSourceObject: {fileID: 2496104809076546757, guid: 77b367dbe3b8fee49b4d0d8f06aa2e6c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1613902830}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1888940694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1888940688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62359d80fdc0e4315ab6331b78ec5b90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  kinematicForParticles: 0
+--- !u!114 &1888940695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1888940688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6757b231cedd544c583ef8aeaf773b2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thickness: 0
+  material: {fileID: 0}
+  filter: -65535
+  m_SourceCollider: {fileID: 1888940691}
+  m_DistanceField: {fileID: 0}
 --- !u!1001 &1897568276
 PrefabInstance:
   m_ObjectHideFlags: 0
