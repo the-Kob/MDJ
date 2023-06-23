@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class DomeOxygenManager : MonoBehaviour
 {
-    public GameObject oxygenDome;
+    public List<Vector3> spawnPlayerPositions;
 
-   
     public float maxOxygen;
     public float currentOxygen;
 
@@ -18,7 +17,7 @@ public class DomeOxygenManager : MonoBehaviour
     private bool umpaDetected;
 
     public float oxygenPercentPerTimeframe = 0.01f;
-    public float increaseTimeframe = 0.2f;
+    public float increaseTimeframe = 0.1f;
 
     public float timeElapsed = 0f;
 
@@ -29,26 +28,27 @@ public class DomeOxygenManager : MonoBehaviour
         {
             maxOxygen = PlayerOxygenManager.playerOxygenManager.maxOxygenLevels;
         }
-        
+
         ResetDome();
     }
 
     // Update is called once per frame
     void Update()
     {
-       if (currentOxygen <= 0f)
-       {
-            oxygenDome.SetActive(false);
+        if (currentOxygen <= 0f)
+        {
+            gameObject.SetActive(false);
             return;
-       }
+        }
 
-       CheckForPlayers();
+        CheckForPlayers();
     }
 
     private void CheckForPlayers()
     {
         if (neilDetected || umpaDetected)
         {
+            Debug.Log("Player detected!");
             if (!isSaved)
                 Save();
 
@@ -65,18 +65,18 @@ public class DomeOxygenManager : MonoBehaviour
     public void Save()
     {
         isSaved = true;
-        activeAtSave = oxygenDome.activeInHierarchy; // ??
+        activeAtSave = gameObject.activeInHierarchy; // ??
         oxygenAtSave = currentOxygen;
-        PlayerOxygenManager.playerOxygenManager.Save(oxygenDome);
+        PlayerOxygenManager.playerOxygenManager.Save(this);
     }
 
     public void ResetDome()
     {
         isSaved = false;
 
-        oxygenDome.SetActive(true);
+        gameObject.SetActive(true);
         activeAtSave = true;
-        
+
         currentOxygen = maxOxygen;
         oxygenAtSave = maxOxygen;
 
@@ -86,7 +86,7 @@ public class DomeOxygenManager : MonoBehaviour
 
     public void ResetDomeSave()
     {
-        oxygenDome.SetActive(activeAtSave);
+        gameObject.SetActive(activeAtSave);
         currentOxygen = oxygenAtSave;
     }
 
@@ -98,7 +98,7 @@ public class DomeOxygenManager : MonoBehaviour
 
         //Debug.Log("Percent to give = " + oxygenPercentToGive);
 
-        oxygenPercentToGive = oxygenPercentToGive * maxOxygen <= currentOxygen ? 
+        oxygenPercentToGive = oxygenPercentToGive * maxOxygen <= currentOxygen ?
                               oxygenPercentToGive : currentOxygen / maxOxygen;
 
         //Debug.Log("Will give " + oxygenPercentToGive + "%");
@@ -111,20 +111,21 @@ public class DomeOxygenManager : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.tag == "Neil")
         {
             neilDetected = true;
-            //Debug.Log("neil detected");
+            Debug.Log("neil detected");
         }
+
         if (other.gameObject.tag == "Umpa")
         {
             umpaDetected = true;
-            //Debug.Log("umpa detected");
+            Debug.Log("umpa detected");
         }
     }
-    
+
 
     private void OnTriggerExit(Collider other)
     {

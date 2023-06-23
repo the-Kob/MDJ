@@ -22,7 +22,7 @@ public class PlayerOxygenManager : MonoBehaviour
 
     public float oxygenLevels;
     public float maxOxygenLevels = 1000f;
-    
+
     public float oxygenDecreasePerTimeframe = 1f;
     public float decreaseTimeframe = 0.75f;
     public float timeElapsed = 0f;
@@ -32,10 +32,8 @@ public class PlayerOxygenManager : MonoBehaviour
 
     public float oxygenLevelsAtSave;
     public List<GameObject> players;
-    public List<Vector3> playersPositionAtSave;
-    public GameObject lastOxygenDome;
-    public GameObject gameOverScreen;
-
+    public List<Vector3> playersPositionAtSave = new List<Vector3>(2);
+    public DomeOxygenManager lastOxygenDome;
 
     // Start is called before the first frame update
     void Awake()
@@ -49,13 +47,14 @@ public class PlayerOxygenManager : MonoBehaviour
         {
             playerOxygenManager = this;
         }
+    }
 
+    void Start()
+    {
+        SavePlayersPosition();
         ResetOxygen();
 
-        for (int i = 0; i < players.Count; i++)
-        {
-            playersPositionAtSave.Add(players[i].transform.position);
-        }
+        oxygenLevelsAtSave = maxOxygenLevels;
         Debug.Log("Game started.");
     }
 
@@ -77,12 +76,13 @@ public class PlayerOxygenManager : MonoBehaviour
 
         if (oxygenLevels <= 0)
         {
-            ReturnToCheckpoint();
+            Debug.Log("O2 asked for gen reset");
+            GameManager.Instance.UpdateGameState(GameState.GameOver);
             return;
         }
 
         UpdateOxygenLevels();
-        
+
     }
 
     private void ResetOxygen()
@@ -133,30 +133,12 @@ public class PlayerOxygenManager : MonoBehaviour
         return oldOxygenLevels - oxygenLevels;
     }
 
-    public void Restart()
+    public void Save(DomeOxygenManager oxygenDome)
     {
-        Time.timeScale = 0f;
-        Debug.Log("Out of O2 :/");
-    }
+        lastOxygenDome = oxygenDome;
 
-    public void ReturnToCheckpoint()
-    {
-        StartCoroutine(GameOver());
-
-        if (lastOxygenDome == null)
-        {
-            Restart();
-            return;
-        }
-
-        Reset();
-    }
-
-    public void Save(GameObject oxygenDome)
-    {
         SavePlayersOxygen();
         SavePlayersPosition();
-        SaveOxygenDome(oxygenDome);        
     }
 
     public void Reset()
@@ -166,23 +148,13 @@ public class PlayerOxygenManager : MonoBehaviour
         ResetOxygenDome();
     }
 
-    IEnumerator GameOver()
-    {
-        Time.timeScale = 0f;
-        gameOverScreen.SetActive(true);
-        stopOxygen = true;
-        yield return new WaitForSecondsRealtime(4.5f);
-        gameOverScreen.SetActive(false);
-        stopOxygen = false;
-        Time.timeScale = 1f;
-        Debug.Log("Out of oxygen!");
-    }
-
     public void SavePlayersPosition()
     {
+        Debug.Log("saving");
+        Debug.Log(lastOxygenDome.spawnPlayerPositions[0]);
         for (int i = 0; i < players.Count; i++)
         {
-            playersPositionAtSave[i] = players[i].transform.position;
+            playersPositionAtSave[i] = lastOxygenDome.spawnPlayerPositions[i];
         }
     }
 
@@ -198,11 +170,9 @@ public class PlayerOxygenManager : MonoBehaviour
 
     public void ResetPlayersOxygen() { oxygenLevels = oxygenLevelsAtSave; }
 
-    public void SaveOxygenDome(GameObject oxygenDome) { lastOxygenDome = oxygenDome; }
-
     public void ResetOxygenDome()
     {
-        DomeOxygenManager domeOxygenManager = (DomeOxygenManager)lastOxygenDome.GetComponentInChildren<DomeOxygenManager>();
+        DomeOxygenManager domeOxygenManager = lastOxygenDome;
         domeOxygenManager.ResetDome();
     }
 }

@@ -28,28 +28,45 @@ public class GameManager : MonoBehaviour
     float minutes;
     const float CAT_DIES_THRESHOLD = 20.0f;
 
+    public GameObject gameOverScreen;
+
+    public List<LocalPlayer> players;
+
     void Awake()
     {
         DontDestroyOnLoad(this);
     }
 
     void Start()
+
     {
         minutes = 0;
         oldDate = DateTime.Now;
+
         UpdateGameState(GameState.GameWithCat);
     }
 
     void Update()
     {
+        if (CheckIfCatDies())
+        {
+            UpdateGameState(GameState.GameWithoutCat);
+        }
+    }
+
+    private bool CheckIfCatDies()
+    {
+        bool catDies = false;
         currentDate = DateTime.Now;
         minutes = currentDate.Minute - oldDate.Minute;
 
         // If 20 minutes have passed, kill the cat
         if (minutes >= CAT_DIES_THRESHOLD)
         {
-            UpdateGameState(GameState.GameWithoutCat);
+            catDies = true;
         }
+
+        return catDies;
     }
 
     public GameState state;
@@ -73,24 +90,82 @@ public class GameManager : MonoBehaviour
 
     public void UpdateGameState(GameState newState)
     {
+        GameState oldState = state;
         state = newState;
 
-        switch(newState)
+        if (oldState == newState) return;
+
+        switch (newState)
         {
             case GameState.GameWithCat:
+                StartCoroutine(HandleGameWithCat());
                 break;
             case GameState.GameWithoutCat:
+                StartCoroutine(HandleGameWithoutCat(oldState));
                 break;
             case GameState.Win:
                 break;
             case GameState.GameOver:
-                // HandleGameOver (might change state to GameWith or GameWithout Cat, depends on time)
+                StartCoroutine(HandleGameOver());
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
         }
 
         OnGameStateChanged?.Invoke(newState);
+    }
+
+    private IEnumerator HandleGameWithCat()
+    {
+        // This order matters
+        PlayerOxygenManager.playerOxygenManager.Reset();
+        yield return new WaitForSecondsRealtime(1);
+        RopeManager.Instance.Reset();
+    }
+
+    private IEnumerator HandleGameWithoutCat(GameState oldState)
+    {
+        if (oldState != GameState.GameWithCat)
+        {
+            // This order matters
+            PlayerOxygenManager.playerOxygenManager.Reset();
+            yield return new WaitForSecondsRealtime(1);
+            RopeManager.Instance.Reset();
+        }
+    }
+
+    private IEnumerator HandleGameOver()
+    {
+        PlayerOxygenManager.playerOxygenManager.stopOxygen = true;
+
+        foreach (LocalPlayer player in players)
+        {
+            player.isGameOver = true;
+        }
+
+        yield return new WaitForSecondsRealtime(2f);
+
+        gameOverScreen.SetActive(true);
+
+        if (CheckIfCatDies())
+        {
+            UpdateGameState(GameState.GameWithoutCat);
+        }
+        else
+        {
+            UpdateGameState(GameState.GameWithCat);
+        }
+
+        yield return new WaitForSecondsRealtime(4f);
+
+        gameOverScreen.SetActive(false);
+
+        foreach (LocalPlayer player in players)
+        {
+            player.isGameOver = false;
+        }
+
+        PlayerOxygenManager.playerOxygenManager.stopOxygen = false;
     }
 
     #region Inventory

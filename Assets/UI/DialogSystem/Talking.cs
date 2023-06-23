@@ -14,26 +14,12 @@ public class Talking : MonoBehaviour
    public GameObject dialogBox;
    void OnTriggerEnter(Collider other)
    {
-       if (other.gameObject.tag == "Neil" || other.gameObject.tag == "Umpa")
+       if (other.gameObject.layer == LayerMask.NameToLayer("Player1") || other.gameObject.layer == LayerMask.NameToLayer("Player2"))
        {
-           Debug.Log("Triggered");
            dialogBox.SetActive(true);
        }
    }
-   
-   void OnTriggerExit(Collider other)
-   {
-       if (other.gameObject.tag == "Neil" || other.gameObject.tag == "Umpa")
-       {
-
-           
-           dialogBox.SetActive(false);
-           
-         
-       }
-   }
-
-  
+ 
    
   /* void OnTriggerStay(Collider other)
    {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
+using UnityEngine.InputSystem;
 
 public class Dialogue : MonoBehaviour
 {
@@ -14,6 +14,11 @@ public class Dialogue : MonoBehaviour
 
     public int index;
 
+    private bool lineDone = false;
+
+    [SerializeField]
+    LocalPlayer player1, player2;
+
     private void Start()
     {
         dialogueText.text = string.Empty;
@@ -22,9 +27,8 @@ public class Dialogue : MonoBehaviour
     
     void Update()
     {
-        //input get key down left click
         
-        if (Input.GetKeyDown( KeyCode.Mouse0))
+        if (player1.desiresJump || player2.desiresJump)
         {
             NextLine();
         }
@@ -38,17 +42,24 @@ public class Dialogue : MonoBehaviour
     
     IEnumerator TypeLine()
     {
+        lineDone = false;
+
         foreach (char c in lines[index].ToCharArray())
         {
             dialogueText.text += c;
             yield return new WaitForSeconds(textSpeed);
         }
+
+        lineDone = true;
     }
 
  
 
     void NextLine()
     {
+        if (!lineDone) return;
+
+
         if (index < lines.Length - 1)
         {
             index++;

@@ -95,7 +95,12 @@ public class LocalPlayer : MonoBehaviour
 	[HideInInspector]
 	public bool Moving;
 
-    bool OnGround => groundContactCount > 0;
+	[HideInInspector]
+	public bool isGameOver = false;
+
+	private float timeElapsedSinceNoGravity;
+
+	bool OnGround => groundContactCount > 0;
 
 	bool OnSteep => steepContactCount > 0;
 
@@ -167,6 +172,7 @@ public class LocalPlayer : MonoBehaviour
 
 	void Update ()
 	{
+		if (isGameOver) return;
 
         playerInput.x = movementInput.x;
 		playerInput.y = movementInput.y;
@@ -212,6 +218,12 @@ public class LocalPlayer : MonoBehaviour
         // If we aren't affected by gravity, we don't want to be able to freely move (since we are in a vaccumm)
         if (gravity == Vector3.zero)
         {
+			timeElapsedSinceNoGravity += Time.deltaTime;
+			timeElapsedSinceNoGravity %= 60;
+
+			if (timeElapsedSinceNoGravity >= 5)
+				GameManager.Instance.UpdateGameState(GameState.GameOver);
+
             maxAirAcceleration = 0f;
         }
         else
