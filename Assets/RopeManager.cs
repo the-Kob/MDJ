@@ -68,6 +68,8 @@ public class RopeManager : MonoBehaviour
         cursor = rope.gameObject.AddComponent<ObiRopeCursor>();
         cursor.cursorMu = 0;
         cursor.direction = true;
+
+        CreateRope();
     }
 
     private void OnDestroy()
