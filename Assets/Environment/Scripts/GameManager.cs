@@ -71,21 +71,6 @@ public class GameManager : MonoBehaviour
 
     public GameState state;
 
-    // TODO, we need to subscribe the entities that need to know when the game state changes to this event
-    /*
-     * Example:
-     * 
-     * On the OnEnable method of the entities (ie. player, cat) -> GameManager.OnGameStateChanged += MethodResponsibleToHandleTheStateChanged
-     * On the OnDisable method of the entities (ie. player, cat) -> GameManager.OnGameStateChanged -= MethodResponsibleToHandleTheStateChanged
-     * 
-     * Outside, create the new method:
-     * 
-     * private void MethodResponsibleToHandleTheStateChanged(GameState state) {
-     *      if(state == GameState.GameWithoutCat) {
-     *          // change cat appearance, disable movement -> for example 
-     *      }
-     * }
-     */
     public static event Action<GameState> OnGameStateChanged;
 
     public void UpdateGameState(GameState newState)
@@ -148,6 +133,12 @@ public class GameManager : MonoBehaviour
 
         gameOverScreen.SetActive(true);
 
+        foreach (LocalPlayer player in players)
+        {
+            player.isUncontrollable = true;
+        }
+
+
         if (CheckIfCatDies())
         {
             UpdateGameState(GameState.GameWithoutCat);
@@ -164,6 +155,7 @@ public class GameManager : MonoBehaviour
         foreach (LocalPlayer player in players)
         {
             player.isGameOver = false;
+            player.isUncontrollable = false;
         }
 
         PlayerOxygenManager.playerOxygenManager.stopOxygen = false;

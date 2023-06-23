@@ -96,7 +96,7 @@ public class LocalPlayer : MonoBehaviour
 	public bool Moving;
 
 	[HideInInspector]
-	public bool isGameOver = false;
+	public bool isGameOver, isUncontrollable = false;
 
 	private float timeElapsedSinceNoGravity;
 
@@ -172,7 +172,13 @@ public class LocalPlayer : MonoBehaviour
 
 	void Update ()
 	{
-		if (isGameOver)return;
+		if (isGameOver)
+		{
+			if(isUncontrollable) 
+				playerInput = Vector3.zero;
+
+			return;
+		}
 
         playerInput.x = movementInput.x;
 		playerInput.y = movementInput.y;
