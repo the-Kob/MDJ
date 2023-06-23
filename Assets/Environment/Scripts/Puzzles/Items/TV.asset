@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9665824caebe453f8c433bad0a0b6055, type: 3}
   m_Name: TV
   m_EditorClassIdentifier: 
-  displayName: Satellite Dish
-  icon: {fileID: 21300000, guid: fceb46d251e03744d9cbff6aa3d8ae8e, type: 3}
+  displayName: Radio
+  icon: {fileID: 21300000, guid: a6fc7ce3adb629d46b7aa7b50f39d75a, type: 3}
