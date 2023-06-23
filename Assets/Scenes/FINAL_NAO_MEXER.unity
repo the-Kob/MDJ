@@ -83766,6 +83766,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2648517368796833673, guid: de09bc23f5c319546b47ddec4822922f,
+        type: 3}
+      propertyPath: m_DefaultControlScheme
+      value: Gamepad
+      objectReference: {fileID: 0}
     - target: {fileID: 2648517369194709971, guid: de09bc23f5c319546b47ddec4822922f,
         type: 3}
       propertyPath: m_DefaultControlScheme
