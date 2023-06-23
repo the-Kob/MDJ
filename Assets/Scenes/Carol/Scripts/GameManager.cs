@@ -89,9 +89,11 @@ public class GameManager : MonoBehaviour
     public static event Action<GameState> OnGameStateChanged;
 
     public void UpdateGameState(GameState newState)
-    {
+    {   
         GameState oldState = state;
         state = newState;
+
+        if (oldState == newState) return;
 
         switch(newState)
         {
