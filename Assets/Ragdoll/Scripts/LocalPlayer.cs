@@ -172,7 +172,7 @@ public class LocalPlayer : MonoBehaviour
 
 	void Update ()
 	{
-		if (isGameOver) return;
+		if (isGameOver)return;
 
         playerInput.x = movementInput.x;
 		playerInput.y = movementInput.y;

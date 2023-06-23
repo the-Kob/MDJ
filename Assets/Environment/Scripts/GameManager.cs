@@ -136,6 +136,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator HandleGameOver()
     {
+
         PlayerOxygenManager.playerOxygenManager.stopOxygen = true;
 
         foreach (LocalPlayer player in players)
@@ -166,6 +167,7 @@ public class GameManager : MonoBehaviour
         }
 
         PlayerOxygenManager.playerOxygenManager.stopOxygen = false;
+
     }
 
     #region Inventory

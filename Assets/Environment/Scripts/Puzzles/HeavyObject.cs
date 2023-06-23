@@ -25,7 +25,10 @@ public class HeavyObject : MonoBehaviour
     {
 
         if (!(neilDetected && umpaDetected))
+        {
             rb.constraints = RigidbodyConstraints.FreezePosition;
+            rb.freezeRotation = true;
+        }
         else
             rb.constraints = RigidbodyConstraints.None;
 
@@ -50,12 +53,10 @@ public class HeavyObject : MonoBehaviour
         if (other.tag == "Neil")
         {
             neilDetected = false;
-            rb.freezeRotation = true;
         }
         if (other.tag == "Umpa")
         {
             umpaDetected = false;
-            rb.freezeRotation = true;
         }
     }
 }

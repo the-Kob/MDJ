@@ -20,15 +20,5 @@ public class Talking : MonoBehaviour
        }
    }
  
-   
-  /* void OnTriggerStay(Collider other)
-   {
-       if (other.gameObject.tag == "Neil" || other.gameObject.tag == "Umpa")
-       {
-           Debug.Log("Triggered");
-           dialogBox.SetActive(true);
-       }
-   }*/
-   
 }
 
