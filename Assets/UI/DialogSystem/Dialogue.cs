@@ -22,7 +22,9 @@ public class Dialogue : MonoBehaviour
     
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        //input get key down left click
+        
+        if (Input.GetKeyDown( KeyCode.Mouse0))
         {
             NextLine();
         }
